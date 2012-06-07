@@ -1,0 +1,52 @@
+/* CSS Document */
+.user32_icon {
+	background: url(../images/icons/32/user_icon.png);
+}
+
+.home32_icon {
+	background: url(../images/icons/32/home_icon.png);
+}
+
+.income32_icon {
+	background: url(../images/icons/32/income_icon.png);
+}
+
+.pay32_icon {
+	background: url(../images/icons/32/pay_icon.png);
+}
+
+.security32_icon {
+	background: url(../images/icons/32/security_icon.png);
+}
+
+.system32_icon {
+	background: url(../images/icons/32/system_icon.png)
+}
+
+.user24_icon {
+	background: url(../images/icons/24/user_icon.png)
+}
+
+.group24_icon {
+	background-image: url(../images/icons/24/goup_icon.png);
+}
+
+.resource24_icon {
+	background: url(../images/icons/24/resource_icon.png)
+}
+
+.login24_icon {
+	background: url(../images/icons/24/login_icon.png)
+}
+
+.account24_icon {
+	background: url(../images/icons/24/account_icon.png)
+}
+
+.logout24_icon {
+	background: url(../images/icons/24/logout_icon.png)
+}
+
+.edit16_icon {
+	background: url(../images/icons/16/edit_icon.png)
+}

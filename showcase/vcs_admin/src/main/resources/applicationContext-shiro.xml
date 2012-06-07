@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
+	default-lazy-init="true">
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroDataBaseRealm" />
+		<property name="cacheManager" ref="memoryConstrainedCacheManager" />
+	</bean>
+	
+	<bean id="memoryConstrainedCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+	
+	<bean id="chainDefinitionSectionMetaSource" class="org.exitsoft.project.vcsadmin.service.account.ChainDefinitionSectionMetaSource">
+		<property name="filterChainDefinitions">
+			<value>
+				/index = user
+				/login = authc
+				/logout = logout
+				/resource/** = anon
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    	<property name="securityManager" ref="securityManager"/>
+	    <property name="loginUrl" value="/login"/>
+	    <property name="successUrl" value="/index"/>
+	    <property name="unauthorizedUrl" value="/unauthorized"/>
+	    <property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource" />
+	</bean>
+
+</beans>

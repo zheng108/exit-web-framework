@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<!-- h2 factory -->
+	<session-factory>
+		<property name="connection.driver_class">
+			org.h2.Driver
+		</property>
+		<property name="connection.username">sa</property>
+		<property name="connection.password"></property>
+		<property name="dialect">
+			org.hibernate.dialect.H2Dialect
+		</property>
+		<property name="connection.url">
+			jdbc:h2:mem:vcs;DB_CLOSE_DELAY=-1
+		</property>
+		 
+		<mapping class="org.vcs.project.entity.account.User" />
+		<mapping class="org.vcs.project.entity.account.Group" />
+		<mapping class="org.vcs.project.entity.account.Resource" />
+		
+		<mapping class="org.vcs.project.entity.foundation.DataDictionary"/>
+		<mapping class="org.vcs.project.entity.foundation.DictionaryCategory"/>
+	</session-factory>
+	
+	
+	<!-- mysql factory --> 
+	<!-- <session-factory>
+		<property name="connection.driver_class">
+			com.mysql.jdbc.Driver
+		</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+		<property name="dialect">
+			org.hibernate.dialect.MySQL5InnoDBDialect
+		</property>
+		<property name="connection.url">
+			jdbc:mysql://localhost:3306/project?autoReconnect=true
+		</property>
+		 
+		<mapping class="org.vcs.project.entity.account.User" />
+		<mapping class="org.vcs.project.entity.account.Group" />
+		<mapping class="org.vcs.project.entity.account.Resource" />
+		
+		<mapping class="org.vcs.project.entity.foundation.DataDictionary"/>
+		<mapping class="org.vcs.project.entity.foundation.DictionaryCategory"/>
+	</session-factory> -->
+	
+</hibernate-configuration>

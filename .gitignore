@@ -1,6 +1,25 @@
+
+
+/.settings/
+.project
+.classpath
+
+*/target/
+*/.settings/
+*/.project
+*/.classpath
+
+showcase/*/logs/
+showcase/*/target/
+showcase/*/.settings/
+showcase/*/.project
+showcase/*/.classpath
+
 *.class
 
-# Package Files #
+
 *.jar
+
 *.war
+
 *.ear
