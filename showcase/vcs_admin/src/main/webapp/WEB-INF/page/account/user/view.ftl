@@ -19,13 +19,13 @@
 					登录帐号:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="username" name="filter_RLIKE_S_username" class="text_input_big" size="25" value="${request.filter_RLIKE_S_username!""}"/>
+		            <input type="text" id="username" name="filter_RLIKE_S_username" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_username!""}"/>
 		        </div>
 		        <label>
 					真实姓名:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="realname" name="filter_RLIKE_S_realname" class="text_input_big" size="25" />
+		            <input type="text" id="realname" name="filter_RLIKE_S_realname" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_realname!""}" />
 		        </div>
 		    </div>
 		    <div class="column">
@@ -33,7 +33,7 @@
 					电子邮件:
 		        </label>
 		        <div class="field">
-		          <input type="text" id="email" name="filter_RLIKE_S_email" class="text_input_big" size="25" />
+		          <input type="text" id="email" name="filter_RLIKE_S_email" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_email!""}"/>
 		        </div>
 		        <label for="state">
 					状态:
