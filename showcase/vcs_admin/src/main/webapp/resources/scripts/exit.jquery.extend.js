@@ -95,62 +95,94 @@
 			$.applyIf(config,{
 				url:'#',
 				urlCharReplaceEmpty:'',
-				maskEl:'',
 				removeFirst:false,
-				target:''
+				target:'',
+				param:{},
+				callback:function(){}
 			});
 			
-			$(config.maskEl).mask();
+			$(config.target).mask();
 			var url = config.url.replace(config.urlCharReplaceEmpty,"");
 			if (config.removeFirst) {
 				url = url.substring(1,url.length);
 			}
 			
-			$.get(url,function(data){
-				$(config.maskEl).unmask();
+			$.get(url,config.param,function(data){
+				$(config.target).unmask();
 				$(config.target).empty().append(data);
+				config.callback.call(this,data);
 			});
 			
 		},
-        resetForm:function(form){
-        	$(form).resetForm();
-        	
+        form:{
+        	resetForm:function(form){
+        		$(form).resetForm();
+        	},
+        	getParameters:function(form,notEmptyValue){
+        		var param = {};
+        		
+    			$.each($(form).serializeArray(),function(i,o){
+        			if (notEmptyValue && $.isNotEmpty(o.value)) {
+        				param[o.name] = o.value;
+        			}
+        			
+        			if (!notEmptyValue) {
+        				param[o.name] = o.value;
+        			}
+        		});
+        		
+        		return param;
+        	},
+        	submitMaskForm:function(form,option){
+            	if ($.isNotEmpty(option.promptMsg)) {
+            		var c = confirm(option.promptMsg);
+            		if (c == false) {
+            			return ;
+            		}
+            	}
+            	$.applyIf(option,{
+            		maskEl:"",
+            		error:function(){
+            			$(option.maskEl).unmask();
+            			if ($.isFunction(option.errorSuccess)) {
+            				option.errorSuccess(responseText, statusText, xhr, $form);
+            			}
+            		},
+            		success:function(responseText, statusText, xhr, $form){
+            			$(option.maskEl).unmask();
+            			if ($.isFunction(option.submitSuccess)) {
+            				option.submitSuccess(responseText, statusText, xhr, $form);
+            			}
+            		}
+            	});
+            	
+            	if (option.maskEl) {
+            		$(option.maskEl).mask();
+            	}
+            	
+            	var me = $(form);
+            	
+            	me.ajaxForm(option);
+            	
+            	me.submit();
+            },
         },
-        submitMaskForm:function(form,option){
-        	if ($.isNotEmpty(option.promptMsg)) {
-        		var c = confirm(option.promptMsg);
-        		if (c == false) {
-        			return ;
-        		}
-        	}
-        	$.applyIf(option,{
-                
-        		maskEl:"",
-        		error:function(){
-        			$(option.maskEl).unmask();
-        			if ($.isFunction(option.errorSuccess)) {
-        				option.errorSuccess(responseText, statusText, xhr, $form);
-        			}
-        		},
-        		success:function(responseText, statusText, xhr, $form){
-        			$(option.maskEl).unmask();
-        			if ($.isFunction(option.submitSuccess)) {
-        				option.submitSuccess(responseText, statusText, xhr, $form);
-        			}
-        		}
-        	});
-        	
-        	if (option.maskEl) {
-        		$(option.maskEl).mask();
-        	}
-        	
-        	var me = $(form);
-        	
-        	me.ajaxForm(option);
-        	
-        	me.submit();
+        ellipsis : function(value, len, word) {
+            if (value && value.length > len) {
+                if (word) {
+                    var vs    = value.substr(0, len - 2),
+                        index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
+                    if (index == -1 || index < (len - 15)) {
+                        return value.substr(0, len - 3) + "...";
+                    } else {
+                        return vs.substr(0, index) + "...";
+                    }
+                } else {
+                    return value.substr(0, len - 3) + "...";
+                }
+            }
+            return value;
         }
-        
 	});
 	
 	$.applyIf($.fn,{
@@ -223,6 +255,37 @@
 	        return this.replace(/\{(\d+)\}/g, function(m, i){
 	            return args[i];
 	        });
+	    },
+	    toggle:function(value, other){
+	        return this.toString() == value ? other : value;
+	    },
+	    leftPad : function (size, ch) {
+	    	var val = this.toString();
+	        var result = String(val);
+	        if(!ch) {
+	            ch = " ";
+	        }
+	        while (result.length < size) {
+	            result = ch + result;
+	        }
+	        return result;
+	    },
+	    ellipsis:function(len, word){
+	    	var value = this.toString();
+	    	if (value && value.length > len) {
+                if (word) {
+                    var vs    = value.substr(0, len - 2),
+                        index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
+                    if (index == -1 || index < (len - 15)) {
+                        return value.substr(0, len - 3) + "...";
+                    } else {
+                        return vs.substr(0, index) + "...";
+                    }
+                } else {
+                    return value.substr(0, len - 3) + "...";
+                }
+            }
+            return value;
 	    },
 	    booleanValue:function(compareValue){
 	    	var value = this.toString();

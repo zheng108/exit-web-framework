@@ -152,7 +152,7 @@ a:active .button {
 /*面板表单布局样式开始*/
 .panel_content form, .dialog_content form {
 	display: block;
-	padding: 5px 15px 5px 15px;
+	padding: 5px;
 	margin: 0px;
 }
 .panel_content form .column, .dialog_content form .column {
@@ -185,10 +185,29 @@ a:active .button {
 	height: 25px;
 	padding: 10px ;
 }
-.checkbox{
-	vertical-align:middle; 
-	margin-top:0;
+.checker{
+	background-image: url(../images/form/checker.png);
+	display: table-cell;
+	height: 16px;
+	width: 15px;
+	float: left;
+	margin-right: 5px;
+	background-position: 0px 1px;
+	background-repeat: no-repeat;
 }
+.checker.hover{
+	background-image: url(../images/form/checker.png);
+	background-position: -15px 1px;
+}
+.checker.click {
+	background-image: url(../images/form/checker.png);
+	background-position: -30px 1px;
+}
+.checker.click.hover {
+	background-image: url(../images/form/checker.png);
+	background-position: -45px 1px;
+}
+
 /*input select 基础样式*/
 .text_input_small,.text_input_big,.selection_container .selection, .text_search_small{
 	border: 1px solid #B9B9B9;
@@ -244,11 +263,15 @@ a:active .button {
 	background-position: 0px -90px;
 	border-radius: 5px 5px 0px 0px;
 }
-.selection_container .selection .empty_text{
+.selection_container .selection .text{
 	float: left;
 	height: 30px;
 	line-height: 30px;
 	padding-left: 5px;
+}
+
+.selection_container .selection .text.empty {
+	color: #999;
 }
 
 .selection_container .selection .trigger_up, .selection_container .selection .trigger_down{

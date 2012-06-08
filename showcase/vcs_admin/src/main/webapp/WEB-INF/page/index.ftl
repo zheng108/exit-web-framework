@@ -78,12 +78,13 @@
                     </li>
                     <#list resourcesList as e>
 	                    <li>
-	                    	<a href="javascript:$.maskLoad({url:'${e.value}',urlCharReplaceEmpty:'/**',removeFirst:true,maskEl:'#main_content'})"><span class="${e.icon}">${e.name}</span></a>
+	                    	<#--<a href="javascript:$.maskLoad({url:'${e.value}',urlCharReplaceEmpty:'/**',removeFirst:true,target:'#main_content'})"><span class="${e.icon}">${e.name}</span></a>-->
+	                    	<a><span class="${e.icon}">${e.name}</span></a>
 	                    	<#if e.children?has_content>
 	                    		<ul>
 		                    		<#list e.children as c>
 				                        <li>
-				                            <a href="javascript:$.maskLoad({url:'${c.value}',urlCharReplaceEmpty:'/**',removeFirst:true,maskEl:'#main_content'})"><span class="${c.icon}">${c.name}</span></a>
+				                            <a href="javascript:$.maskLoad({url:'${c.value}',urlCharReplaceEmpty:'/**',removeFirst:true,target:'#main_content'})"><span class="${c.icon}">${c.name}</span></a>
 				                        </li>
 			                        </#list>
 		                         </ul>

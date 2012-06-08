@@ -13,8 +13,6 @@ $(document).ready(function(){
 		}
 	);
 	var initTheView = function(){
-	
-		
 		
 		$('table tbody tr').hover(
 			function() {
@@ -40,3 +38,7 @@ $(document).ready(function(){
 	initTheView();
 	
 });
+
+var loadResource = function(li){
+	var i = 0;
+}

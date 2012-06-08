@@ -65,7 +65,7 @@
 	    </div>
 	</form>
 	<div class="clear">
-		<a href="javascript:$.resetForm('#user_form')" title="清空表单"><span class="button right">重 置</span></a>
-		<a href="javascript:$.submitMaskForm('#user_form',{maskEl:'#create_user',target:'#main_content',resetForm:true});" title="保存信息"><span class="button right">保 存</span></a>
+		<a href="javascript:$.form.resetForm('#user_form')" title="清空表单"><span class="button right">重 置</span></a>
+		<a href="javascript:$.form.submitMaskForm('#user_form',{maskEl:'#create_user',target:'#main_content',resetForm:true});" title="保存信息"><span class="button right">保 存</span></a>
 	</div>
 </div>

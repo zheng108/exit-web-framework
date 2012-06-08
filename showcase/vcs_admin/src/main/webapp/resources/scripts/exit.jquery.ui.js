@@ -8,16 +8,12 @@
 			
 			var selectionWidget = $('<div class="selection_container">'),
 			selection = $('<div class="selection up">'),
-			selectionUl = $('<ul>').css({"z-index":index});
+			selectionUl = $('<ul></ul>').css({"z-index":index}),
 			emptyText = me.attr("emptyText") || "",
-			execState = me.attr("execState"),
 			search=$.isEmpty(me.attr("search")) ? false : me.attr("search").booleanValue(), 
 			multiSelect=$.isEmpty(me.attr("multiple")) ? false : me.attr("multiple").booleanValue("multiple"),
-			notReslutText = me.attr("notresult") || "找不到任何记录";
-			
-			if (execState) {
-				return ;
-			}
+			notReslutText = me.attr("notresult") || "没有任何记录",
+			itemBox = $('<div class="item_box">').css({height:me.attr("height") || 'auto'});
 			
 			var width = ((me.attr("size") * 1) || 10) * 7;
 			
@@ -36,67 +32,77 @@
 			});
 			
 			selectionWidget.append(selection);
+			selectionWidget.append(selectionUl);
+			selection.append('<div class="text">').append('<div class="trigger_up">');
 			selectionUl.css({width:width - 2});
-			var itemBox = $('<div class="item_box">').css({height:me.attr("height") || 'auto'});
 			selectionUl.append(itemBox);
 			
-			var initDefaultSelectItem = function(){
+			selection.find("div.text").css({
+				width:width - selection.find("div.trigger_up").width() - 15
+			});
+			
+			var setSelectedValue = function(){
 				
-				var selected = me.find("option[selected='selected']");
+				var selected = me.find("option[selected='selected']"),
+				result="";
 				if (multiSelect) {
 					var array = new Array();
 					$.each(selected,function(i,o){
-						array.push($(o).text());
+						array.push($(o).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, ""));
 					});
-					emptyText = array.join(",");
+					result = array.join(",");
 				} else {
-					emptyText = $(selected).text();
+					result = $(selected).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, "");
 				}
+				var t = selection.find("div.text");
+				
+				if ($.isNotEmpty(result)){
+					t.removeClass("empty").text(result.ellipsis(t.width() / 8));
+				} else{
+					t.addClass("empty").text(emptyText.ellipsis(t.width() / 8));
+				}
+				
 			};
 			
 			if (me.find("option").length <= 0) {
-				itemBox.append("<li>" + "没有任何记录" + "</li>");
+				itemBox.append("<li>" + notReslutText + "</li>");
 			} else {
-				var array = new Array();
 				$.each(me.find("option"),function(i,o){
+					var li = $('<li>').attr("value",$(o).val());
+					
 					if (multiSelect) {
-						var box = $('<input class="checkbox" type="checkbox" name="'+me.attr("name")+'" value="'+$(o).attr("value")+'"/>');
-						box.on("click",function(){
-							$(this).attr('checked', !$(this).is(':checked'));
+						var checker = $('<span class="checker">');
+						
+						checker.hover(function(){
+							$(this).addClass("hover");
+						},function(){
+							$(this).removeClass("hover");
 						});
 						
-						var li = $('<li>'+$(o).text()+'</li>');
-						itemBox.append(li);
-						li.prepend(box);
-						
-						if ($(this).attr("selected") == "selected") {
-							box.attr('checked', true);
-							array.push($(this).text());
+						if (($.isEmpty($(o).attr("selected")) ? false : $(o).attr("selected").booleanValue("selected"))) {
+							checker.addClass("click");
 						}
-						
+							
+						itemBox.append(li);
+						li.prepend(checker);
 					} else {
-						emptyText = $(o).text();
+						itemBox.append(li);
 					}
+					
+					li.append($(o).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, "").ellipsis(selectionUl.width() / 8));
 				});
-				if (array.length > 0) {
-					emptyText = array.join(",");
-				}
 			}
-			
-			selection.append('<div class="empty_text">'+emptyText+'</div>').append('<div class="trigger_up">');
-			selectionWidget.append(selectionUl);
-			
-			var li = selectionUl.find("li:not(:input)");
 			
 			if (search && selectionUl.find("li").length > 0) {
 				
 				selectionUl.prepend('<li><input class="text_search_small" style="width:'+ (width - 47) +'px;"/></li>');
 				selectionUl.find("input").keydown(function(){
-					selectionUl.find("li.not_reslut").remove();
+					
 					var li = selectionUl.find("li:gt(0)");
 					li.show();
 
 					var filter = function(){
+						selectionUl.find("li.not_reslut").remove();
 						var value = $(this).val(),
 						flag = false;
 						if ($.isEmpty(value)) {
@@ -120,6 +126,10 @@
 					filter.defer(500,this);
 				});
 			}
+
+			setSelectedValue();
+			
+			var li = selectionUl.find("div.item_box li");
 			
 			li.hover(
 				function(){
@@ -129,45 +139,56 @@
 					$(this).removeClass("over");
 				}
 			).click("click",function(){
+
+				var value = $.isEmpty(this.attributes["value"]) ? "" : this.attributes["value"].nodeValue;
+				
 				if ($.isEmpty(me.attr("multiple")) || !me.attr("multiple").booleanValue("multiple")) {
-					var t = $(this).text();
-					selection.find("div.empty_text").text(t);
 					me.find("option:selected").removeAttr("selected");
-					$.each(me.find("option"),function(i,v){
-						var o = $(v);
-						if(o.text() === t) {
-							o.attr("selected", true);
-						}
-					});
+					
+					if ($.isNotEmpty(value)) {
+						me.find("option[value='"+value+"']").attr("selected", true);
+						me.find("option:contains("+value+")").attr("selected", true);
+					}
+					
 					selection.removeClass().addClass("selection up");
-					selection.find("div.trigger_down").removeClass().addClass("trigger_up");
-					selectionWidget.find("ul").hide();
+					selection.find("div.trigger_down").attr("class","trigger_up");
+					selectionUl.hide();
+					setSelectedValue();
 				} else {
-					var input = $(this).find("input");
-					input.attr('checked', !input.is(':checked'));
-					var array = new Array();
-					$.each(selectionUl.find("li:has(input:checked)"),function(i,v){
-						array.push($(v).text());
-					});
-					selection.find("div.empty_text").text(array.join(","));
+					
+					var checker = $(this).find(".checker");
+					
+					if (checker.hasClass("click")) {
+						checker.removeClass("click");
+					} else {
+						checker.addClass("click");
+					}
+					
+					if ($.isNotEmpty(value)) {
+						var op = $(me.find("option[value='"+value+"']")) || $(me.find("option:contains("+value+")"));
+						var flag = $.isEmpty(op.attr("selected")) ? true : !op.attr("selected").booleanValue("selected");
+						op.attr("selected", flag);
+					} 
+					
+					setSelectedValue();
 				}
 				
 			});
 			
 			selection.click(function(){
 				if (selection.hasClass("selection up")) {
-					selection.removeClass().addClass("selection down");
-					selection.find("div.trigger_up").removeClass().addClass("trigger_down");
-					selectionWidget.find("ul").show();
+					selection.attr("class","selection down");
+					selection.find("div.trigger_up").attr("class","trigger_down");
+					selectionUl.show();
 				} else {
-					selection.removeClass().addClass("selection up");
-					selection.find("div.trigger_down").removeClass().addClass("trigger_up");
-					selectionWidget.find("ul").hide();
+					selection.attr("class","selection up");
+					selection.find("div.trigger_down").attr("class","trigger_up");
+					selectionUl.hide();
 				}
 				
 			});
 			
-			me.parents("form").bind("reset",initDefaultSelectItem);
+			me.parents("form").bind("reset",setSelectedValue);
 			
 			me.attr("execState",true);
 			
@@ -208,8 +229,9 @@
 			dialogTitle.append(dialogClose);
 			
 			var targetEl = $(url);
-			var hasTarget = targetEl.length > 0,targetIsRender = false;
-			if (hasTarget) {
+			var hasTarget = targetEl.length > 0, isRender = $.isEmpty(targetEl.attr("render")) ? false  : targetEl.attr("render").booleanValue();
+			
+			if (hasTarget && !isRender) {
 				targetEl.hide();
 			}
 			
@@ -221,6 +243,7 @@
 					elMask.remove();
 				}
 			};
+			
 			var center = function(){
 				maskWidget.css({
 					left :($(window).width() - dialogWidget.outerWidth()) / 2,
@@ -228,7 +251,7 @@
 				});
 			};
 			
-			var render = function(){
+			var render = function(el){
 				loading.remove();
 				
 				maskWidget.append(dialogWidget);
@@ -236,7 +259,7 @@
 				dialogWidget.append(dialogTitle);
 				dialogWidget.append(dialogContent);
 				
-				maskWidget.prependTo("body");
+				maskWidget.prependTo(el || "body");
 				
 				center();
 			};
@@ -254,7 +277,7 @@
 			
 			var initialize = function(){
 				
-				if (hasTarget && targetIsRender) {
+				if (hasTarget && isRender) {
 					showTargetDialog();
 					return false;
 				}
@@ -282,29 +305,32 @@
 				}
 				
 				if (hasTarget) {
-					render();
+					render(targetEl.parent());
 					dialogContent.append(targetEl);
 					targetEl.show();
-					targetIsRender = true;
+					targetEl.attr("render","true");
+					isRender = true;
 				} else {
-					dialogContent.load(url,render);
+					dialogContent.load(url,function(){
+						render();
+					});
 				}
 				
 				$(window).resize(maskAll);
 				
 				return false;
 			};
-			
+			me.attr("execState",true);
 			return $(this).off("click").on("click",initialize);
 		}
 	});
 
 	var initializeUi = function(){
-		var select = $("select[class='selection']");
+		var select = $("select[class='selection'][execstate!='true']");
 		$.each(select,function(i,s){
 			$(s).selection(select.length - i);
 		});
-		$.each($("a[target='dialog']"),function(i,a){
+		$.each($("a[target='dialog'][execstate!='true']"),function(i,a){
 			$(a).dialog();
 		});
 	};
