@@ -166,4 +166,24 @@ public class DictionaryCategory extends UniversallyUniqueIdentifier{
 		return this.children != null && this.getChildren().size() > 0;
 	}
 	
+	/**
+	 * 获取父类名称
+	 * 
+	 * @return String
+	 */
+	@Transient
+	public String getParentName() {
+		return this.parent == null ? "" : this.parent.getName();
+	}
+	
+	/**
+	 * 获取父类ID
+	 * 
+	 * @return String
+	 */
+	@Transient
+	public String getParentId() {
+		return this.parent == null ? "" : this.parent.getId();
+	}
+	
 }

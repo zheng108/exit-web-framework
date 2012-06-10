@@ -134,6 +134,29 @@ public class AccountManager {
 	}
 	
 	/**
+	 * 通过id集合获取资源资源
+	 * 
+	 * @param ids 资源集合
+	 * 
+	 * @return List
+	 */
+	public List<Resource> getResources(List<String> ids) {
+		return resourceDao.get(ids);
+	}
+	
+	/**
+	 * 通过属性过滤器查询资源分页
+	 * 
+	 * @param request 分页参数
+	 * @param filters 属性过滤器集合
+	 * 
+	 * @return {@link Page}
+	 */
+	public Page<Resource> searchResourcePage(PageRequest request,List<PropertyFilter> filters) {
+		return resourceDao.findPage(request, filters);
+	}
+	
+	/**
 	 * 保存资源实体
 	 * 
 	 * @param entity 资源实体
@@ -284,6 +307,30 @@ public class AccountManager {
 	 */
 	public void deleteGroups(List<String> ids) {
 		groupDao.deleteAll(ids);
+	}
+
+	/**
+	 * 通过属性过滤器查询组分页
+	 * 
+	 * @param request 分页参数
+	 * @param filters 属性过滤器集合
+	 * 
+	 * @return {@link Page}
+	 */
+	public Page<Group> searchGroupPage(PageRequest request,List<PropertyFilter> filters) {
+		
+		return groupDao.findPage(request, filters);
+	}
+
+	/**
+	 * 根据组类型获取所有组信息
+	 * 
+	 * @param groupType 组类型
+	 * 
+	 * @return List
+	 */
+	public List<Group> getAllGroup(GroupType groupType) {
+		return groupDao.findByProperty("type", groupType.getValue());
 	}
 
 }

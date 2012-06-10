@@ -16,12 +16,17 @@ public enum SystemDictionaryCode {
 	/**
 	 * 资源类型
 	 */
-	ResourceType("resourceType"),
+	ResourceType("resource-type"),
 	
 	/**
 	 * 组类型
 	 */
-	GroupType("groupType");
+	GroupType("group-type"),
+	
+	/**
+	 * 属性值类型
+	 */
+	ValueType("value-type");
 	
 	private String code;
 	

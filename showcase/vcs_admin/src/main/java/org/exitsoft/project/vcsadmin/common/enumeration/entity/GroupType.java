@@ -7,15 +7,15 @@ package org.exitsoft.project.vcsadmin.common.enumeration.entity;
  *
  */
 public enum GroupType {
-	
-	/**
-	 * 部门类型 
-	 */
-	Department("01","部门"),
+
 	/**
 	 * 机构类型
 	 */
-	Organization("02","机构"),
+	Organization("01","机构"),
+	/**
+	 * 部门类型 
+	 */
+	Department("02","部门"),
 	/**
 	 * 角色组类型
 	 */

@@ -60,11 +60,10 @@
 	background-position: bottom;
 }
 
-.panel_content table tbody tr td.operat a{
+.panel_content table tbody tr td a.operat{
 	display: block;
 	width: 16px;
 	height: 16px;
-	margin: 0px auto;
 }
 /*面板内容的表格样式结束*/
 /*面板内容块样式结束*/
@@ -185,31 +184,69 @@ a:active .button {
 	height: 25px;
 	padding: 10px ;
 }
-.checker{
+.radio, .checker {
 	background-image: url(../images/form/checker.png);
-	display: table-cell;
-	height: 16px;
-	width: 15px;
-	float: left;
-	margin-right: 5px;
-	background-position: 0px 1px;
 	background-repeat: no-repeat;
+	display: block;
+	float:left;
+	vertical-align:middle;
+	height: 15px;
+	width: 15px;
+}
+.radio{
+	background-position: 0px -15px;
+	margin-right: 4px;
+}
+.radio.hover{
+	background-image: url(../images/form/checker.png);
+	background-position: -15px -15px;
+}
+.radio.click {
+	background-image: url(../images/form/checker.png);
+	background-position: -30px -15px;
+}
+
+.radio.click.hover {
+	background-image: url(../images/form/checker.png);
+	background-position: -45px -15px;
+}
+.radio.disable{
+	background-image: url(../images/form/checker.png);
+	background-position: -60px -15px;
+}
+.radio.disable.hover{
+	background-image: url(../images/form/checker.png);
+	background-position: -75px -15px;
+}
+
+.checker{
+	margin-right: 5px;
+	margin-top: 1px;
 }
 .checker.hover{
 	background-image: url(../images/form/checker.png);
-	background-position: -15px 1px;
+	background-position: -15px 0px;
 }
 .checker.click {
 	background-image: url(../images/form/checker.png);
-	background-position: -30px 1px;
+	background-position: -30px 0px;
 }
+
 .checker.click.hover {
 	background-image: url(../images/form/checker.png);
-	background-position: -45px 1px;
+	background-position: -45px 0px;
+}
+.checker.disable{
+	background-image: url(../images/form/checker.png);
+	background-position: -60px 0px;
+}
+.checker.disable.hover{
+	background-image: url(../images/form/checker.png);
+	background-position: -75px 0px;
 }
 
 /*input select 基础样式*/
-.text_input_small,.text_input_big,.selection_container .selection, .text_search_small{
+.text_input_small,.text_input_big,.selection_container .selection, .text_search_small, .textarea{
 	border: 1px solid #B9B9B9;
 	vertical-align: middle;
 	margin:0px;/*兼容谷歌浏览器 */
@@ -217,6 +254,13 @@ a:active .button {
 	border-radius: 5px 5px 5px 5px;
 	font-family:Verdana, Geneva, sans-serif;
 	padding-left: 5px;
+	font-size:13px;
+}
+
+.textarea{
+	resize: none;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }
 
 .text_search_small {
@@ -267,6 +311,10 @@ a:active .button {
 	float: left;
 	height: 30px;
 	line-height: 30px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-break:keep-all;
 	padding-left: 5px;
 }
 
@@ -310,7 +358,8 @@ a:active .button {
 	padding: 5px;
 }
 .selection_container ul .item_box{
-	display:block; 
+	display:block;
+	margin-bottom:5px;
 	overflow: auto;
 }
 .selection_container ul .over {

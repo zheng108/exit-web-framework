@@ -1,5 +1,6 @@
 package org.exitsoft.project.vcsadmin.common;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.exitsoft.common.utils.CollectionUtils;
+import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.project.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.project.vcsadmin.entity.foundation.DataDictionary;
 import org.exitsoft.project.vcsadmin.model.SecurityModel;
@@ -59,7 +62,7 @@ public class SystemVariableUtils {
 			return DefaultDictionaryValue;
 		}
 		
-		List<DataDictionary> dataDictionaries = systemDictionaryManager.getDataDictionariesByCategoryCode(systemDictionaryCode.getCode());
+		List<DataDictionary> dataDictionaries = systemDictionaryManager.getDataDictionariesByCategoryCode(systemDictionaryCode);
 		
 		for (Iterator<DataDictionary> iterator = dataDictionaries.iterator(); iterator.hasNext();) {
 			DataDictionary dataDictionary = iterator.next();
@@ -71,6 +74,22 @@ public class SystemVariableUtils {
 		return DefaultDictionaryValue; 
 	}
 	
+	/**
+	 * 通过字典类别代码获取数据字典集合
+	 * 
+	 * @param code 字典类别
+	 * 
+	 * @return List
+	 */
+	public static List<DataDictionary> getDataDictionariesByCategoryCode(SystemDictionaryCode code) {
+		return systemDictionaryManager.getDataDictionariesByCategoryCode(code);
+	}
+	
+	/**
+	 * 获取当前用户
+	 * 
+	 * @return {@link SecurityModel}
+	 */
 	public static SecurityModel getCurrentUser() {
 		
 		Subject subject = SecurityUtils.getSubject();
@@ -82,6 +101,11 @@ public class SystemVariableUtils {
 		return null;
 	}
 	
+	/**
+	 * 判断当前会话是否登录
+	 * 
+	 * @return boolean
+	 */
 	public static boolean isLogin() {
 		return getCurrentUser() != null;
 	}

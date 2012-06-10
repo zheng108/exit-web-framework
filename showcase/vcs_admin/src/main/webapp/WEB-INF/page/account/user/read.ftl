@@ -1,4 +1,4 @@
-<div id="create_form" class="form_widget">
+<div id="update_user" class="form_widget">
 	<form id="user_form" action="account/user/update" method="post">
 		<input type="hidden" name="id" value="${entity.id!""}" />
 	    <div class="column">
@@ -8,7 +8,7 @@
 	        <div class="field">
 	            <input type="text" id="username" name="username" class="text_input_big" size="25" value="${entity.username!""}"/>
 	        </div>
-	        <label>
+	        <label for="realname">
 				真实姓名:
 	        </label>
 	        <div class="field">
@@ -27,12 +27,11 @@
 	        </label>
 	        <div class="field">
 	           <select class="selection" name="state" id="state" size="25">
-	                <option value="0" <#if entity.state?? && entity.state == 0 >selected="selected"</#if> >
-						启用
-	                </option>
-	                <option value="1" <#if entity.state?? &&  entity.state == 1 >selected="selected"</#if> >
-						禁用
-	                </option>
+	           		<#list states as s>
+		                <option value="${s.value}" <#if entity.state == s.value?number >selected="selected"</#if>>
+							${s.name}
+		                </option>
+	                </#list>
 	           </select>
 	         </div>
 	    </div>
@@ -41,7 +40,7 @@
 	    		所在组:
 	    	</label>
 	    	<div class="field">
-	    		<select class="selection" class="selection" search="true" multiple="multiple" name="groupIds" id="groupIds" size="66">
+	    		<select class="selection" search="true" multiple="multiple" name="groupIds" id="groupIds" size="66">
 	                <#list groupsList as gl>
 	                	<#assign isSelected = false />
 	                	<#list entity.groupsList as egl>

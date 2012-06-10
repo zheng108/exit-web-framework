@@ -5,6 +5,7 @@ import java.util.List;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PropertyFilter;
+import org.exitsoft.project.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.project.vcsadmin.dao.foundation.DataDictionaryDao;
 import org.exitsoft.project.vcsadmin.dao.foundation.DictionaryCategoryDao;
 import org.exitsoft.project.vcsadmin.entity.foundation.DataDictionary;
@@ -72,21 +73,21 @@ public class SystemDictionaryManager {
 	 * 
 	 * @return Page
 	 */
-	public Page<DataDictionary> searchDataDictionary(PageRequest request,List<PropertyFilter> filters) {
+	public Page<DataDictionary> searchDataDictionaryPage(PageRequest request,List<PropertyFilter> filters) {
 		return dataDictionaryDao.findPage(request, filters);
 	}
 	
 	/**
 	 * 通过字典类别代码获取数据字典集合
 	 * 
-	 * @param categoryCode 字典列别代码
+	 * @param code 字典列别
 	 * 
 	 * @return List
 	 */
-	@Cacheable(value=DataDictionary.FindByCateGoryCode,key="#categoryCode")
-	public List<DataDictionary> getDataDictionariesByCategoryCode(String categoryCode) {
+	@Cacheable(value=DataDictionary.FindByCateGoryCode)
+	public List<DataDictionary> getDataDictionariesByCategoryCode(SystemDictionaryCode code) {
 		
-		return dataDictionaryDao.findByQueryName(DataDictionary.FindByCateGoryCode, categoryCode);
+		return dataDictionaryDao.findByQueryName(DataDictionary.FindByCateGoryCode, code.getCode());
 	}
 	
 	//---------------------------------------字典类别管理---------------------------------------//
@@ -112,10 +113,10 @@ public class SystemDictionaryManager {
 	/**
 	 * 删除字典类别
 	 * 
-	 * @param id 字典类别id
+	 * @param ids 字典类别id
 	 */
-	public void deleteDictionaryCategory(String id) {
-		dictionaryCategoryDao.delete(id);
+	public void deleteDictionaryCategory(List<String> ids) {
+		dictionaryCategoryDao.deleteAll(ids);
 	}
 	
 	/**
@@ -128,12 +129,35 @@ public class SystemDictionaryManager {
 	}
 	
 	/**
+	 * 获取字典列别分页对象
+	 * 
+	 * @param request 分页参数请求
+	 * @param filters 属性过滤器
+	 * 
+	 * @return Page
+	 */
+	public Page<DictionaryCategory> searchDictionaryCategoryPage(PageRequest request,List<PropertyFilter> filters) {
+		return dictionaryCategoryDao.findPage(request, filters);
+	}
+	
+	/**
 	 * 获取所有字典类别
 	 * 
 	 * @return List
 	 */
 	public List<DictionaryCategory> getAllDictionaryCategories() {
 		return dictionaryCategoryDao.getAll();
+	}
+	
+	/**
+	 * 根据条件过滤器获取或有字典类别
+	 * 
+	 * @param filters 条件过滤器
+	 * 
+	 * @return List
+	 */
+	public List<DictionaryCategory> getAllDictionaryCategories(List<PropertyFilter> filters) {
+		return dictionaryCategoryDao.findByPropertyFilters(filters);
 	}
 
 }

@@ -10,7 +10,7 @@
 			}
 		);
 		$("#selectAll").click(function(){
-			var checks = $("#user_list tbody").find("input[type='checkbox'][id!='selectAll']");
+			var checks = $("#data_dictionary_list tbody").find("input[type='checkbox'][id!='selectAll']");
 			checks.attr('checked', $(this).is(':checked'));
 			checks.click();
 		});
@@ -21,51 +21,52 @@
 		param["pageSize"] = $("#pageSize").val();
 		param["pageNo"] = pageNo || 1;
 		$.maskLoad({
-			url:'account/user/view',
+			url:'foundation/data-dictionary/view',
 			param:param,
 			target:'#main_content'
 		});
 	}
 </script>
-<div id="user_panel">
-	<div id="search_user_dailog">
-		<form id="search_form" method="post" action="account/user/view">
+<div id="data_dictionary_panel">
+	<div id="search_data_dictionary_dailog">
+		<form id="search_form" method="post" action="foundation/data-dictionary/view">
 			<div class="column">
-		        <label for="filter_LIKE_S_username">
-					登录帐号:
+		        <label for="filter_LIKE_S_name">
+					字典名称:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_username" name="filter_LIKE_S_username" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_username!""}"/>
+		            <input type="text" id="filter_LIKE_S_name" name="filter_LIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_name!""}"/>
 		        </div>
-		        <label for="filter_LIKE_S_realname">
-					真实姓名:
+		        <label for="filter_EQ_S_code">
+					字典代码:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_realname" name="filter_LIKE_S_realname" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_realname!""}" />
+		            <input type="text" id="filter_EQ_S_code" name="filter_EQ_S_code" class="text_input_big" size="25" value="${RequestParameters.filter_EQ_S_code!""}" />
 		        </div>
 		    </div>
 		    <div class="column">
-		        <label for="filter_LIKE_S_email">
-					电子邮件:
-		        </label>
-		        <div class="field">
-		          <input type="text" id="filter_LIKE_S_email" name="filter_LIKE_S_email" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_email!""}"/>
-		        </div>
-		        <label for="filter_EQ_S_state">
-					状态:
-		        </label>
-		        <div class="field">
-		           <select class="selection" name="filter_EQ_S_state" id="filter_EQ_S_state" size="25">
-		           		<option>
-							全部
-		                </option>
-		                <#list states as s>
-			                <option value="${s.value}">
-								${s.name}
-			                </option>
+		    	<label for="filter_EQ_S_type">
+		    		值类型:
+		    	</label>
+		    	<div class="field">
+		    		<select class="selection" name="filter_EQ_S_type" id="filter_EQ_S_type" size="25">
+		    			<option>无</option>
+		                <#list valueTypes as vt>
+		                	<option value="${vt.value}" <#if RequestParameters.filter_EQ_S_type?has_content && RequestParameters.filter_EQ_S_type == vt.value>selected="selected"</#if> >${vt.name}</option>
+		                </#list>
+		            </select>
+		    	</div>
+		    	<label for="filter_EQ_S_parent.id">
+		    		所属父类:
+		    	</label>
+		    	<div class="field">
+		    		<select class="selection" height="150" search="true" name="filter_EQ_S_parent.id" id="filter_EQ_S_parent.id" size="25">
+		    			<option>无</option>
+		                <#list categoriesList as cl>
+		                	<option value="${cl.id}" <#if RequestParameters['filter_EQ_S_parent.id']?has_content && RequestParameters['filter_EQ_S_parent.id'] == cl.id>selected="selected"</#if> >${cl.name}</option>
 		                </#list>
 		           </select>
-		         </div>
+		    	</div>
 		    </div>
 		</form>
 		<div class="clear">
@@ -75,7 +76,7 @@
 	</div>
 	
 	<div class="panel_title">
-	 	<span class="user24_icon">用户管理</span>
+	 	<span class="data_dictionary24_icon">字典字典管理</span>
 	</div>
 	
 	<div class="panel_content">
@@ -85,8 +86,8 @@
 	  	  	${message}
 	  	  </div>
   	  </#if>
-	  <form id="delete_form" action="account/user/delete" method="post">
-		  <table width="100%" id="user_list">
+	  <form id="delete_form" action="foundation/data-dictionary/delete" method="post">
+		  <table width="100%" id="data_dictionary_list">
 		    	<thead>
 		        	<tr>
 		        		<th>
@@ -95,19 +96,19 @@
 		        			</div>
 		        		</th>
 		            	<th>
-		                	登录帐号
+		                	字典名称
 		            	</th>
 		                <th>
-		                	真实姓名
+		                	字典值
+		            	</th>
+		            	<th>
+		                	值类型
 		            	</th>
 		                <th>
-		                	电子邮件
+		                	所属类别
 		            	</th>
 		                <th>
-		                	状态
-		            	</th>
-		                <th>
-		                	所在组
+		                	备注
 		            	</th>
 		            	<th>
 		            		操作
@@ -123,23 +124,23 @@
 		            			</div>
 		            		</td>
 		                	<td>
-		                    	${e.username}
+		                    	${e.name!""}
 		                    </td>
 		                    <td>
-		                    	${e.realname}
+		                    	${e.value!""}
 		                    </td>
 		                    <td>
-		                    	${e.email}
+		                    	${e.type!""}
 		                    </td>
 		                    <td>
-		                    	${e.stateName}
+		                    	<#if e.category?has_content>${e.category.name}</#if>
 		                    </td>
 		                    <td>
-		                    	${e.groupNames}
+		                    	${e.remark!""}
 		                    </td>
 		                    <td align="center">
-		                    	<@shiro.hasPermission name="user:update">
-		                    		<a href="account/user/read?id=${e.id}" icon="user24_icon"  width="610" target="dialog" dialogId="update_user" modal="true" title="修改用户/${e.username}" class="operat edit16_icon">
+		                    	<@shiro.hasPermission name="data-dictionary:save">
+		                    		<a href="foundation/data-dictionary/read?id=${e.id}" icon="data_dictionary24_icon"  width="610" target="dialog" dialogId="edit_data_dictionary" modal="true" title="修改字典字典/${e.name}" class="operat edit16_icon">
 		                    	</@shiro.hasPermission>
 		                    </td>
 		                </tr>
@@ -148,18 +149,19 @@
 		    </table>
 		</form>
 	</div>
+	
 	<div class="panel_footer">
-		<@shiro.hasPermission name="user:create">
-			<a href="account/user/read" icon="user24_icon" width="610" target="dialog" dialogId="create_user" modal="true" title="添加用户">
+		<@shiro.hasPermission name="data-dictionary:save">
+			<a href="foundation/data-dictionary/read" icon="data_dictionary24_icon" width="610" target="dialog" dialogId="edit_data_dictionary" modal="true" title="添加字典字典">
 				<span class="button left">添 加</span>
 			</a>
 		</@shiro.hasPermission>
-		<@shiro.hasPermission name="user:delete">
-	    	<a href="javascript:$.form.submitMaskForm('#delete_form',{maskEl:'#user_panel',target:'#main_content',promptMsg:'确定要删除吗?'})" title="删除选中用户">
+		<@shiro.hasPermission name="data-dictionary:delete">
+	    	<a href="javascript:$.form.submitMaskForm('#delete_form',{maskEl:'#data_dictionary_panel',target:'#main_content',promptMsg:'确定要删除吗?'})" title="删除选中字典字典">
 	    		<span class="button left">删 除</span>
 	    	</a>
 	    </@shiro.hasPermission>
-	    <a href="#search_user_dailog" width="610" icon="user24_icon" target="dialog" dialogId="search_dailog" title="查询用户列表">
+	    <a href="#search_data_dictionary_dailog" width="610" icon="data_dictionary24_icon" target="dialog" dialogId="search_dailog" title="查询字典字典列表">
 	    	<span class="button left">查 询</span>
 	    </a>
 	</div>

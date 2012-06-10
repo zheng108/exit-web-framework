@@ -28,10 +28,6 @@ $(document).ready(function(){
 			$(this).addClass("tbody_click");
 		});
 	
-		
-		$(".selectAll").click(function(){
-			$(this).parents("table").find("input[type='checkbox']").attr('checked', $(this).is(':checked'));
-		});
 	};
 	
 	$(document).ajaxStop(initTheView);

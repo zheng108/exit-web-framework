@@ -68,7 +68,7 @@
 				itemBox.append("<li>" + notReslutText + "</li>");
 			} else {
 				$.each(me.find("option"),function(i,o){
-					var li = $('<li>').attr("value",$(o).val());
+					var li = $('<li>').attr("evalue",$(o).val());
 					
 					if (multiSelect) {
 						var checker = $('<span class="checker">');
@@ -82,11 +82,12 @@
 						if (($.isEmpty($(o).attr("selected")) ? false : $(o).attr("selected").booleanValue("selected"))) {
 							checker.addClass("click");
 						}
-							
+						
 						itemBox.append(li);
 						li.prepend(checker);
 					} else {
 						itemBox.append(li);
+						
 					}
 					
 					li.append($(o).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, "").ellipsis(selectionUl.width() / 8));
@@ -140,7 +141,7 @@
 				}
 			).click("click",function(){
 
-				var value = $.isEmpty(this.attributes["value"]) ? "" : this.attributes["value"].nodeValue;
+				var value = $.isEmpty(this.attributes["evalue"]) ? "" : this.attributes["evalue"].nodeValue;
 				
 				if ($.isEmpty(me.attr("multiple")) || !me.attr("multiple").booleanValue("multiple")) {
 					me.find("option:selected").removeAttr("selected");
@@ -192,6 +193,47 @@
 			
 			me.attr("execState",true);
 			
+		},
+		
+		checker:function(){
+			
+			var me = $(this);
+			me.hide();
+			
+			var checker = me.attr("type") == "radio" ? $('<span class="radio"></span>') : $('<span class="checker"></span>');
+			checker.appendTo(me.parent());
+			me.appendTo(checker);
+			
+			checker.hover(function(){
+				checker.addClass("hover");
+			},function(){
+				checker.removeClass("hover");
+			});
+			
+			if ($.isNotEmpty(me.attr("disabled")) && me.attr("disabled").boolean("disabled")) {
+				checker.addClass("disable");
+				return ;
+			}
+			if (me.is(':checked')) {
+				checker.addClass("click");
+			}
+			
+			me.bind("click",function(o){
+				if ($(o.target).is(':checked')) {
+					checker.addClass("click");
+				} else {
+					checker.removeClass("click");
+				}
+				return false;
+			});
+			
+			checker.bind("mousedown.checker",function(){
+				me.attr("checked",!me.is(':checked'));
+				me.click();
+				return false;
+			});
+			
+			me.attr("execState",true);
 		},
 		
 		mask:function(){
@@ -330,8 +372,20 @@
 		$.each(select,function(i,s){
 			$(s).selection(select.length - i);
 		});
+		
+		$.each($("input[type='checkbox'][execstate!='true'].checker"),function(i,c){
+			$(c).checker();
+		});
+		
+		$.each($("input[type='radio'][execstate!='true'].checker"),function(i,r){
+			$(r).checker();
+		});
+		
 		$.each($("a[target='dialog'][execstate!='true']"),function(i,a){
 			$(a).dialog();
+		});
+		$.each($("textarea[execstate!='true'].textarea"),function(i,t){
+			$(t).textarea();
 		});
 	};
 	

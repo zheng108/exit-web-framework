@@ -4,15 +4,20 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.StringUtils;
+import org.exitsoft.common.utils.CollectionUtils;
 import org.exitsoft.common.utils.ServletUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PageRequest.Sort;
 import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.orm.core.hibernate.property.PropertyFilterRestrictionHolder;
+import org.exitsoft.project.vcsadmin.common.SystemVariableUtils;
+import org.exitsoft.project.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.project.vcsadmin.common.enumeration.entity.GroupType;
 import org.exitsoft.project.vcsadmin.entity.account.User;
+import org.exitsoft.project.vcsadmin.entity.foundation.DataDictionary;
 import org.exitsoft.project.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,7 +86,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 更新用户,当提交过来的form没有选择了组时
+	 * 更新用户
 	 */
 	@RequestMapping(value="update")
 	public String update(@ModelAttribute("entity")User entity, HttpServletRequest request,RedirectAttributes redirectAttributes) {
@@ -129,10 +134,21 @@ public class UserController {
 	/**
 	 * 绑定数据，如果存在id时获取后在做其他操作
 	 * 
-	 * @return {@link User}
 	 */
 	@ModelAttribute("entity")
-	public User getUser(HttpServletRequest request) {
+	public User bindingModel(HttpServletRequest request) {
+		List<DataDictionary> dataDictionaries = SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State);
+		
+		CollectionUtils.filter(dataDictionaries, new Predicate() {
+			@Override
+			public boolean evaluate(Object object) {
+				DataDictionary dataDictionary = (DataDictionary) object;
+				return !dataDictionary.getValue().equals("3");
+			}
+		});
+		
+		request.setAttribute("states", dataDictionaries);
+		
 		String id = request.getParameter("id");
 		User user = new User();
 		

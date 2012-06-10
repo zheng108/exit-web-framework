@@ -2,6 +2,7 @@ package org.vcs.project.test.manager.foundation;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.exitsoft.project.vcsadmin.entity.foundation.DictionaryCategory;
@@ -40,7 +41,9 @@ public class TestDictionaryCategoryManager extends ManagerTestCaseSuper {
 	public void testDeleteDictionaryCategory() {
 		
 		int beforeRow = countRowsInTable("TB_DICTIONARY_CATEGORY");
-		systemDictionaryManager.deleteDictionaryCategory("SJDK3849CKMS3849DJCK2039ZMSK0015");
+		List<String> ids = new ArrayList<String>();
+		ids.add("SJDK3849CKMS3849DJCK2039ZMSK0015");
+		systemDictionaryManager.deleteDictionaryCategory(ids);
 		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("TB_DICTIONARY_CATEGORY");
 		

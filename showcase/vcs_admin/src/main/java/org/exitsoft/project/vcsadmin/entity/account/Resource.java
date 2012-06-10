@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
+import org.exitsoft.project.vcsadmin.common.SystemVariableUtils;
+import org.exitsoft.project.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.project.vcsadmin.common.enumeration.entity.ResourceType;
 import org.exitsoft.project.vcsadmin.entity.UniversallyUniqueIdentifier;
 import org.hibernate.annotations.NamedQuery;
@@ -239,10 +241,8 @@ public class Resource extends UniversallyUniqueIdentifier{
 	 */
 	@Transient
 	public String getParentName() {
-		if (this.parent == null) {
-			return "";
-		}
-		return this.parent.getName();
+		
+		return this.parent == null ? "" : parent.getName();
 	}
 	
 	/**
@@ -252,10 +252,7 @@ public class Resource extends UniversallyUniqueIdentifier{
 	 */
 	@Transient
 	public String getParentId() {
-		if (this.parent == null) {
-			return null;
-		}
-		return this.parent.getId();
+		return this.parent == null ? "" : parent.getId();
 	}
 
 	/**
@@ -292,6 +289,16 @@ public class Resource extends UniversallyUniqueIdentifier{
 	 */
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	
+	/**
+	 * 获取资源类型的名称
+	 * 
+	 * @return String
+	 */
+	@Transient
+	public String getTypeName() {
+		return SystemVariableUtils.getDictionaryNameByValue(SystemDictionaryCode.ResourceType, this.type);
 	}
 	
 }

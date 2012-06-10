@@ -7,7 +7,7 @@
 	        <div class="field">
 	            <input type="text" id="username" name="username" class="text_input_big" size="25" />
 	        </div>
-	        <label>
+	        <label for="realname">
 				真实姓名:
 	        </label>
 	        <div class="field">
@@ -40,12 +40,11 @@
 	        </label>
 	        <div class="field">
 	           <select class="selection" name="state" id="state" size="25">
-	                <option value="0">
-						启用
-	                </option>
-	                <option value="1">
-						禁用
-	                </option>
+	               <#list states as s>
+		                <option value="${s.value}">
+							${s.name}
+		                </option>
+	                </#list>
 	           </select>
 	         </div>
 	    </div>
@@ -54,7 +53,7 @@
 	    		所在组:
 	    	</label>
 	    	<div class="field">
-	    		<select class="selection" class="selection" search="true" multiple="multiple" name="groupIds" id="groupIds" size="66">
+	    		<select class="selection" search="true" multiple="multiple" name="groupIds" id="groupIds" size="66">
 	                <#list groupsList as gl>
 	                	<option value="${gl.id}">
 	                		${gl.name}

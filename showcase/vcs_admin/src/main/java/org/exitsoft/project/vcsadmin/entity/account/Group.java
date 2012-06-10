@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.exitsoft.common.utils.CollectionUtils;
+import org.exitsoft.project.vcsadmin.common.SystemVariableUtils;
+import org.exitsoft.project.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.project.vcsadmin.common.enumeration.entity.GroupType;
 import org.exitsoft.project.vcsadmin.entity.UniversallyUniqueIdentifier;
 
@@ -243,9 +245,27 @@ public class Group extends UniversallyUniqueIdentifier{
 	 */
 	@Transient
 	public String getParentId() {
-		if (this.parent == null) {
-			return null;
-		}
-		return this.parent.getId();
+		
+		return this.parent == null ? "" : this.parent.getId();
+	}
+	
+	/**
+	 * 获取父类名称
+	 * 
+	 * @return String
+	 */
+	@Transient
+	public String getParentName(){
+		return this.parent == null ? "" : this.parent.getName();
+	}
+	
+	/**
+	 * 获取状态名称
+	 * 
+	 * @return String
+	 */
+	@Transient
+	public String getStateName() {
+		return SystemVariableUtils.getDictionaryNameByValue(SystemDictionaryCode.State, this.state);
 	}
 }
