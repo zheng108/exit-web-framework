@@ -6,14 +6,15 @@
 			var me = $(this);
 			me.hide();
 			
-			var selectionWidget = $('<div class="selection_container">'),
-			selection = $('<div class="selection up">'),
+			var selectionWidget = $('<div class="selection_container"></div>'),
+			selection = $('<div class="selection up"></div>'),
 			selectionUl = $('<ul></ul>').css({"z-index":index}),
 			emptyText = me.attr("emptyText") || "",
 			search=$.isEmpty(me.attr("search")) ? false : me.attr("search").booleanValue(), 
 			multiSelect=$.isEmpty(me.attr("multiple")) ? false : me.attr("multiple").booleanValue("multiple"),
 			notReslutText = me.attr("notresult") || "没有任何记录",
-			itemBox = $('<div class="item_box">').css({height:me.attr("height") || 'auto'});
+			itemBox = $('<li class="item_box"></li>').css({height:me.attr("height") || '100%'}),
+			itemUl = $("<ul></ul>");
 			
 			var width = ((me.attr("size") * 1) || 10) * 7;
 			
@@ -21,8 +22,10 @@
 				width += 27;
 			} else  if ($.browser.mozilla) {
 				width += 23;
+				selectionUl.css({width:width - 2});
 			} else {
 				width += 28;
+				selectionUl.css({width:width - 2});
 			}
 			
 			me.parent().append(selectionWidget);
@@ -33,10 +36,10 @@
 			
 			selectionWidget.append(selection);
 			selectionWidget.append(selectionUl);
-			selection.append('<div class="text">').append('<div class="trigger_up">');
+			selection.append('<div class="text"></div>').append('<div class="trigger_up"></div>');
 			selectionUl.css({width:width - 2});
 			selectionUl.append(itemBox);
-			
+			itemBox.append(itemUl);
 			selection.find("div.text").css({
 				width:width - selection.find("div.trigger_up").width() - 15
 			});
@@ -65,13 +68,15 @@
 			};
 			
 			if (me.find("option").length <= 0) {
-				itemBox.append("<li>" + notReslutText + "</li>");
+				itemUl.append("<li>" + notReslutText + "</li>");
 			} else {
 				$.each(me.find("option"),function(i,o){
-					var li = $('<li>').attr("evalue",$(o).val());
-					
+					var li = $('<li></li>').attr("evalue",$(o).val());
+					if ($.browser.msie) {
+						li.css({"line-height":"1.5"});
+					}
 					if (multiSelect) {
-						var checker = $('<span class="checker">');
+						var checker = $('<span class="checker"></span>');
 						
 						checker.hover(function(){
 							$(this).addClass("hover");
@@ -83,20 +88,18 @@
 							checker.addClass("click");
 						}
 						
-						itemBox.append(li);
+						li.appendTo(itemUl);
 						li.prepend(checker);
 					} else {
-						itemBox.append(li);
-						
+						li.appendTo(itemUl);
 					}
 					
-					li.append($(o).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, "").ellipsis(selectionUl.width() / 8));
+					li.append($(o).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, ""));
 				});
 			}
-			
 			if (search && selectionUl.find("li").length > 0) {
 				
-				selectionUl.prepend('<li><input class="text_search_small" style="width:'+ (width - 47) +'px;"/></li>');
+				selectionUl.prepend('<li class="search"><input class="text_search_big" style="width:'+ (width - 47)+'px;"/></li>');
 				selectionUl.find("input").keydown(function(){
 					
 					var li = selectionUl.find("li:gt(0)");
@@ -130,7 +133,7 @@
 
 			setSelectedValue();
 			
-			var li = selectionUl.find("div.item_box li");
+			var li = selectionUl.find("li.item_box li");
 			
 			li.hover(
 				function(){

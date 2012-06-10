@@ -27,7 +27,7 @@
 	           </select>
 	    	</div>
 	    </div>
-	    <div class="column" style="height:90px;">
+	     <div class="column">
 	    	<label for="remark">
 	    		备注:
 	    	</label>

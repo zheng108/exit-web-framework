@@ -246,7 +246,7 @@ a:active .button {
 }
 
 /*input select 基础样式*/
-.text_input_small,.text_input_big,.selection_container .selection, .text_search_small, .textarea{
+.text_input_small,.text_input_big,.selection_container .selection, .text_search_big, .textarea{
 	border: 1px solid #B9B9B9;
 	vertical-align: middle;
 	margin:0px;/*兼容谷歌浏览器 */
@@ -263,9 +263,9 @@ a:active .button {
 	padding-bottom: 8px;
 }
 
-.text_search_small {
+.text_search_big {
 	background-image: url(../images/icons/16/search.png) ;
-	height: 20px;
+	height: 28px;
 	line-height:20px;
 	background-repeat: no-repeat;
 	background-position: 99% center;
@@ -274,15 +274,15 @@ a:active .button {
 }
 
 /*小型input样式开始*/
-.text_input_small {
-	background-image: url(../images/form/text_input_small_bg.jpg);
-	height: 20px;
-	line-height:20px;
-}
-/*大型input样式开始*/
 .text_input_big {
 	background-image: url(../images/form/text_input_big_bg.jpg);
 	height: 28px;
+	line-height:20px;
+}
+/*大型input样式开始*/
+.text_input_small {
+	background-image: url(../images/form/text_input_small_bg.jpg);
+	height: 20px;
 	line-height:30px;
 }
 /*大型select样式开始*/
@@ -355,12 +355,28 @@ a:active .button {
 }
 .selection_container ul li{
 	display: block;
-	padding: 5px;
 }
 .selection_container ul .item_box{
-	display:block;
-	margin-bottom:5px;
+	display:block; 
 	overflow: auto;
+	position:none;
+	border-radius:0px;
+}
+.selection_container ul .item_box ul {
+	position: relative;
+	border: none;
+	display:block;
+	top: 0px;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+.selection_container ul .search {
+	margin: 5px;
+}
+
+.selection_container ul .item_box ul li {
+	padding: 5px;
 }
 .selection_container ul .over {
 	background-color: #2B93DA;
