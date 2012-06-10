@@ -34,7 +34,3 @@ $(document).ready(function(){
 	initTheView();
 	
 });
-
-var loadResource = function(li){
-	var i = 0;
-}
