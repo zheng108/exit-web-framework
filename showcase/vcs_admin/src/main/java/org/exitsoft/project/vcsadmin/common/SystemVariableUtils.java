@@ -1,6 +1,5 @@
 package org.exitsoft.project.vcsadmin.common;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,8 +8,6 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.exitsoft.common.utils.CollectionUtils;
-import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.project.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.project.vcsadmin.entity.foundation.DataDictionary;
 import org.exitsoft.project.vcsadmin.model.SecurityModel;
