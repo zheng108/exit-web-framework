@@ -266,7 +266,7 @@ a:active .button {
 .text_search_big {
 	background-image: url(../images/icons/16/search.png) ;
 	height: 28px;
-	line-height:20px;
+	line-height:28px;
 	background-repeat: no-repeat;
 	background-position: 99% center;
 	padding-right: 25px;
@@ -277,13 +277,13 @@ a:active .button {
 .text_input_big {
 	background-image: url(../images/form/text_input_big_bg.jpg);
 	height: 28px;
-	line-height:20px;
+	line-height:28px;
 }
 /*大型input样式开始*/
 .text_input_small {
 	background-image: url(../images/form/text_input_small_bg.jpg);
 	height: 20px;
-	line-height:30px;
+	line-height:20px;
 }
 /*大型select样式开始*/
 .selection_container {

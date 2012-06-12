@@ -371,33 +371,28 @@
 				<groupId>org.dbunit</groupId>
 				<artifactId>dbunit</artifactId>
 				<version>2.4.8</version>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>${h2.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<!-- jetty -->
 			<dependency>
 				<groupId>org.eclipse.jetty.aggregate</groupId>
 				<artifactId>jetty-webapp</artifactId>
 				<version>${jetty.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-jsp</artifactId>
 				<version>${jetty.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-start</artifactId>
 				<version>${jetty.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<!-- test end -->
 		</dependencies>
@@ -431,13 +426,6 @@
 							<include>**/Test*.java</include>
 						</includes>
 					</configuration>
-				</plugin>
-
-				<!-- cobertura插件 -->
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.5</version>
 				</plugin>
 
 				<!-- war插件, 设定war名称不带版本号 -->
@@ -479,6 +467,13 @@
 					<version>2.1.2</version>
 				</plugin>
 
+				<!-- cobertura插件 -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				
 				<!-- clean插件 -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

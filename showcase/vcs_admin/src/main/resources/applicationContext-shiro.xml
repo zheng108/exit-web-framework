@@ -6,6 +6,7 @@
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroDataBaseRealm" />
+		<!-- <property name="rememberMeManager" ref="rememberMeDateManager" /> -->
 		<property name="cacheManager" ref="memoryConstrainedCacheManager" />
 	</bean>
 	

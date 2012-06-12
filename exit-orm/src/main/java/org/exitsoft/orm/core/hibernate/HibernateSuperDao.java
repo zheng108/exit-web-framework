@@ -1,29 +1,31 @@
 package org.exitsoft.orm.core.hibernate;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.exitsoft.common.utils.AssertUtils;
 import org.exitsoft.common.utils.CollectionUtils;
-import org.exitsoft.common.utils.ReflectionUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
-import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.orm.core.PageRequest.Sort;
+import org.exitsoft.orm.core.PropertyFilter;
+import org.exitsoft.orm.core.hibernate.property.PropertyCriterionBuilder;
 import org.exitsoft.orm.core.hibernate.property.PropertyFilterRestrictionHolder;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.EqRestriction;
-import org.exitsoft.orm.enumeration.ExecuteMehtod;
-import org.exitsoft.orm.strategy.CodeStrategy;
-import org.exitsoft.orm.strategy.annotation.ConvertCode;
-import org.exitsoft.orm.strategy.annotation.ConvertProperty;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
 
+/**
+ * Hibernate基础扩展类。包含对PropertyFilter的支持。或其他查询的支持
+ * 
+ * @author vincent
+ *
+ * @param <T> ORM对象
+ * @param <PK> 主键Id类型
+ */
 public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernateDao<T, PK>{
 
 	public HibernateSuperDao(){
@@ -839,6 +841,15 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 		return (T)findUniqueByProperty(propertyName,value,restrictionName,this.entityClass);
 	}
 	
+	/**
+	 * 通过orm实体的属性名称查询单个orm实体
+	 * 
+	 * @param propertyName 属性名称
+	 * @param value 值
+	 * @param persistentClass ORM对象类型Class
+	 * 
+	 * @return Object
+	 */
 	public <X> X findUniqueByProperty(String propertyName,Object value,Class<?> persistentClass) {
 		return (X)findUniqueByProperty(propertyName,value,EqRestriction.RestrictionName,persistentClass);
 	}
@@ -885,6 +896,14 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 		return findPage(request,c);
 	}
 	
+	/**
+	 * 通过分页参数，和条件过滤器查询分页
+	 * 
+	 * @param request
+	 * @param filters
+	 * 
+	 * @return {@link Page}
+	 */
 	public Page<T> findPage(PageRequest request,List<PropertyFilter> filters) {
 		return findPage(request,filters,this.entityClass);
 	}

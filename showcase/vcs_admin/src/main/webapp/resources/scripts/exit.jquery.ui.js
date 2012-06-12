@@ -2,10 +2,9 @@
 	
 	$.extend($.fn,{
 		selection:function(index){
-			
+
 			var me = $(this);
 			me.hide();
-			
 			var selectionWidget = $('<div class="selection_container"></div>'),
 			selection = $('<div class="selection up"></div>'),
 			selectionUl = $('<ul></ul>').css({"z-index":index}),
@@ -40,6 +39,7 @@
 			selectionUl.css({width:width - 2});
 			selectionUl.append(itemBox);
 			itemBox.append(itemUl);
+			
 			selection.find("div.text").css({
 				width:width - selection.find("div.trigger_up").width() - 15
 			});
@@ -48,6 +48,7 @@
 				
 				var selected = me.find("option[selected='selected']"),
 				result="";
+				
 				if (multiSelect) {
 					var array = new Array();
 					$.each(selected,function(i,o){
@@ -57,6 +58,7 @@
 				} else {
 					result = $(selected).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, "");
 				}
+				
 				var t = selection.find("div.text");
 				
 				if ($.isNotEmpty(result)){
@@ -97,6 +99,7 @@
 					li.append($(o).text().replace(/[\r\n]/g,"").replace(/(^\s*)|(\s*$)/g, ""));
 				});
 			}
+			
 			if (search && selectionUl.find("li").length > 0) {
 				
 				selectionUl.prepend('<li class="search"><input class="text_search_big" style="width:'+ (width - 47)+'px;"/></li>');
@@ -369,9 +372,11 @@
 			return $(this).off("click").on("click",initialize);
 		}
 	});
-
+	
 	var initializeUi = function(){
+		
 		var select = $("select[class='selection'][execstate!='true']");
+		
 		$.each(select,function(i,s){
 			$(s).selection(select.length - i);
 		});
@@ -387,13 +392,14 @@
 		$.each($("a[target='dialog'][execstate!='true']"),function(i,a){
 			$(a).dialog();
 		});
+		
 		$.each($("textarea[execstate!='true'].textarea"),function(i,t){
 			$(t).textarea();
 		});
 	};
-	
+
 	$(document).ajaxStop(initializeUi);
-	
 	$(document).ready(initializeUi);
 	
 })(jQuery);
+

@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.exitsoft.orm.enumeration.CategoryType;
+import org.exitsoft.orm.core.PropertyType;
 
 
 
@@ -46,5 +46,5 @@ public @interface StateDelete {
 	
 	public String value();
 	
-	public CategoryType type() default CategoryType.I;
+	public PropertyType type() default PropertyType.I;
 }

@@ -60,10 +60,10 @@
                 	</label>
                 	<div class="field" >
                 		<select class="selection" id="rememberMe" name="rememberMe" size="25">
-                			<option value="day">在今天内</option>
-                			<option value="week">在一周内</option>
-                			<option value="month">在一个月内</option>
-                			<option value="year">在一年内</option>
+                			<option value="Day">在今天内</option>
+                			<option value="Week">在一周内</option>
+                			<option value="Month">在一个月内</option>
+                			<option value="Year">在一年内</option>
                 		</select>
                 	</div>
                 </div>
