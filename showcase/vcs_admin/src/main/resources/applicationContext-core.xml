@@ -19,7 +19,7 @@
 	<description>Spring公共配置 </description>
 	
 	<!-- 定义受环境影响易变的变量 -->
-	<bean id="encryptablePropertyPlaceholderConfigurer" class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
+	<bean id="encryptablePropertyPlaceholderConfigurer" class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
 		<constructor-arg>
 			<bean class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
 				<property name="config">

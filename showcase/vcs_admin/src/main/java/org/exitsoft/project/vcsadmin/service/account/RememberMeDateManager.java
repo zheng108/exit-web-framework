@@ -21,7 +21,6 @@ public class RememberMeDateManager extends CookieRememberMeManager{
 	@Override
 	public void onSuccessfulLogin(Subject subject, AuthenticationToken token,AuthenticationInfo info) {
 
-        forgetIdentity(subject);
         HttpServletRequest request = WebUtils.getHttpRequest(subject);
         String value = request.getParameter(DEFAULT_REMEMBER_ME_COOKIE_NAME);
         
@@ -51,4 +50,5 @@ public class RememberMeDateManager extends CookieRememberMeManager{
         cookie.setMaxAge(RememberMeType.valueOf(value).getValue());
         cookie.saveTo(request, response);
 	}
+	
 }

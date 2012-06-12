@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
@@ -17,6 +18,8 @@ import org.exitsoft.project.vcsadmin.entity.account.Group;
 import org.exitsoft.project.vcsadmin.entity.account.Resource;
 import org.exitsoft.project.vcsadmin.entity.account.User;
 import org.exitsoft.project.vcsadmin.service.ServiceException;
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,7 +79,6 @@ public class AccountManager {
 		if (!isUsernameUnique(entity.getUsername())) {
 			throw new ServiceException("用户名已存在");
 		}
-		
 		userDao.insert(entity);
 	}
 	

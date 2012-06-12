@@ -78,11 +78,10 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
         
         List<Resource> authorizationInfo = accountManager.getAllResourcesByUserId(user.getId());
         List<Resource> resourcesList = accountManager.mergeResourcesToParent(authorizationInfo, ResourceType.Security);
-        
         SecurityModel model = new SecurityModel(user,user.getGroupsList(),authorizationInfo,resourcesList);
+        //SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(model,DigestUtils.md5Hex(user.getPassword()), getName());
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(model,user.getPassword(), getName());
-        usernamePasswordToken.setRememberMe(true);
+        
 		return info;
 	}
-	
 }
