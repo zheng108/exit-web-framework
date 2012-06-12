@@ -1,5 +1,6 @@
+
 @echo off
-echo [INFO] create a project.
+echo [INFO] create project to eclipse
 
 cd %~dp0
 cd ..

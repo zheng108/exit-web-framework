@@ -165,7 +165,7 @@
             	me.ajaxForm(option);
             	
             	me.submit();
-            },
+            }
         },
         ellipsis : function(value, len, word) {
             if (value && value.length > len) {

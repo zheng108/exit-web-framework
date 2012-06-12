@@ -7,6 +7,7 @@
 		<groupId>org.exitsoft</groupId>
 		<artifactId>exitsoft-parent</artifactId>
 		<version>1.0.0</version>
+		<relativePath>../../exit-parent/</relativePath>
 	</parent>
 	<artifactId>exitsoft-vcs-admin</artifactId>
 	<version>1.0.0</version>

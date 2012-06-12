@@ -23,6 +23,7 @@ import org.exitsoft.orm.strategy.annotation.ConvertCode;
 import org.exitsoft.orm.strategy.annotation.ConvertProperty;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.ReplicationMode;
@@ -42,8 +43,16 @@ import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 
+/**
+ * 
+ * Hibernate基础类,包含对Hibernate的CURD和其他Hibernate操作
+ * 
+ * @author vincent
+ *
+ * @param <T> ROM对象
+ * @param <PK> ORM主键ID类型
+ */
 public class BasicHibernateDao<T,PK extends Serializable> {
 	
 	protected SessionFactory sessionFactory;
@@ -794,7 +803,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @param it 要关闭的迭代器
 	 * 
 	 */
-	public void closeIterator(Iterator it) throws DataAccessException {
+	public void closeIterator(Iterator it) throws HibernateException {
 		Hibernate.close(it);
 	}
 	
