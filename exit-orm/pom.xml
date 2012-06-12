@@ -9,7 +9,7 @@
 		<version>1.0.0</version>
 	</parent>
 	<artifactId>exitsoft-orm</artifactId>
-	<version>${project.parent.version}</version>
+	<version>1.0.0</version>
 	<name>exitsoft orm jar</name>
 	<packaging>jar</packaging>
 	
