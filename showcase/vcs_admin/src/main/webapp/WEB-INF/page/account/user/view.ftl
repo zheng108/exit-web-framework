@@ -55,12 +55,12 @@
 					状态:
 		        </label>
 		        <div class="field">
-		           <select class="selection" name="filter_EQ_S_state" id="filter_EQ_S_state" size="25">
-		           		<option>
+		           <select class="selection" name="filter_EQ_I_state" id="filter_EQ_S_state" size="25">
+		           		<option value="">
 							全部
 		                </option>
 		                <#list states as s>
-			                <option value="${s.value}">
+			                <option value="${s.value}" <#if RequestParameters.filter_EQ_I_state?has_content && s.value == RequestParameters.filter_EQ_I_state>selected="selected"</#if>>
 								${s.name}
 			                </option>
 		                </#list>
@@ -69,7 +69,7 @@
 		    </div>
 		</form>
 		<div class="clear">
-			<a href="javascript:$.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
+			<a href="javascript:$.form.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
 			<a href="javascript:search();" title="查询输入信息"><span class="button right">查 询</span></a>
 		</div>
 	</div>

@@ -14,7 +14,7 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @Table(name = "TB_ACCOUNT_USER")
 @StateDelete(propertyName = "state", value = "3")
-@NamedQuery(name="QueryUserResource",query="from User u where u.loginName=?")
+@NamedQuery(name="QueryUserResource",query="from User u where u.loginName=(?1)")
 public class User extends UniversallyUniqueIdentifier {
 
 	// 登录名称

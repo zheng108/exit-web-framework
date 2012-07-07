@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- web 依赖框架版本 -->
-		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring.version>3.1.1.RELEASE</spring.version>
 		<slf4j.version>1.6.2</slf4j.version>
 		<jtds.jdbc.driver.version>1.2.4</jtds.jdbc.driver.version>
 		<mysql.connector.version>5.1.18</mysql.connector.version>
@@ -72,6 +72,11 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aspects</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjrt</artifactId>
 				<version>1.6.9</version>
@@ -112,6 +117,7 @@
 				<artifactId>spring-orm</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
+			
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-jdbc</artifactId>
@@ -196,11 +202,6 @@
 				<groupId>commons-collections</groupId>
 				<artifactId>commons-collections</artifactId>
 				<version>3.2.1</version>
-			</dependency>
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.4</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-io</groupId>
@@ -326,6 +327,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
 				<artifactId>shiro-spring</artifactId>
 				<version>${shiro.version}</version>
 			</dependency>
@@ -362,13 +368,11 @@
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.8.2</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-test</artifactId>
 				<version>${spring.version}</version>
-				<scope>test</scope>
 			</dependency>
 
 			<dependency>
@@ -564,7 +568,11 @@
 					<artifactId>versions-maven-plugin</artifactId>
 					<version>1.2</version>
 				</plugin>
-
+				<plugin>  
+		            <groupId>org.codehaus.mojo</groupId>  
+		            <artifactId>build-helper-maven-plugin</artifactId>  
+		            <version>1.7</version>
+		        </plugin>  
 			</plugins>
 		</pluginManagement>
 	</build>

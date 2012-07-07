@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50521
 File Encoding         : 65001
 
-Date: 2012-06-10 20:14:37
+Date: 2012-06-25 21:49:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,7 +49,7 @@ INSERT INTO `tb_data_dictionary` VALUES ('402881e437d49e430137d4a5e8570003', '�
 INSERT INTO `tb_data_dictionary` VALUES ('402881e437d49e430137d4a61cec0004', '资源类型', 'AQLX', null, 'S', '02', 'PWOG', '402881e437d467d80137d4709b9c0002');
 INSERT INTO `tb_data_dictionary` VALUES ('402881e437d49e430137d4a6f1aa0005', '部门', 'BM', null, 'S', '02', 'UU', '402881e437d467d80137d4712ca70003');
 INSERT INTO `tb_data_dictionary` VALUES ('402881e437d49e430137d4a7783d0006', '机构', 'JG', null, 'S', '01', 'SS', '402881e437d467d80137d4712ca70003');
-INSERT INTO `tb_data_dictionary` VALUES ('402881e437d49e430137d4a7ba1a0007', '角色组', 'JSZ', '1', 'S', '03', 'QQX', '402881e437d467d80137d4712ca70003');
+INSERT INTO `tb_data_dictionary` VALUES ('402881e437d49e430137d4a7ba1a0007', '权限组', 'JSZ', '1', 'S', '03', 'QQX', '402881e437d467d80137d4712ca70003');
 
 -- ----------------------------
 -- Table structure for `tb_dictionary_category`
@@ -192,8 +192,8 @@ INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0014', 'resource:
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0015', 'resource:update', null, '13', '修改资源', '02', '/account/resource/update/**', 'SJDK3849CKMS3849DJCK2039ZMSK0010', null);
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0016', 'resource:delete', null, '14', '删除资源', '02', '/account/resource/delete/**', 'SJDK3849CKMS3849DJCK2039ZMSK0010', null);
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0017', null, null, '15', '系统管理', '01', '#', null, 'system32_icon');
-INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0018', 'data-dictionary:view', null, '16', '数据字典管理', '01', '/foundation/data-dictionary/view/**', 'SJDK3849CKMS3849DJCK2039ZMSK0017', 'data_dictionary32_icon');
-INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0019', 'dictionary-category:view', null, '17', '字典类别管理', '01', '/foundation/dictionary-category/view/**', 'SJDK3849CKMS3849DJCK2039ZMSK0017', 'dictionary_category32_icon');
+INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0018', 'data-dictionary:view', '', '22', '数据字典关联', '01', '/foundation/data-dictionary/view/**', 'SJDK3849CKMS3849DJCK2039ZMSK0017', 'dictionary24_icon');
+INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0019', 'dictionary-category:view', null, '17', '字典类别管理', '01', '/foundation/dictionary-category/view/**', 'SJDK3849CKMS3849DJCK2039ZMSK0017', 'category24_icon');
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0020', 'dictionary-category:save', null, '18', '创建和编辑字典类别', '02', '/foundation/dictionary-category/save/**', 'SJDK3849CKMS3849DJCK2039ZMSK0019', null);
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0021', 'dictionary-category:delete', null, '19', '删除字典类别', '02', '/foundation/dictionary-category/delete/**', 'SJDK3849CKMS3849DJCK2039ZMSK0019', null);
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0022', 'data-dictionary:save', null, '20', '创建和编辑数据字典', '02', '/foundation/data-dictionary/save/**', 'SJDK3849CKMS3849DJCK2039ZMSK0018', null);
@@ -217,4 +217,4 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0001', '27637461@qq.com', 'admin', 'vincent.chen', '1', 'admin');
+INSERT INTO `tb_user` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0001', '27637461@qq.com', '21232f297a57a5a743894a0e4a801fc3', 'vincent.chen', '1', 'admin');

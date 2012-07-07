@@ -445,11 +445,15 @@ a:active .button {
 	margin-right: 10px;
 	margin-top: 5px;
 	display: inline;
+	/**for ie6**/
+	_background: none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="resources/images/close.png",sizingMethod='crop');
 }
 
 .dialog_widget .dialog_title .close.hover {
 	background-position: bottom;
 	cursor: pointer;
+	
 }
 
 .dialog_widget .dialog_content form {

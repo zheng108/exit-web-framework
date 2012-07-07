@@ -32,7 +32,8 @@
 <body>
 
 	<div id="login_container">
-    	<img src="resources/images/logo.png" />
+		<div class="logo"></div>
+    	<#--<img src="resources/images/logo.png" style="_background: none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="resources/images/logo.png",sizingMethod='crop'); "/>-->
     	<div class="panel_title">
         	<span class="login24_icon">用户登录</span>
 		</div>
@@ -52,19 +53,6 @@
                     </label>
                     <div class="field">
                     	<input type="password" name="password" id="password" class="text_input_big" size="25" value="admin"/>
-                	</div>
-                </div>
-                <div class="column">
-                	<label for="rememberMe">
-                		记住我:
-                	</label>
-                	<div class="field" >
-                		<select class="selection" id="rememberMe" name="rememberMe" size="25">
-                			<option value="Day">在今天内</option>
-                			<option value="Week">在一周内</option>
-                			<option value="Month">在一个月内</option>
-                			<option value="Year">在一年内</option>
-                		</select>
                 	</div>
                 </div>
             </form>

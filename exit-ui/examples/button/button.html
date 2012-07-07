@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<link href="../../resources/css/basic/jquery.ui.core.css" rel="stylesheet" type="text/css" />
+<link href="../../resources/css/basic/jquery.ui.theme.default.css" rel="stylesheet" type="text/css" />
+<link href="../../resources/css/exit/exit.ui.button.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.user_icon {
+	background-image: url(user_icon.png);
+}
+</style>
+
+<script type="text/javascript" src="../../jquery-1.7.2.js"></script>
+<script type="text/javascript" src="../../src/basic/jquery.ui.core.js"></script>
+<script type="text/javascript" src="../../src/basic/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="../../src/external/jquery-external.js"></script>
+<script type="text/javascript" src="../../src/ui/exit.ui.button.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+			var buttons = $("button");
+			$(buttons[0]).button();
+			$(buttons[1]).button({icon:"user_icon"});
+			$(buttons[2]).button({icon:"user_icon",disabled:true});
+			var a = $("a");
+			$(a[0]).button();
+			$(a[1]).button({icon:"user_icon"});
+			$(a[2]).button({icon:"user_icon",disabled:true});
+	});
+</script>
+</head>
+
+
+<body>
+	<form action="#" method="get">
+    	<p>
+        	<input name="vincent"/>
+        </p>
+    	<p>
+            <button type="submit">
+                一般的按钮(button标签submit类型)
+            </button>
+        </p>
+        <p>
+            <button type="reset">
+                带icon的按钮(button标签reset类型)
+            </button>
+		</p>
+    </form>
+	
+    <p>
+    	<span class="ui-button-ie6-border">
+            <button>
+                禁用的按钮(button标签)
+            </button>
+        </span>
+	</p>
+	<p>
+		<a >
+			一般的按钮(a标签)
+		</a>
+	</p>
+	<p>
+		<a>
+			带icon的按钮(a标签)
+		</a>
+	</p>
+    <p>
+		<a >
+			禁用的按钮(a标签)
+		</a>
+	</p>
+    
+</body>
+</html>

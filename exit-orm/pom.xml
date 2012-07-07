@@ -10,7 +10,6 @@
 		<relativePath>../exit-parent/</relativePath>
 	</parent>
 	<artifactId>exitsoft-orm</artifactId>
-	<version>1.0.0</version>
 	<name>exitsoft orm jar</name>
 	<packaging>jar</packaging>
 	
@@ -52,6 +51,11 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -106,5 +110,20 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

@@ -347,6 +347,7 @@
 				if (modal) {
 					elMask.append(loading);
 					elMask.prependTo("body");
+					elMask.css({top:$(window).scrollTop()});
 					maskAll();
 				} else {
 					loading.prependTo("body");
@@ -365,7 +366,9 @@
 				}
 				
 				$(window).resize(maskAll);
-				
+				$(window).scroll(function () {
+					elMask.css({top:$(window).scrollTop()});
+				});
 				return false;
 			};
 			me.attr("execState",true);
@@ -393,9 +396,6 @@
 			$(a).dialog();
 		});
 		
-		$.each($("textarea[execstate!='true'].textarea"),function(i,t){
-			$(t).textarea();
-		});
 	};
 
 	$(document).ajaxStop(initializeUi);

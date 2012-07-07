@@ -41,7 +41,7 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 	
 	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
-	<context:component-scan base-package="org.exitsoft.project.vcsadmin">
+	<context:component-scan base-package="org.exitsoft.showcase.vcsadmin">
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect" />
 	</context:component-scan>
 	
@@ -83,7 +83,7 @@
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 			</props>
 		</property>
-		<property name="packagesToScan" value="org.exitsoft.project.vcsadmin.entity" />
+		<property name="packagesToScan" value="org.exitsoft.showcase.vcsadmin.entity" />
 	</bean>
 
 	<!-- 事务管理器配置,单数据源事务 -->

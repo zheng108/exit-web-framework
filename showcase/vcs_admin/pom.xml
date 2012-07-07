@@ -9,8 +9,8 @@
 		<version>1.0.0</version>
 		<relativePath>../../exit-parent/</relativePath>
 	</parent>
+	<groupId>org.exitsoft.showcase</groupId>
 	<artifactId>exitsoft-vcs-admin</artifactId>
-	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<name>vcs admin panel</name>
 	<url>http://maven.apache.org</url>
@@ -124,10 +124,6 @@
 			<artifactId>commons-collections</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
@@ -181,6 +177,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
 		</dependency>
 		<dependency>
@@ -208,12 +208,10 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.dbunit</groupId>
@@ -264,15 +262,27 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<sourceExcludes>
-						<sourceExclude>**/.svn/</sourceExclude>
-					</sourceExcludes>
-					<wtpversion>2.0</wtpversion>
-					<downloadSources>true</downloadSources>
-				</configuration>
 			</plugin>
 			
+			<plugin>  
+	            <groupId>org.codehaus.mojo</groupId>  
+	            <artifactId>build-helper-maven-plugin</artifactId>
+	            <executions>  
+	                <execution>  
+	                    <id>add-foundation-source</id>  
+	                    <phase>generate-sources</phase>  
+	                    <goals>  
+	                        <goal>add-source</goal> 
+	                    </goals>  
+	                    <configuration>  
+	                        <sources>  
+	                            <source>${basedir}/src/foundation/java</source>   
+	                        </sources>
+	                    </configuration>  
+	                </execution>
+	            </executions>  
+	        </plugin>
+	        
 		</plugins>
 	</build>
 </project>

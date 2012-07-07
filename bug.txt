@@ -1,0 +1,18 @@
+2012-06-20
+bug部分:
+1.button ui中在ie6、7下button标签存在内边距1px的bug
+---------------------------------------------------------
+
+2012-06-16发现的bug
+
+删除部分:
+1.vcs_admin对于shiro的RememberMe不在实现
+
+bug部分
+1.ie6下dialog打不开问题.
+2.ie6下ajaxstop后targetdialog不能隐藏。
+---------------------------------------------------------
+
+2012-06-14发现的bug
+1.vcs_admin在IE下dialog打开后在提交AJAX会将targetUrl的dialog重置.
+2.vcs_admin对于shiro的RememberMe加密时长度大于httpSerlvetRespones的长度.

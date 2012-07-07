@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
-	default-lazy-init="true">
-
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+	
+	<description>apache shiro 配置</description>
+	
+	<!-- 替换核心securityManager三处处理
+		1.realm认证和授权,从数据库读取资源,
+		2.sessionManager,使用缓存sessionDao
+		3.cacheManager,集合spring缓存工厂,在update save组合资源时及时刷新缓存授权让用户重新获取 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroDataBaseRealm" />
-		<!-- <property name="rememberMeManager" ref="rememberMeDateManager" /> -->
-		<property name="cacheManager" ref="memoryConstrainedCacheManager" />
+		<property name="sessionManager" ref="sessionManager" />
+		<property name="cacheManager" ref="cacheManager" />
 	</bean>
 	
-	<bean id="memoryConstrainedCacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+	<!-- 采用缓存sessionDao来管理本地sessionid对象 -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO">
+	        <bean class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+		        <property name="activeSessionsCacheName" value="shiroActiveSessionCache" />
+		    </bean>
+        </property>
+    </bean>
+    
+    <!-- 自定义shiro的realm授权以验证基础.从数据库获取信息后认证和授权 -->
+	<bean id="shiroDataBaseRealm" class="org.exitsoft.showcase.vcsadmin.service.account.ShiroDataBaseRealm">
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="MD5" />
+			</bean>
+		</property>
+		<property name="authorizationCacheName" value="shiroAuthorizationCache" />
+	</bean>
 	
-	<bean id="chainDefinitionSectionMetaSource" class="org.exitsoft.project.vcsadmin.service.account.ChainDefinitionSectionMetaSource">
+	<!-- shiro 的缓存管理,使用spring的ehCacheManagerFactory,操作spring缓存工厂来及时更新shiro的缓存管理
+		 ehCacheManagerFactory对象在applicationContext-core.xml中配置 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager"> 
+        <property name="cacheManager" ref="ehCacheManagerFactory" />
+    </bean>
+	
+	<!-- 自定义对 shiro的连接约束,结合shiroSecurityFilter实现动态获取资源 -->
+	<bean id="chainDefinitionSectionMetaSource" class="org.exitsoft.showcase.vcsadmin.service.account.ChainDefinitionSectionMetaSource">
+		<!-- 默认的连接配置 -->
 		<property name="filterChainDefinitions">
 			<value>
 				/index = user
@@ -23,12 +53,19 @@
 		</property>
 	</bean>
 	
+	<!-- 将shiro与spring集合 -->
 	<bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-    	<property name="securityManager" ref="securityManager"/>
-	    <property name="loginUrl" value="/login"/>
-	    <property name="successUrl" value="/index"/>
-	    <property name="unauthorizedUrl" value="/unauthorized"/>
+		<!-- shiro的核心安全接口 -->
+    	<property name="securityManager" ref="securityManager" />
+    	<!-- 登陆时要提交的连接,在这里不是org.exitsoft.showcase.vcsadmin.web.SecurityController.login()方法,
+    		 而是org.exitsoft.showcase.vcsadmin.service.account.ShiroDataBaseRealm.doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken token)-->
+	    <property name="loginUrl" value="/login" />
+	    <!-- 登陆成功后要跳转的连接改连接是org.exitsoft.showcase.vcsadmin.web.SecurityController.index()方法 -->
+	    <property name="successUrl" value="/index" />
+	    <!-- 未认证时要跳转的连接,改连接是org.exitsoft.showcase.vcsadmin.web.SecurityController.unauthorized()方法 -->
+	    <property name="unauthorizedUrl" value="/unauthorized" />
+	    <!-- shiro连接约束配置,在这里使用自定义的动态获取资源类 -->
 	    <property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource" />
 	</bean>
-
+	
 </beans>

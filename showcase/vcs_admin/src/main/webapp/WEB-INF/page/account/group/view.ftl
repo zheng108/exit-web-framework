@@ -37,6 +37,8 @@
 		        <div class="field">
 		            <input type="text" id="filter_LIKE_S_name" name="filter_LIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_name!""}"/>
 		        </div>
+		    </div>
+		    <div class="column">
 		        <label for="filter_EQ_S_state">
 					状态:
 		        </label>
@@ -52,6 +54,8 @@
 		                </#list>
 		           </select>
 		        </div>
+		     </div>
+		     <div class="column">
 		        <label for="filter_EQ_S_type">
 					所属父类:
 		        </label>
@@ -67,7 +71,7 @@
 		    </div>
 		</form>
 		<div class="clear">
-			<a href="javascript:$.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
+			<a href="javascript:$.form.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
 			<a href="javascript:search();" title="查询输入信息"><span class="button right">查 询</span></a>
 		</div>
 	</div>
@@ -151,7 +155,7 @@
 	    		<span class="button left">删 除</span>
 	    	</a>
 	    </@shiro.hasPermission>
-	    <a href="#search_group_dailog" width="610" icon="group24_icon" target="dialog" dialogId="search_dailog" title="查询组列表">
+	    <a href="#search_group_dailog" width="320" icon="group24_icon" target="dialog" dialogId="search_dailog" title="查询组列表">
 	    	<span class="button left">查 询</span>
 	    </a>
 	</div>

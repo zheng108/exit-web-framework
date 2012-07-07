@@ -18,9 +18,12 @@ a {
 	margin-bottom: 0px;
 	margin-left: auto;
 }
-#logo {
+.logo {
 	height: 30px;
 	padding-left: 20px;
+	background: url(../images/logo.png) no-repeat;
+	_background: none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="resources/images/logo.png",sizingMethod='crop'); 
 }
 
 /*用户登陆后显示在导航上方的蓝色条开始*/
@@ -220,6 +223,13 @@ a {
 	font-weight: bold;
 	color: #FFF;
 	border-radius: 0px 0px 5px 5px;
+}
+
+#crumbs a{
+	color: #CCC;
+}
+#crumbs a:hover{
+	color: #FFF;
 }
 
 /*页脚容器*/

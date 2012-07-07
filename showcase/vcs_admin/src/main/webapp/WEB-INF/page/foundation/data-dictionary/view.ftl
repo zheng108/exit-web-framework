@@ -70,13 +70,13 @@
 		    </div>
 		</form>
 		<div class="clear">
-			<a href="javascript:$.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
+			<a href="javascript:$.form.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
 			<a href="javascript:search();" title="查询输入信息"><span class="button right">查 询</span></a>
 		</div>
 	</div>
 	
 	<div class="panel_title">
-	 	<span class="data_dictionary24_icon">字典字典管理</span>
+	 	<span class="dictionary24_icon">字典字典管理</span>
 	</div>
 	
 	<div class="panel_content">
@@ -152,7 +152,7 @@
 	
 	<div class="panel_footer">
 		<@shiro.hasPermission name="data-dictionary:save">
-			<a href="foundation/data-dictionary/read" icon="data_dictionary24_icon" width="610" target="dialog" dialogId="edit_data_dictionary" modal="true" title="添加字典字典">
+			<a href="foundation/data-dictionary/read" icon="dictionary24_icon" width="610" target="dialog" dialogId="edit_data_dictionary" modal="true" title="添加字典字典">
 				<span class="button left">添 加</span>
 			</a>
 		</@shiro.hasPermission>
@@ -161,7 +161,7 @@
 	    		<span class="button left">删 除</span>
 	    	</a>
 	    </@shiro.hasPermission>
-	    <a href="#search_data_dictionary_dailog" width="610" icon="data_dictionary24_icon" target="dialog" dialogId="search_dailog" title="查询字典字典列表">
+	    <a href="#search_data_dictionary_dailog" width="610" icon="dictionary24_icon" target="dialog" dialogId="search_dailog" title="查询字典字典列表">
 	    	<span class="button left">查 询</span>
 	    </a>
 	</div>

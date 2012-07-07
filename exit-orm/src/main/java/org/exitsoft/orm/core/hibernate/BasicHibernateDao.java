@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.exitsoft.common.utils.AssertUtils;
 import org.exitsoft.common.utils.CollectionUtils;
@@ -57,7 +58,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	
 	protected SessionFactory sessionFactory;
 
-	protected Class entityClass;
+	protected Class<T> entityClass;
 	
 	protected final String DEFAULT_ALIAS = "X";
 	
@@ -491,7 +492,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	protected SQLQuery createSQLQuery( String queryString,  Object... values) {
 		AssertUtils.hasText(queryString, "queryString不能为空");
 		SQLQuery query = getSession().createSQLQuery(queryString);
-		setQueryValues(query, values);
+		setQueryValues(query, false, values);
 		return query.addEntity(entityClass);
 	}
 	
@@ -529,17 +530,21 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 设置到query的hql中
-	 * 
+	 * 设置参数值到query的hql中,该参数是属于jpa风格的参数
+	 *
 	 * @param query Hibernate Query
-	 * @param values 值
+	 * @param values 参数值可变数组
 	 */
-	protected void setQueryValues(Query query,Object... values) {
-		if (values != null) {
-			for (int i = 0; i < values.length; i++) {
-				query.setParameter(i, values[i]);
-			}
+	protected void setQueryValues(Query query ,Object... values) {
+		
+		if (ArrayUtils.isEmpty(values)) {
+			return ;
 		}
+		
+		for (Integer i = 1; i <= values.length; i++) {
+			query.setParameter(i.toString(), values[i - 1]);
+		}
+	
 	}
 	
 	/**

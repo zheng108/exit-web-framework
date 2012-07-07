@@ -80,7 +80,7 @@
 		    </div>
 		</form>
 		<div class="clear">
-			<a href="javascript:$.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
+			<a href="javascript:$.form.resetForm('#search_form')" title="清空表单"><span class="button right">重 置</span></a>
 			<a href="javascript:search();" title="查询输入信息"><span class="button right">查 询</span></a>
 		</div>
 	</div>
