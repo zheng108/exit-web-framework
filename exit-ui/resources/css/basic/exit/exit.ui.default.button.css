@@ -1,0 +1,33 @@
+.ui-button {
+	display: inline-block;
+	cursor: pointer;
+	text-align: center;
+	padding:0px;
+	border:0 none;
+	overflow: visible;
+	background-repeat: repeat-x;
+}
+
+.ui-button-text {
+	display:block;
+	font-weight:bold;
+}
+
+.ui-button-text-only {
+	margin:0px 10px 0px 10px;
+}
+
+.ui-button-icon-only {
+	margin:0px 10px 0px 5px;
+	padding:0px 0px 0px 28px;
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+
+button.ui-button::-moz-focus-inner { 
+	border: 0; padding: 0; 
+}
+
+.ui-button-ie-border, ui-button-ie-state-disabled {
+	display:inline-block;
+}

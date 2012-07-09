@@ -113,8 +113,10 @@
 			* <span class="ui-button-ie-border"><button><button></span>
 			*
 			**/
-			if(this.getElementType() == "button" && $.browser.msie && ($.browser.version == "6.0" || $.browser.version == "7.0")) {
-				this.element.wrap('<span class="ui-button-ie-border"></span>');
+			if((this.getElementType() == "button" || this.getElementType() == "input") && 
+			$.browser.msie && ($.browser.version == "6.0" || $.browser.version == "7.0")) {
+				this.element.wrap('<span></span>');
+				
 			}
 			
 			//设置是否禁用
@@ -210,16 +212,31 @@
 		**/
 		_setOption: function( key, value ) {
 			$.Widget.prototype._setOption.apply( this, arguments );
+			
 			if ( key === "disabled" ) {
 				if ( value ) {
 					this.element.propAttr( "disabled", true );
+					if((this.getElementType() == "button" || this.getElementType() == "input") && 
+						$.browser.msie && ($.browser.version == "6.0" || $.browser.version == "7.0")) {
+						this.element.parent("span").removeClass("ui-button-ie-border").addClass("ui-button-ie-state-disabled");
+					}
+					if (this.getElementType() == "a" && $.browser.msie && ($.browser.version == "6.0" || $.browser.version == "7.0")) {
+						this.element.removeClass("ui-button-ie-border").addClass("ui-button-ie-state-disabled");
+						
+					}
 				} else {
 					this.element.propAttr( "disabled", false );
+					if((this.getElementType() == "button" || this.getElementType() == "input") && 
+						$.browser.msie && ($.browser.version == "6.0" || $.browser.version == "7.0")) {
+						this.element.parent("span").removeClass("ui-button-ie-state-disabled").addClass("ui-button-ie-border");
+					}
+					if (this.getElementType() == "a" && $.browser.msie && ($.browser.version == "6.0" || $.browser.version == "7.0")) {
+						this.element.removeClass("ui-button-ie-state-disabled").addClass("ui-button-ie-border");
+						
+					}
 				}
 				return;
 			}
-			//为了保证样式正确，重新绘制button
-			this.resetButton();
 		}
 	});
 })(jQuery);
