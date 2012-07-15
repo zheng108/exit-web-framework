@@ -18,3 +18,11 @@ exit-web-framework是对常用的java web开发封装实用功能来提高开发
 archetype基础模板使用说明:
 1.点击根目录的install.bat进行初始化
 2.点击archetype-generate.bat生成你的项目
+
+该项目使用了mysql数据库,在vcs-admin文件夹中有一个database的文件夹里面有对应该项目使用的数据。导入之后可以通过
+vcs-admin项目文件夹中的bin文件夹下的jeety.bat文件运行项目，也可以用过eclipse.bat生成项目导入到开发工具中在运
+行。该工程下有一个基于jeety运行的java文件org.exitsoft.showcase.vcsadmin.app.LaunchJetty.你也可以通过该文件运
+行整个项目.
+
+初始化工作:
+<a href="http://maven.apache.org/">配置maven</a>，点击根目录下的install.bat文件做初始化工作。
