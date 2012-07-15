@@ -1,7 +1,0 @@
-exit-web-framework 1.0M1
-
-对Spring-Data-Jpa实现propertyFilter支持
-完善vcs_admin的例子
-
-exit-web-framework 1.0M2
-实现对jquery ui的扩展

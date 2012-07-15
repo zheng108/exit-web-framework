@@ -43,7 +43,7 @@
     <!-- FreeMarker视图解析,在这里配置后缀名ftl和视图解析器 -->  
     <bean id="viewResolver"  class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"> 
         <property name="suffix" value=".ftl" />  
-        <property name="cache" value="true" />  
+        <property name="cache" value="false" />  
         <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
         <!-- <property name="allowSessionOverride" value="true" /> -->
         <!-- <property name="exposeRequestAttributes" value="false" /> -->
