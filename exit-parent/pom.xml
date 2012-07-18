@@ -32,7 +32,7 @@
 	</properties>
 
 	<repositories>
-
+		
 		<repository>
 			<id>offical</id>
 			<name>Maven Official Repository</name>
@@ -41,9 +41,27 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-
+		<!--
+		<repository>
+			<id>local-nexus</id>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+		</repository>
+		-->
 	</repositories>
-
+	
+	<!--
+	<pluginRepositories>
+		<pluginRepository>
+			<id>local-nexus</id>
+			<url>http://localhost:8081/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	-->
+	
+	
 	<dependencyManagement>
 		<dependencies>
 			<!-- spring strat -->
