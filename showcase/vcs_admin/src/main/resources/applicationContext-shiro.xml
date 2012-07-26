@@ -57,7 +57,7 @@
 	<bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- shiro的核心安全接口 -->
     	<property name="securityManager" ref="securityManager" />
-    	<!-- 登陆时要提交的连接,在这里不是org.exitsoft.showcase.vcsadmin.web.SecurityController.login()方法,
+    	<!-- 登陆时要提交的连接,在这里不是org.exitsoft.showcase.vcsadmin.web.SecurityController.login()方法(如果当前用户没被认证时,如果认证即该方法),
     		 而是org.exitsoft.showcase.vcsadmin.service.account.ShiroDataBaseRealm.doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken token)-->
 	    <property name="loginUrl" value="/login" />
 	    <!-- 登陆成功后要跳转的连接改连接是org.exitsoft.showcase.vcsadmin.web.SecurityController.index()方法 -->

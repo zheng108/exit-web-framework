@@ -33,7 +33,6 @@
 
 	<div id="login_container">
 		<div class="logo"></div>
-    	<#--<img src="resources/images/logo.png" style="_background: none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="resources/images/logo.png",sizingMethod='crop'); "/>-->
     	<div class="panel_title">
         	<span class="login24_icon">用户登录</span>
 		</div>
