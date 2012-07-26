@@ -45,7 +45,6 @@
 		<!-- 默认的连接配置 -->
 		<property name="filterChainDefinitions">
 			<value>
-				/index = user
 				/login = authc
 				/logout = logout
 				/resource/** = anon

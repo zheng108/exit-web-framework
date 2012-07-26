@@ -49,7 +49,8 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
         SecurityModel model = (SecurityModel) principals.fromRealm(getName()).iterator().next();
         
         String id = model.getUser().getId();
-        //由于使用缓存机制对用户的授权信息做了缓存,当操作保存组.更新组.更新用户组的时候需要重新加载用户的组信息和资源信息
+        
+        //加载用户的组信息和资源信息
         List<Resource> authorizationInfo = accountManager.getUserResourcesByUserId(id);
         List<Group> groupsList = accountManager.getUserGroupsByUserId(id);
         List<Resource> resourcesList = accountManager.mergeResourcesToParent(authorizationInfo, ResourceType.Security);
@@ -87,10 +88,7 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
             throw new UnknownAccountException("用户不存在");
         }
         
-        List<Resource> authorizationInfo = accountManager.getUserResourcesByUserId(user.getId());
-        List<Resource> resourcesList = accountManager.mergeResourcesToParent(authorizationInfo, ResourceType.Security);
-        
-        SecurityModel model = new SecurityModel(user,user.getGroupsList(),authorizationInfo,resourcesList);
+        SecurityModel model = new SecurityModel(user);
         
         return new SimpleAuthenticationInfo(model,user.getPassword(),getName());
 	}
