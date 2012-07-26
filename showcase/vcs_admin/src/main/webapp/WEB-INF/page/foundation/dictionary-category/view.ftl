@@ -122,7 +122,7 @@
 		                    	${e.remark!""}
 		                    </td>
 		                    <td align="center">
-		                    	<@shiro.hasPermission name="dictionary-category:save">
+		                    	<@shiro.hasPermission name="dictionary-category:read">
 		                    		<a href="foundation/dictionary-category/read?id=${e.id}" icon="dictionary_category24_icon"  width="610" target="dialog" dialogId="edit_dictionary_category" modal="true" title="修改字典类别/${e.name}" class="operat edit16_icon">
 		                    	</@shiro.hasPermission>
 		                    </td>

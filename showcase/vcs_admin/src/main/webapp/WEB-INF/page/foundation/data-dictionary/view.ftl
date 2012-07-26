@@ -139,7 +139,7 @@
 		                    	${e.remark!""}
 		                    </td>
 		                    <td align="center">
-		                    	<@shiro.hasPermission name="data-dictionary:save">
+		                    	<@shiro.hasPermission name="data-dictionary:read">
 		                    		<a href="foundation/data-dictionary/read?id=${e.id}" icon="data_dictionary24_icon"  width="610" target="dialog" dialogId="edit_data_dictionary" modal="true" title="修改字典字典/${e.name}" class="operat edit16_icon">
 		                    	</@shiro.hasPermission>
 		                    </td>

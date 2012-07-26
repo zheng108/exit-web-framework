@@ -155,7 +155,7 @@
 		                    	${e.remark!""}
 		                    </td>
 		                    <td align="center">
-		                    	<@shiro.hasPermission name="resource:save">
+		                    	<@shiro.hasPermission name="resource:read">
 		                    		<a href="account/resource/read?id=${e.id}" icon="resource24_icon"  width="610" target="dialog" dialogId="edit_resource" modal="true" title="修改资源/${e.name}" class="operat edit16_icon">
 		                    	</@shiro.hasPermission>
 		                    </td>

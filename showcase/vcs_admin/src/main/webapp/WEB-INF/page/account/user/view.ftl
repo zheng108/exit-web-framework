@@ -138,7 +138,7 @@
 		                    	${e.groupNames}
 		                    </td>
 		                    <td align="center">
-		                    	<@shiro.hasPermission name="user:update">
+		                    	<@shiro.hasPermission name="user:read">
 		                    		<a href="account/user/read?id=${e.id}" icon="user24_icon"  width="610" target="dialog" dialogId="update_user" modal="true" title="修改用户/${e.username}" class="operat edit16_icon">
 		                    	</@shiro.hasPermission>
 		                    </td>

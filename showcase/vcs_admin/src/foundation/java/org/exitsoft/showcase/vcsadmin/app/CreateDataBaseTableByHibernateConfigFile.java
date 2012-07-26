@@ -1,6 +1,7 @@
 package org.exitsoft.showcase.vcsadmin.app;
 
 import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.ImprovedNamingStrategy;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 /**
@@ -16,7 +17,7 @@ public class CreateDataBaseTableByHibernateConfigFile {
 	
 	public static void main(String[] args) {
 		
-		SchemaExport export = new SchemaExport(new Configuration().configure());
+		SchemaExport export = new SchemaExport(new Configuration().configure().setNamingStrategy(new ImprovedNamingStrategy()));
 		
 		export.setFormat(false);
 		

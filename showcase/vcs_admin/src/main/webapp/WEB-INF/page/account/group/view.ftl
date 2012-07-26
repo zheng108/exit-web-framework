@@ -134,7 +134,7 @@
 		                    	${e.remark!""}
 		                    </td>
 		                    <td align="center">
-		                    	<@shiro.hasPermission name="group:save">
+		                    	<@shiro.hasPermission name="group:read">
 		                    		<a href="account/group/read?id=${e.id}" icon="group24_icon"  width="610" target="dialog" dialogId="edit_group" modal="true" title="修改组/${e.name}" class="operat edit16_icon">
 		                    	</@shiro.hasPermission>
 		                    </td>
