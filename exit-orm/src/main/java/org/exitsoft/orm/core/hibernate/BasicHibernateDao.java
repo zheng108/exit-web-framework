@@ -665,6 +665,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 		if (transformer != null) {
 			c.setResultTransformer(transformer);
 		}
+		
 		try {
 			ReflectionUtils.setFieldValue(impl, "orderEntries", orderEntries);
 		} catch (Exception e) {
@@ -808,7 +809,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @param it 要关闭的迭代器
 	 * 
 	 */
-	public void closeIterator(Iterator it) throws HibernateException {
+	public void closeIterator(Iterator<?> it) throws HibernateException {
 		Hibernate.close(it);
 	}
 	
@@ -985,7 +986,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 *            
 	 * @return int
 	 */
-	public int executeUpdate( String hql,  Object... values) {
+	public int executeUpdate(String hql,  Object... values) {
 		return createQuery(hql, values).executeUpdate();
 	}
 
@@ -997,7 +998,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 *            
 	 * @return int
 	 */
-	public int executeUpdate( String hql,  Map<String, ?> values) {
+	public int executeUpdate(String hql,  Map<String, ?> values) {
 		return createQuery(hql, values).executeUpdate();
 	}
 }
