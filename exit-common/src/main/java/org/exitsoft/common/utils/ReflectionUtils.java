@@ -61,8 +61,7 @@ public abstract class ReflectionUtils {
 	 * @return boolean
 	 */
 	public static boolean hasField(Object obj, String fieldName) {
-		Field field = getAccessibleField(obj, fieldName);
-		return field != null;
+		return getAccessibleField(obj, fieldName) != null;
 	}
 
 	/**
