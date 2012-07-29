@@ -158,7 +158,7 @@
 						<li>
 							<a href="#"><span class="user24_icon"><@shiro.principal/></span></a>
 						    <ul>
-						    	<@shiro.hasPermission name="system:change-password">
+						    	<@shiro.hasPermission name="security:change-password">
 							        <li>
 							            <a href="#change_password_panel" width="320" title="修改密码" icon="group24_icon" target="dialog" dialogId="change_password_dailog" ><span class="account24_icon">修改密码</span></a>
 							        </li>

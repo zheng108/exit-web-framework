@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50521
 File Encoding         : 65001
 
-Date: 2012-07-26 22:05:18
+Date: 2012-07-29 10:29:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -204,8 +204,8 @@ INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0022', 'data-dict
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0023', 'data-dictionary:delete', null, '21', '删除数据字典', '02', '/foundation/data-dictionary/delete/**', 'SJDK3849CKMS3849DJCK2039ZMSK0018', null);
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0024', 'data-dictionary:read', null, '22', '查看数据字典', '02', '/foundation/data-dictionary/read/**', 'SJDK3849CKMS3849DJCK2039ZMSK0018', null);
 INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0025', 'dictionary-category:read', null, '23', '查看字典类别', '02', '/foundation/dictionary-category/read/**', 'SJDK3849CKMS3849DJCK2039ZMSK0019', null);
-INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0026', 'system:to-index', null, '24', '进入主页', '02', '/index/**', null, null);
-INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0027', 'system:change-password', null, '25', '修改用户密码', '02', '/changePassword/**', null, null);
+INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0026', 'security:index', null, '24', '进入主页', '02', '/index/**', null, null);
+INSERT INTO `tb_resource` VALUES ('SJDK3849CKMS3849DJCK2039ZMSK0027', 'security:change-password', null, '25', '修改用户密码', '02', '/changePassword/**', null, null);
 
 -- ----------------------------
 -- Table structure for `tb_user`
