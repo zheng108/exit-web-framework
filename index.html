@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Exit-web-framework : 对常用的java web开发封装实用功能,提高开发效率。" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Exit-web-framework</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/exitsoft/exit-web-framework">View on GitHub</a>
+
+          <h1 id="project_title">Exit-web-framework</h1>
+          <h2 id="project_tagline">对常用的java web开发封装实用功能,提高开发效率。</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/exitsoft/exit-web-framework/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/exitsoft/exit-web-framework/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>exit-web-framework </h1>
+
+<p>exit-web-framework是对常用的java web开发封装实用功能来提高开发效率。exit-web-framework基于Spring 3、Hibernate4框架
+来对做项目核心三层和MVC的管理。使用到的新功能有spring缓存工厂、apeche shiro安全框架、spring mvc 3等主要技术，该项
+目分为两个部分做底层的封装，和带一个项目功能演示例子。</p>
+
+<p>初始化工作:
+<a href="http://maven.apache.org/">配置maven</a>，点击根目录下的install.bat文件做初始化工作。</p>
+
+<p>1.exit-common
+该jar包是对基本的常用工具类的一些简单封装。如泛型，反射，配置文件等工具类的封装。</p>
+
+<p>2.exit-orm
+该jar包是对持久化层的框架封装，目前只对Hibernate4的CURD和辅助功能封装。</p>
+
+<p>项目功能演示例子:
+在文件夹的shorcase里有一个vcs-admin项目。该项目是对以上两个框架(exit-common和exit-orm)、和其他技术的整合做的例子，
+也通过该例子使用maven做了一个archetype基础模板。可以通过该archetype来生成一个新的项目。</p>
+
+<p>archetype基础模板使用说明:
+1.点击根目录的install.bat进行初始化
+2.点击archetype-generate.bat生成你的项目</p>
+
+<p>该项目使用了mysql数据库,在vcs-admin文件夹中有一个database的文件夹里面有对应该项目使用的数据。导入之后可以通过
+vcs-admin项目文件夹中的bin文件夹下的jetty.bat文件运行项目，也可以用eclipse.bat生成项目导入到开发工具中在运行。
+该工程下有一个基于jeety运行的java文件org.exitsoft.showcase.vcsadmin.app.LaunchJetty.你也可以通过该文件运行整个
+项目.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Exit-web-framework maintained by <a href="https://github.com/exitsoft">exitsoft</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
