@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+/**
+ * 字典类别管理Controller
+ * 
+ * @author vincent
+ *
+ */
 @Controller
 @RequestMapping("/foundation/dictionary-category")
 public class DictionaryCategoryController {

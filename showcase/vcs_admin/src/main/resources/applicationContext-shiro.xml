@@ -8,7 +8,7 @@
 	<!-- 替换核心securityManager三处处理
 		1.realm认证和授权,从数据库读取资源,
 		2.sessionManager,使用缓存sessionDao
-		3.cacheManager,集合spring缓存工厂,在update save组合资源时及时刷新缓存授权让用户重新获取 -->
+		3.cacheManager,集合spring缓存工厂,在update save组或者资源时及时刷新缓存授权让用户重新获取 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="shiroDataBaseRealm" />
 		<property name="sessionManager" ref="sessionManager" />
