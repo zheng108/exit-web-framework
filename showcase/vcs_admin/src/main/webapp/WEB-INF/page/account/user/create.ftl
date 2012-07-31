@@ -5,7 +5,7 @@
 				登录帐号:
 	        </label>
 	        <div class="field">
-	            <input type="text" id="username" name="username" class="text_input_big" size="25" />
+	            <input type="text" id="username" name="username" class="text_input_big required" size="25" />
 	        </div>
 	        <label for="realname">
 				真实姓名:
@@ -19,13 +19,13 @@
 				登录密码:
 	        </label>
 	        <div class="field">
-	            <input type="password" id="password" name="password" class="text_input_big" size="25" />
+	            <input type="password" id="password" name="password" class="text_input_big required" size="25" />
 	        </div>
 	        <label for="configPassword">
 				确认密码:
 	        </label>
 	        <div class="field">
-	            <input type="password" id="configPassword" name="configPassword" class="text_input_big" size="25" />
+	            <input type="password" id="configPassword" name="configPassword" class="text_input_big required" equalTo="#password" size="25" />
 	        </div>
 	    </div>
 	    <div class="column">

@@ -249,7 +249,7 @@
             	
             	$.applyIf(option,{
             		maskEl:"",
-            		validate:false,
+            		validate:true,
             		error:function(){
             			$(option.maskEl).unmask();
             			if ($.isFunction(option.errorCall)) {
@@ -264,19 +264,21 @@
             		}
             	});
             	
-            	if (option.maskEl) {
-            		$(option.maskEl).mask();
-            	}
-            	
             	var me = $(form);
             	
             	if (option.validate) {
             		me.validate({
             			submitHandler: function(f) {
+            				if (option.maskEl) {
+                        		$(option.maskEl).mask();
+                        	}
             				$(f).ajaxSubmit(option);
             			}
             		});
             	} else {
+            		if (option.maskEl) {
+                		$(option.maskEl).mask();
+                	}
             		me.ajaxForm(option);
             	}
 

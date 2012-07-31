@@ -284,6 +284,9 @@
 			}
 			
 			var close = function(){
+				
+				dialogContent.find("input").poshytip('destroy');
+				
 				if (hasTarget) {
 					hideTargetDialog();
 				} else {
@@ -344,6 +347,10 @@
 				maskWidget.easydrag();
 				maskWidget.setHandler(dialogTitle);
 				
+				maskWidget.ondrag(function(){
+					dialogContent.find("input").poshytip('hide');
+				});
+				
 				if (modal) {
 					elMask.append(loading);
 					elMask.prependTo("body");
@@ -396,9 +403,23 @@
 			$(a).dialog();
 		});
 		
+		$.each($("*[title][title!='']"),function(i,t) {
+			$(t).poshytip({
+				alignY: 'bottom'
+			});
+		});
+		
 	};
+	
+	var destroyUi = function(){
+		
+		$.each($("*[class='tip-yellow']"),function(i,t) {
+			$(t).remove();
+		});
+	}
 
 	$(document).ajaxStop(initializeUi);
+	$(document).ajaxStart(destroyUi);
 	$(document).ready(initializeUi);
 	
 })(jQuery);

@@ -6,13 +6,13 @@
 				类别名称:
 	        </label>
 	        <div class="field">
-	            <input type="text" id="name" name="name" class="text_input_big" size="25" value="${entity.name!""}"/>
+	            <input type="text" id="name" name="name" class="text_input_big required" size="25" value="${entity.name!""}"/>
 	        </div>
 	        <label for="code">
 				类别代码:
 	        </label>
 	        <div class="field">
-	           <input type="text" id="code" name="code" class="text_input_big" size="25" value="${entity.code!""}"/>
+	           <input type="text" id="code" name="code" class="text_input_big required" size="25" value="${entity.code!""}"/>
 	         </div>
 	    </div>
 	    <div class="column">

@@ -6,7 +6,7 @@
 				资源名称:
 	        </label>
 	        <div class="field">
-	            <input type="text" id="name" name="name" class="text_input_big" size="25" value="${entity.name!""}"/>
+	            <input type="text" id="name" name="name" class="text_input_big required" size="25" value="${entity.name!""}"/>
 	        </div>
 	        <label for="type">
 				资源类型:
