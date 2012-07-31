@@ -5,7 +5,7 @@
 				登录帐号:
 	        </label>
 	        <div class="field">
-	            <input type="text" id="username" name="username" class="text_input_big required" size="25" />
+	            <input type="text" id="username" name="username" class="text_input_big required" remote="account/user/isUsernameUnique" size="25" />
 	        </div>
 	        <label for="realname">
 				真实姓名:

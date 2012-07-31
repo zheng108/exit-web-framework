@@ -108,9 +108,9 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping("isUsernameUnique")
-	public boolean isUsernameUnique(String username) {
+	public String isUsernameUnique(String username) {
 		
-		return accountManager.isUsernameUnique(username);
+		return String.valueOf(accountManager.isUsernameUnique(username));
 		
 	}
 	
