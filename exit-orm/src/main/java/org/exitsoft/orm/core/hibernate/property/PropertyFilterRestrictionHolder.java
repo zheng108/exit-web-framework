@@ -172,12 +172,21 @@ public class PropertyFilterRestrictionHolder {
 	}
 	
 	/**
-	 * 获取对Criterion的Map
+	 * 获取Criterion的Map
 	 * 
 	 * @return Map
 	 */
 	public static Map<String, PropertyValueRestrictionSuper> getCriterionMap() {
 		return criterionMap;
+	}
+	
+	/**
+	 * 设置Criterion的Map
+	 * 
+	 * @return Map
+	 */
+	public static void setCriterionMap(Map<String, PropertyValueRestrictionSuper> map) {
+		criterionMap.putAll(map);
 	}
 	
 	/**
