@@ -11,6 +11,8 @@ import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.orm.core.hibernate.HibernateSuperDao;
 import org.exitsoft.orm.core.hibernate.property.PropertyFilterRestrictionHolder;
+import org.exitsoft.orm.core.hibernate.property.impl.restriction.LikeRestriction;
+import org.exitsoft.orm.core.hibernate.property.impl.restriction.NeRestriction;
 import org.exitsoft.orm.test.entity.Role;
 import org.exitsoft.orm.test.entity.User;
 import org.hibernate.SessionFactory;
@@ -175,22 +177,22 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		userList = dao.findByProperty("loginName", "admin");
 		Assert.assertEquals(userList.size(),1);
 		
-		userList = dao.findByProperty("state", 1,"NE");
+		userList = dao.findByProperty("state", 1,NeRestriction.RestrictionName);
 		Assert.assertEquals(userList.size(),0);
 		
 		userList = dao.findByPropertyWithOrderBy("state", 1, "loginName_asc");
 		Assert.assertEquals(userList.size(),8);
 		
-		userList = dao.findByPropertyWithOrderBy("state", 1, "loginName_asc","NE");
+		userList = dao.findByPropertyWithOrderBy("state", 1, "loginName_asc",NeRestriction.RestrictionName);
 		Assert.assertEquals(userList.size(),0);
 		
 		roleList = dao.findByProperty("name","系统",Role.class);
 		Assert.assertEquals(roleList.size(),1);
 		
-		roleList = dao.findByProperty("name","系统","LIKE",Role.class);
+		roleList = dao.findByProperty("name","系统",LikeRestriction.RestrictionName,Role.class);
 		Assert.assertEquals(roleList.size(),3);
 		
-		roleList = dao.findByProperty("name","系统","LIKE",Role.class,"name");
+		roleList = dao.findByProperty("name","系统",LikeRestriction.RestrictionName,Role.class,"name");
 		Assert.assertEquals(roleList.size(),3);
 		
 	}
