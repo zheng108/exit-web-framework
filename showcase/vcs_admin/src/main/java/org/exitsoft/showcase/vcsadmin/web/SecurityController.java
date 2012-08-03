@@ -7,6 +7,7 @@ import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,7 +54,7 @@ public class SecurityController {
 	}
 	
 	/**
-	 * 当shior发现当前没有任何用户登录的信息时候调用该C，返回login页面
+	 * 当shior发现当前用户状态为is remember-me状态，并且该操作需要授权才能访问时，调用该C返回登录页面
 	 * 
 	 * @return String
 	 */
