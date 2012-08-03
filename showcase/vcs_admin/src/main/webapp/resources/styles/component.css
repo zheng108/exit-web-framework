@@ -517,3 +517,10 @@ a:active .button {
 	background:url(../images/tip/tip-yellow_arrows.png) no-repeat -48px 0;
 }
 /*气泡提示样式结束*/
+
+.placeholder { 
+	color: #666; 
+}
+.placeholderFocus { 
+	color: #000; 
+} 

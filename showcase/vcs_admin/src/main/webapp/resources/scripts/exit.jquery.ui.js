@@ -385,6 +385,8 @@
 	
 	var initializeUi = function(){
 		
+		$(":input[placeholder]").placeholder();
+		
 		var select = $("select[class='selection'][execstate!='true']");
 		
 		$.each(select,function(i,s){

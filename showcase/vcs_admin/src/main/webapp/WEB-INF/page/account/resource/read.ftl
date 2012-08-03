@@ -26,13 +26,13 @@
 				拦截URL:
 	        </label>
 	        <div class="field">
-	          <input type="text" id="value" name="value" class="text_input_big" size="25" value="${entity.value!""}" />
+	          <input type="text" placeholder="用于shiro授权时要拦截的值" id="value" name="value" class="text_input_big" size="25" value="${entity.value!""}" />
 	        </div>
 	        <label for="permission">
 				角色访问:
 	        </label>
 	        <div class="field">
-	          <input type="text" id="permission" name="permission" class="text_input_big" size="25" value="${entity.permission!""}" />
+	          <input type="text" id="permission" placeholder="用于shiro对拦截的值promission" name="permission" class="text_input_big" size="25" value="${entity.permission!""}" />
 	        </div>
 	    </div>
 	    <div class="column">
@@ -40,13 +40,13 @@
 				顺序值:
 	        </label>
 	        <div class="field">
-	          <input type="text" id="sort" name="sort" class="text_input_big" size="25" value="${entity.sort!""}" />
+	          <input type="text" id="sort" placeholder="不输入会自动按顺序生成" name="sort" class="text_input_big" size="25" value="${entity.sort!""}" />
 	        </div>
 	        <label for="icon">
 				图标:
 	        </label>
 	        <div class="field">
-	          <input type="text" id="icon" name="icon" class="text_input_big" size="25" value="${entity.icon!""}" />
+	          <input type="text" id="icon" placeholder="图标" name="icon" class="text_input_big" size="25" value="${entity.icon!""}" />
 	        </div>
 	    </div>
 	    <div class="column">
