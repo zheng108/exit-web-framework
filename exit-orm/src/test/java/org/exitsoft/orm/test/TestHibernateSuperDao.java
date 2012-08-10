@@ -301,6 +301,8 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 	public void testAllRestriction() {
 		List<User> userList = new ArrayList<User>();
 		
+		userList = dao.findByExpression("EQ_D_createTime", "2012-08-12");
+		
 		userList = dao.findByExpression("EQ_S_wubiCode", null);
 		Assert.assertEquals(userList.size(), 1);
 		userList = dao.findByExpression("EQ_S_wubiCode", "");

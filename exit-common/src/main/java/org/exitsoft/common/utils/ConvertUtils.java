@@ -1,5 +1,10 @@
 package org.exitsoft.common.utils;
 
+import java.util.Date;
+
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 类型转换工具类
  * 
@@ -7,7 +12,23 @@ package org.exitsoft.common.utils;
  *
  */
 public class ConvertUtils extends org.apache.commons.beanutils.ConvertUtils{
-
+	
+	static {
+		registerDateConverter("yyyy-MM-dd");
+	}
+	
+	/**
+	 * 注册一个时间类型的转换器,可注册多个日期格式,以','分隔
+	 * 
+	 * @param patterns 日期格式
+	 */
+	public static void registerDateConverter(String patterns) {
+		DateConverter dc = new DateConverter();
+		dc.setUseLocaleFormat(true);
+		dc.setPatterns(StringUtils.split(patterns, ","));
+		register(dc, Date.class);
+	}
+	
 	/**
 	 * 基于Apache BeanUtils转换字符串到相应类型.
 	 * 

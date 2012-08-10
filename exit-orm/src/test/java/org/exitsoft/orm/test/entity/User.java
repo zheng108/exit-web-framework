@@ -1,5 +1,6 @@
 package org.exitsoft.orm.test.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -31,6 +32,8 @@ public class User extends UniversallyUniqueIdentifier {
 	private String wubiCode;
 	
 	private String pinyinCode;
+	
+	private Date createTime;
 
 	// 拥有角色
 	private List<Role> roleList;
@@ -130,6 +133,14 @@ public class User extends UniversallyUniqueIdentifier {
 
 	public void setWubiCode(String wubiCode) {
 		this.wubiCode = wubiCode;
+	}
+	
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public String getPinyinCode() {
