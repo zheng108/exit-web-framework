@@ -3,7 +3,6 @@ package org.exitsoft.common.utils;
 import java.util.Date;
 
 import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * 类型转换工具类
@@ -18,14 +17,14 @@ public class ConvertUtils extends org.apache.commons.beanutils.ConvertUtils{
 	}
 	
 	/**
-	 * 注册一个时间类型的转换器,可注册多个日期格式,以','分隔
+	 * 注册一个时间类型的转换器,当前默认的格式为：yyyy-MM-dd
 	 * 
 	 * @param patterns 日期格式
 	 */
-	public static void registerDateConverter(String patterns) {
+	public static void registerDateConverter(String... patterns) {
 		DateConverter dc = new DateConverter();
 		dc.setUseLocaleFormat(true);
-		dc.setPatterns(StringUtils.split(patterns, ","));
+		dc.setPatterns(patterns);
 		register(dc, Date.class);
 	}
 	
