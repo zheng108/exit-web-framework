@@ -24,7 +24,7 @@ public class GeRestriction extends PropertyValueRestrictionSuper{
 	}
 
 	@Override
-	public Criterion buildRestriction(String propertyName, Object value) {
+	public Criterion build(String propertyName, Object value) {
 		
 		return Restrictions.ge(propertyName, value);
 	}

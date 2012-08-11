@@ -30,4 +30,15 @@ public interface PropertyCriterionBuilder {
 	 * @return String
 	 */
 	public String getRestrictionName();
+	
+	/**
+	 * 获取Hibernate的约束标准
+	 * 
+	 * @param propertyName 属性名
+	 * @param value 值
+	 * 
+	 * @return {@link Criterion}
+	 * 
+	 */
+	public  Criterion build(String propertyName,Object value);
 }

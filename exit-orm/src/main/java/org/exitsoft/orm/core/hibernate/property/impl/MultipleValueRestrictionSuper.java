@@ -39,17 +39,17 @@ public abstract class MultipleValueRestrictionSuper extends PropertyValueRestric
 		if (filter.hasMultiplePropertyNames()) {
 			Disjunction disjunction = Restrictions.disjunction();
 			for (String propertyName:filter.getPropertyNames()) {
-				disjunction.add(buildRestriction(propertyName,value));
+				disjunction.add(build(propertyName,value));
 			}
 			criterion = disjunction;
 		} else {
-			criterion = buildRestriction(filter.getSinglePropertyName(),value);
+			criterion = build(filter.getSinglePropertyName(),value);
 		}
 		return criterion;
 	}
 	
 	@Override
-	public Criterion buildRestriction(String propertyName, Object value) {
+	public Criterion build(String propertyName, Object value) {
 		
 		return buildRestriction(propertyName, (Object[])value);
 	}

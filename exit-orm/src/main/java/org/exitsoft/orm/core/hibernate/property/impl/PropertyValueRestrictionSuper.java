@@ -55,11 +55,11 @@ public abstract class PropertyValueRestrictionSuper implements PropertyCriterion
 			if (filter.hasMultiplePropertyNames()) {
 				Disjunction disjunction = Restrictions.disjunction();
 				for (String propertyName:filter.getPropertyNames()) {
-					disjunction.add(buildRestriction(propertyName,value));
+					disjunction.add(build(propertyName,value));
 				}
 				junction.add(disjunction);
 			} else {
-				junction.add(buildRestriction(filter.getSinglePropertyName(),value));
+				junction.add(build(filter.getSinglePropertyName(),value));
 			}
 			
 		}
@@ -85,7 +85,5 @@ public abstract class PropertyValueRestrictionSuper implements PropertyCriterion
 		}
 		
 	}
-	
-	public abstract Criterion buildRestriction(String propertyName,Object value);
 	
 }

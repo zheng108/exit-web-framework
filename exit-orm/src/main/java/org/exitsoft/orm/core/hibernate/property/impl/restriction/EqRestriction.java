@@ -39,7 +39,7 @@ public class EqRestriction extends PropertyValueRestrictionSuper {
 	}
 	
 	@Override
-	public Criterion buildRestriction(String propertyName, Object value) {
+	public Criterion build(String propertyName, Object value) {
 		
 		if (value == null) {
 			return Restrictions.isNull(propertyName);

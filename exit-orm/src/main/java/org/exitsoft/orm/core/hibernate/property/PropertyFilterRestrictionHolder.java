@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.exitsoft.common.utils.ServletUtils;
 import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.orm.core.PropertyType;
-import org.exitsoft.orm.core.hibernate.property.impl.PropertyValueRestrictionSuper;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.BetweenRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.EqRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.GeRestriction;
@@ -37,21 +36,21 @@ import org.hibernate.criterion.Criterion;
 public class PropertyFilterRestrictionHolder {
 	
 	
-	private static Map<String, PropertyValueRestrictionSuper> criterionMap = new HashMap<String, PropertyValueRestrictionSuper>();
+	private static Map<String, PropertyCriterionBuilder> criterionMap = new HashMap<String, PropertyCriterionBuilder>();
 	
 	static {
-		PropertyValueRestrictionSuper eqRestriction = new EqRestriction();
-		PropertyValueRestrictionSuper neRestriction = new NeRestriction();
-		PropertyValueRestrictionSuper geRestriction = new GeRestriction();
-		PropertyValueRestrictionSuper gtRestriction = new GtRestriction();
-		PropertyValueRestrictionSuper inRestriction = new InRestriction();
-		PropertyValueRestrictionSuper lLikeRestriction = new LlikeRestriction();
-		PropertyValueRestrictionSuper leRestriction = new LeRestriction();
-		PropertyValueRestrictionSuper likeRestriction = new LikeRestriction();
-		PropertyValueRestrictionSuper ltRestriction = new LtRestriction();
-		PropertyValueRestrictionSuper notInRestriction = new NinRestriction();
-		PropertyValueRestrictionSuper rLikeRestriction = new RlikeRestriction();
-		PropertyValueRestrictionSuper betweenRestriction = new BetweenRestriction();
+		PropertyCriterionBuilder eqRestriction = new EqRestriction();
+		PropertyCriterionBuilder neRestriction = new NeRestriction();
+		PropertyCriterionBuilder geRestriction = new GeRestriction();
+		PropertyCriterionBuilder gtRestriction = new GtRestriction();
+		PropertyCriterionBuilder inRestriction = new InRestriction();
+		PropertyCriterionBuilder lLikeRestriction = new LlikeRestriction();
+		PropertyCriterionBuilder leRestriction = new LeRestriction();
+		PropertyCriterionBuilder likeRestriction = new LikeRestriction();
+		PropertyCriterionBuilder ltRestriction = new LtRestriction();
+		PropertyCriterionBuilder notInRestriction = new NinRestriction();
+		PropertyCriterionBuilder rLikeRestriction = new RlikeRestriction();
+		PropertyCriterionBuilder betweenRestriction = new BetweenRestriction();
 		
 		criterionMap.put(eqRestriction.getRestrictionName(), eqRestriction);
 		criterionMap.put(neRestriction.getRestrictionName(), neRestriction);
@@ -89,8 +88,8 @@ public class PropertyFilterRestrictionHolder {
 	 * @return {@link Criterion}
 	 */
 	public static Criterion getCriterion(String propertyName,Object value,String restrictionName) {
-		PropertyValueRestrictionSuper restriction = criterionMap.get(restrictionName);
-		return restriction.buildRestriction(propertyName, value);
+		PropertyCriterionBuilder restriction = criterionMap.get(restrictionName);
+		return restriction.build(propertyName, value);
 	}
 	
 	/**
@@ -176,7 +175,7 @@ public class PropertyFilterRestrictionHolder {
 	 * 
 	 * @return Map
 	 */
-	public static Map<String, PropertyValueRestrictionSuper> getCriterionMap() {
+	public static Map<String, PropertyCriterionBuilder> getCriterionMap() {
 		return criterionMap;
 	}
 	
@@ -185,7 +184,7 @@ public class PropertyFilterRestrictionHolder {
 	 * 
 	 * @return Map
 	 */
-	public static void setCriterionMap(Map<String, PropertyValueRestrictionSuper> map) {
+	public static void setCriterionMap(Map<String, PropertyCriterionBuilder> map) {
 		criterionMap.putAll(map);
 	}
 	
