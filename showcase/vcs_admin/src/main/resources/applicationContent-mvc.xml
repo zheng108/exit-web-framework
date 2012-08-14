@@ -16,7 +16,18 @@
 	<mvc:view-controller path="/" view-name="redirect:/index"/>
 	
 	<!-- 使用缓存mvc注解配置 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<!-- 配置StringHttpMessageConverter当@ResponseBody 时中文正常显示 -->
+		<mvc:message-converters>
+             <bean class = "org.springframework.http.converter.StringHttpMessageConverter"> 
+                <property name = "supportedMediaTypes"> 
+                     <list> 
+                         <value>text/plain;charset=UTF-8</value> 
+                     </list> 
+                </property> 
+             </bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 	
 	<!-- spring mvc 的资源路径 -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -45,10 +56,6 @@
         <property name="suffix" value=".ftl" />  
         <property name="cache" value="false" />  
         <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
-        <!-- <property name="allowSessionOverride" value="true" /> -->
-        <!-- <property name="exposeRequestAttributes" value="false" /> -->
-        <!-- <property name="exposeSessionAttributes" value="true" /> -->
-        <!-- <property name="exposeSpringMacroHelpers" value="true" /> -->
         <property name="requestContextAttribute" value="request"></property>
         <property name="contentType" value="text/html;charset=UTF-8" />
     </bean>
