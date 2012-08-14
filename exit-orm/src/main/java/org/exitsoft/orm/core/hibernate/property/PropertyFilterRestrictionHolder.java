@@ -189,21 +189,48 @@ public class PropertyFilterRestrictionHolder {
 	}
 	
 	/**
-	 * 从HttpRequest中创建PropertyFilter列表, 默认Filter属性名前缀为filter.
+	 * 从HttpRequest参数中创建PropertyFilter列表, 默认Filter属性名前缀为filter.
+	 * 当参数存在{filter_EQ_S_property1:value,filter_EQ_S_property2:''}该形式的时候，将不会创建filter_EQ_S_property2等于""值的实例
+	 * 参考{@link PropertyFilterRestrictionHolder#buildPropertyFilter(HttpServletRequest, String, boolean)}
 	 * 
-	 * @see #buildFromHttpRequest(HttpServletRequest, String)
+	 * @param request HttpServletRequest
 	 */
 	public static List<PropertyFilter> buildFromHttpRequest(HttpServletRequest request) {
 		return buildFromHttpRequest(request, "filter");
 	}
 	
+	/**
+	 * 从HttpRequest参数中创建PropertyFilter列表,当参数存在{filter_EQ_S_property1:value,filter_EQ_S_property2:''}
+	 * 该形式的时候，将不会创建filter_EQ_S_property2等于""值的实例
+	 * 参考{@link PropertyFilterRestrictionHolder#buildPropertyFilter(HttpServletRequest, String, boolean)}
+	 * 
+	 * @param request HttpServletRequest
+	 * @param filterPrefix 用于识别是propertyfilter参数的前准
+	 * 
+	 * @return List
+	 */
 	public static List<PropertyFilter> buildFromHttpRequest(HttpServletRequest request,String filterPrefix) {
 		return buildPropertyFilter(request, "filter",false);
 	}
 
 	/**
-	 * 从HttpRequest中创建PropertyFilter列表
+	 * 从HttpRequest参数中创建PropertyFilter列表,例子:
 	 * 
+	 * <pre>
+	 * 当页面提交的参数为:{filter_EQ_S_property1:value,filter_EQ_S_property2:''}
+	 * List filters =buildPropertyFilter(request,"filter",false);
+	 * 当前filters:EQ_S_proerpty1="value",EQ_S_proerpty1=""
+	 * 
+	 * 当页面提交的参数为:{filter_EQ_S_property1:value,filter_EQ_S_property2:''}
+	 * List filters =buildPropertyFilter(request,"filter",true);
+	 * 当前filters:EQ_S_proerpty1="value"
+	 * </pre>
+	 * 
+	 * @param request HttpServletRequest
+	 * @param filterPrefix 用于识别是propertyfilter参数的前准
+	 * @param ignoreEmptyValue true表示当存在""值时忽略该PropertyFilter
+	 * 
+	 * @return List
 	 */
 	public static List<PropertyFilter> buildPropertyFilter(HttpServletRequest request,String filterPrefix,boolean ignoreEmptyValue) {
 
@@ -214,7 +241,25 @@ public class PropertyFilterRestrictionHolder {
 	}
 	
 	/**
-	 * 从Map中创建PropertyFilter列表
+	 * 从Map中创建PropertyFilter列表，如:
+	 * 
+	 * <pre>
+     * Map o = new HashMap();
+	 * o.put("EQ_S_property1","value");
+	 * o.put("EQ_S_property2","");
+	 * List filters = buildPropertyFilter(o,false);
+	 * 当前filters:EQ_S_proerpty1="value",EQ_S_proerpty1=""
+	 * 
+	 * Map o = new HashMap();
+	 * o.put("EQ_S_property1","value");
+	 * o.put("EQ_S_property2","");
+	 * List filters = buildPropertyFilter(o,true);
+	 * 当前filters:EQ_S_proerpty1="value"
+     * </pre>
+	 * 
+	 * 
+	 * @param filters 过滤器信息
+	 * @param ignoreEmptyValue true表示当存在 null或者""值时忽略该PropertyFilter
 	 * 
 	 */
 	public static List<PropertyFilter> buildPropertyFilter(Map<String, Object> filters,boolean ignoreEmptyValue) {
@@ -227,7 +272,7 @@ public class PropertyFilterRestrictionHolder {
 			if (ignoreEmptyValue && (value == null || value.toString().equals(""))) {
 				continue;
 			}
-			
+			//如果ignoreEmptyValue为true忽略null或""的值
 			PropertyFilter filter = createPropertyFilter(expression, value.toString());
 			filterList.add(filter);
 			
