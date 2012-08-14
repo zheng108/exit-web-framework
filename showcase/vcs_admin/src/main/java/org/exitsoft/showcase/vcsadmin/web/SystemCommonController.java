@@ -5,6 +5,7 @@ import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -80,4 +81,15 @@ public class SystemCommonController {
 		
 	}
 	
+	/**
+	 * 异常处理C
+	 * 
+	 * @param e Exception
+	 * 
+	 * @return String
+	 */
+	@ExceptionHandler
+	public @ResponseBody String exception(Exception e) {
+		return e.getMessage();
+	}
 }

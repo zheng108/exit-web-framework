@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.StringUtils;
-import org.exitsoft.common.utils.CollectionUtils;
 import org.exitsoft.common.utils.ServletUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
@@ -17,15 +15,11 @@ import org.exitsoft.showcase.vcsadmin.common.SystemVariableUtils;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.GroupType;
 import org.exitsoft.showcase.vcsadmin.entity.account.User;
-import org.exitsoft.showcase.vcsadmin.entity.foundation.DataDictionary;
 import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,7 +47,8 @@ public class UserController {
 	public Page<User> view(PageRequest pageRequest,HttpServletRequest request) {
 		
 		List<PropertyFilter> filters = PropertyFilterRestrictionHolder.buildFromHttpRequest(request);
-		
+
+		request.setAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
 		if (!pageRequest.isOrderBySetted()) {
 			pageRequest.setOrderBy("id");
 			pageRequest.setOrderDir(Sort.DESC);
@@ -124,7 +119,9 @@ public class UserController {
 	@RequestMapping("read")
 	public String read(@RequestParam(value = "id", required = false)String id,Model model) {
 		
+		model.addAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
 		model.addAttribute("groupsList", accountManager.getGroups(GroupType.RoleGorup));
+		
 		if (StringUtils.isEmpty(id)) {
 			return "account/user/create";
 		} else {
@@ -141,8 +138,6 @@ public class UserController {
 	 */
 	@ModelAttribute("entity")
 	public User bindingModel(@RequestParam(value = "id", required = false)String id,Model model) {
-		
-		model.addAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
 		
 		User user = new User();
 		
