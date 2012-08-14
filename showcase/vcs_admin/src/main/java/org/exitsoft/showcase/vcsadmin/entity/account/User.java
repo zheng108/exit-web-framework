@@ -186,7 +186,7 @@ public class User extends UniversallyUniqueIdentifier{
 		return CollectionUtils.extractToString(this.groupsList, "name", ",");
 	}
 
-	@Override
+	
 	public String toString() {
 		return username;
 	}

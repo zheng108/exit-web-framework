@@ -17,14 +17,14 @@ public class NeRestriction extends EqRestriction{
 	public final static String RestrictionName = "NE";
 
 
-	@Override
+	
 	public String getRestrictionName() {
 		
 		return RestrictionName;
 	}
 
 
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		
 		if (value == null) {

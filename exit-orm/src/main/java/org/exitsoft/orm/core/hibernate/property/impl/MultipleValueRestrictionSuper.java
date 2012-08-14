@@ -32,7 +32,7 @@ public abstract class MultipleValueRestrictionSuper extends PropertyValueRestric
 		return  ConvertUtils.convertToObject(result,type);
 	}
 	
-	@Override
+	
 	public Criterion build(PropertyFilter filter) {
 		Object value = convertMatchValue(filter.getMatchValue(), filter.getPropertyType());
 		Criterion criterion = null;
@@ -48,7 +48,7 @@ public abstract class MultipleValueRestrictionSuper extends PropertyValueRestric
 		return criterion;
 	}
 	
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		
 		return buildRestriction(propertyName, (Object[])value);

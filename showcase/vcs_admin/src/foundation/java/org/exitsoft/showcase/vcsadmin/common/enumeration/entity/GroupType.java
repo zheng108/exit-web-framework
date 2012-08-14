@@ -3,6 +3,10 @@ package org.exitsoft.showcase.vcsadmin.common.enumeration.entity;
 /**
  * 组类型
  * 
+ * 机构类型 = Organization,
+ * 部门类型 = Department,
+ * 角色组 = RoleGorup,
+ * 
  * @author vincent
  *
  */

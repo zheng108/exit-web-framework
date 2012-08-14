@@ -19,12 +19,12 @@ public class EqRestriction extends PropertyValueRestrictionSuper {
 
 	public final static String RestrictionName = "EQ";
 
-	@Override
+	
 	public String getRestrictionName() {
 		return RestrictionName;
 	}
 	
-	@Override
+	
 	public MatchValue createMatchValueModel(String matchValue,Class<?> type) {
 		
 		MatchValue matchValueModel = super.createMatchValueModel(matchValue, type);
@@ -38,7 +38,7 @@ public class EqRestriction extends PropertyValueRestrictionSuper {
 		return matchValueModel;
 	}
 	
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		
 		if (value == null) {

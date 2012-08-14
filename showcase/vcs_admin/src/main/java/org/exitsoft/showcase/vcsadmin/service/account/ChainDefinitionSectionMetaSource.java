@@ -31,7 +31,7 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
 	 */
 	public static final String PREMISSION_STRING="perms[\"{0}\"]";
 	
-	@Override
+	
 	public Section getObject() throws BeansException {
         
         List<Resource> list = accountManager.getAllResources();
@@ -63,13 +63,13 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
 	}
 
 
-	@Override
+	
 	public Class<?> getObjectType() {
 		return this.getClass();
 	}
 
 
-	@Override
+	
 	public boolean isSingleton() {
 		return false;
 	}

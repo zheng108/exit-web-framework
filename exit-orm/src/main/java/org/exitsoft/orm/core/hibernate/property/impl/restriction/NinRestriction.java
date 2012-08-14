@@ -17,13 +17,13 @@ public class NinRestriction extends MultipleValueRestrictionSuper{
 
 	public final static String RestrictionName = "NIN";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion buildRestriction(String propertyName, Object[] values) {
 		
 		return Restrictions.not(Restrictions.in(propertyName, values));

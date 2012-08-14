@@ -11,6 +11,7 @@
     <defaultCache maxElementsInMemory="10000" eternal="false"  timeToIdleSeconds="300" timeToLiveSeconds="600" overflowToDisk="true"/>
         
     <cache name="findByCateGoryCode" maxElementsInMemory="150" eternal="false" timeToLiveSeconds="36000" timeToIdleSeconds="3600" overflowToDisk="true"/>
+    <cache name="findByCategoryCodeWithIgnoreValue" maxElementsInMemory="150" eternal="false" timeToLiveSeconds="36000" timeToIdleSeconds="3600" overflowToDisk="true"/>
      
     <cache name="shiroActiveSessionCache"  maxElementsInMemory="10000" eternal="true" overflowToDisk="true" diskPersistent="true" diskExpiryThreadIntervalSeconds="600"/>
     

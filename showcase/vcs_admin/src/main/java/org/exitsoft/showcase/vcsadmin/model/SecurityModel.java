@@ -116,7 +116,7 @@ public class SecurityModel implements Serializable{
 		this.menusList = menusList;
 	}
 
-	@Override
+	
 	public String toString() {
 		
 		return user.getUsername();

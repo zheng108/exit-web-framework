@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -15,7 +17,6 @@ import org.exitsoft.orm.strategy.annotation.ConvertCode;
 import org.exitsoft.orm.strategy.annotation.ConvertProperty;
 import org.exitsoft.showcase.vcsadmin.common.strategy.PinYinWuBiConvertStrategy;
 import org.exitsoft.showcase.vcsadmin.entity.UniversallyUniqueIdentifier;
-import org.hibernate.annotations.NamedQuery;
 
 
 /**
@@ -27,7 +28,10 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @SuppressWarnings("serial")
 @Table(name="TB_DATA_DICTIONARY")
-@NamedQuery(readOnly=true,name=DataDictionary.FindByCateGoryCode,query="from DataDictionary dd where dd.category.code = ?1")
+@NamedQueries({
+	@NamedQuery(name=DataDictionary.FindByCateGoryCode,query="from DataDictionary dd where dd.category.code = ?1"),
+	@NamedQuery(name=DataDictionary.FindByCategoryCodeWithIgnoreValue,query="from DataDictionary dd where dd.category.code = ?1 and dd.value <> ?2")
+})
 @ConvertCode(
 	convertPropertys={
 			@ConvertProperty(propertyNames={"wubiCode","pinYinCode"},
@@ -39,6 +43,8 @@ import org.hibernate.annotations.NamedQuery;
 public class DataDictionary extends UniversallyUniqueIdentifier{
 	
 	public static final String FindByCateGoryCode = "findByCateGoryCode";
+	
+	public static final String FindByCategoryCodeWithIgnoreValue = "findByCategoryCodeWithIgnoreValue";
 	
 	//名称
 	private String name;

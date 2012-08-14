@@ -17,13 +17,13 @@ public class LeRestriction extends PropertyValueRestrictionSuper{
 
 	public final static String RestrictionName = "LE";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		return Restrictions.le(propertyName, value);
 	}

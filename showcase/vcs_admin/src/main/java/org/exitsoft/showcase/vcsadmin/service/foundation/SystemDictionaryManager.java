@@ -86,8 +86,20 @@ public class SystemDictionaryManager {
 	 */
 	@Cacheable(value=DataDictionary.FindByCateGoryCode)
 	public List<DataDictionary> getDataDictionariesByCategoryCode(SystemDictionaryCode code) {
-		
 		return dataDictionaryDao.findByQueryName(DataDictionary.FindByCateGoryCode, code.getCode());
+	}
+	
+	/**
+	 * 通过字典类别代码获取数据字典集合
+	 * 
+	 * @param code 字典列别
+	 * @param ignoreValue 忽略字典的值
+	 * 
+	 * @return List
+	 */
+	@Cacheable(value=DataDictionary.FindByCateGoryCode)
+	public List<DataDictionary> getDataDictionariesByCategoryCode(SystemDictionaryCode code,String ignoreValue) {
+		return dataDictionaryDao.findByQueryName(DataDictionary.FindByCategoryCodeWithIgnoreValue, code.getCode(),ignoreValue);
 	}
 	
 	//---------------------------------------字典类别管理---------------------------------------//

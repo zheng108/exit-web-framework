@@ -17,13 +17,13 @@ public class GeRestriction extends PropertyValueRestrictionSuper{
 	
 	public final static String RestrictionName = "GE";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		
 		return Restrictions.ge(propertyName, value);

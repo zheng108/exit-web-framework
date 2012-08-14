@@ -17,12 +17,12 @@ public class InRestriction extends MultipleValueRestrictionSuper{
 
 	public final static String RestrictionName = "IN";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		return RestrictionName;
 	}
 	
-	@Override
+	
 	public Criterion buildRestriction(String propertyName, Object[] values) {
 		return Restrictions.in(propertyName,values);
 	}

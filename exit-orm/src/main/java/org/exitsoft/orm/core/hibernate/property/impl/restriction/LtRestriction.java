@@ -17,12 +17,12 @@ public class LtRestriction extends PropertyValueRestrictionSuper{
 
 	public final static String RestrictionName = "LT";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		return Restrictions.lt(propertyName, value);
 	}

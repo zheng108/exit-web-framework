@@ -26,7 +26,7 @@ public class ManagerTestCaseSuper extends AbstractTransactionalJUnit4SpringConte
 	@Autowired
 	protected SessionFactory sessionFactory;
 	
-	@Override
+	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;

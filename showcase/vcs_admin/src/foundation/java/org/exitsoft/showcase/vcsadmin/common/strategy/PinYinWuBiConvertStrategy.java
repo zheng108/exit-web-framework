@@ -3,14 +3,14 @@ package org.exitsoft.showcase.vcsadmin.common.strategy;
 import org.exitsoft.orm.strategy.CodeStrategy;
 
 /**
- * 拼音五笔转码则略
+ * 拼音五笔转码策略
  * 
  * @author vincent
  *
  */
 public class PinYinWuBiConvertStrategy implements CodeStrategy{
 	
-	@Override
+	
 	public Object convertCode(Object value,String propertyName) {
 		if (value == null) {
 			return "";

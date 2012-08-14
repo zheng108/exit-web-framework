@@ -39,7 +39,7 @@ public class TestGroupManager extends ManagerTestCaseSuper{
 	
 	@Test
 	public void testGetAllParentGroupsByType() {
-		List<Group> groups = accountManager.getAllParentGroupsByType(GroupType.RoleGorup);
+		List<Group> groups = accountManager.getGroups(GroupType.RoleGorup);
 		assertEquals(groups.size(), 1);
 	}
 	

@@ -35,7 +35,7 @@ public abstract class PropertyValueRestrictionSuper implements PropertyCriterion
 		
 	}
 	
-	@Override
+	
 	public Criterion build(PropertyFilter filter) {
 		String matchValue = filter.getMatchValue();
 		Class<?> propertyType = filter.getPropertyType();

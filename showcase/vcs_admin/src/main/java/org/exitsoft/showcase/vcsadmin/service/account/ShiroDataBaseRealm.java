@@ -39,7 +39,7 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
 	 * 当用户进行访问链接时的授权方法
 	 * 
 	 */
-	@Override
+	
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		
         if (principals == null) {
@@ -72,7 +72,7 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
 	 * 用户登录的认证方法
 	 * 
 	 */
-	@Override
+	
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
 

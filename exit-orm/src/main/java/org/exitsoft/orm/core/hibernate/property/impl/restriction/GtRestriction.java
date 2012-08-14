@@ -17,13 +17,13 @@ public class GtRestriction extends PropertyValueRestrictionSuper{
 	
 	public final static String RestrictionName = "GT";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		return Restrictions.gt(propertyName, value);
 	}

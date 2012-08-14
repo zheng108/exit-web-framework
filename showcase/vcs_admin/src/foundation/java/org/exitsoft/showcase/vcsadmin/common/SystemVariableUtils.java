@@ -70,6 +70,18 @@ public class SystemVariableUtils {
 		}
 		return DefaultDictionaryValue; 
 	}
+
+	/**
+	 * 通过字典类别代码获取数据字典集合
+	 * 
+	 * @param code 字典类别
+	 * @param ignoreValue 忽略字典的值
+	 * 
+	 * @return List
+	 */
+	public static List<DataDictionary> getDataDictionariesByCategoryCode(SystemDictionaryCode code, String ignoreValue) {
+		return systemDictionaryManager.getDataDictionariesByCategoryCode(code, ignoreValue);
+	}
 	
 	/**
 	 * 通过字典类别代码获取数据字典集合

@@ -9,6 +9,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PropertyFilter;
+import org.exitsoft.showcase.vcsadmin.common.SystemVariableUtils;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.GroupType;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.ResourceType;
 import org.exitsoft.showcase.vcsadmin.dao.account.GroupDao;
@@ -53,15 +54,24 @@ public class AccountManager {
 	//------------------------------用户管理-----------------------------------//
 	
 	/**
-	 * 通过用户id更新用户密码
+	 * 更新当前用户密码
 	 * 
-	 * @param userId 用户id
-	 * @param password 新密码
+	 * @param oldPassword 旧密码
+	 * @param newPassword 新密码
 	 * 
 	 * @return boolean
 	 */
-	public void updateUserPassword(String userId, String password) {
-		userDao.updatePassword(userId,new SimpleHash("MD5",password).toHex());
+	public boolean updateUserPassword(String oldPassword, String newPassword) {
+		User user = SystemVariableUtils.getSecurityModel().getUser();
+		
+		oldPassword = new SimpleHash("MD5", oldPassword.toCharArray()).toString();
+		if(user.getPassword().equals(oldPassword)) {
+			userDao.updatePassword(user.getId(),new SimpleHash("MD5",newPassword).toHex());
+			user.setPassword(newPassword); 
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -294,7 +304,7 @@ public class AccountManager {
 	}
 	
 	/**
-	 * 通过组id集合获取组集合
+	 * 通过组id，获取组集合
 	 * 
 	 * @param ids id集合
 	 * 
@@ -305,14 +315,14 @@ public class AccountManager {
 	}
 	
 	/**
-	 * 通过组类型获取组集合,可以参考{@link GroupType}
+	 * 通过组类型，获取组集合
 	 * 
-	 * @param type 组类型
+	 * @param type 组类型，参考:{@link GroupType}
 	 * 
 	 * @return List
 	 */
-	public List<Group> getAllParentGroupsByType(GroupType type){
-		return groupDao.getAllParentGroupsByType(type.getValue());
+	public List<Group> getGroups(GroupType type) {
+		return groupDao.findByProperty("type", type.getValue());
 	}
 	
 	/**

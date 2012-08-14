@@ -17,12 +17,12 @@ public class BetweenRestriction extends MultipleValueRestrictionSuper{
 
 	public static final String RestrictionName = "BETWEEN";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion buildRestriction(String propertyName, Object[] values) {
 		
 		if (values.length > 2) {

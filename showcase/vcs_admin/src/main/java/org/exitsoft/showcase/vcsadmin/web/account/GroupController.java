@@ -19,6 +19,8 @@ import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,16 +104,17 @@ public class GroupController {
 	}
 	
 	/**
-	 * 绑定数据，如果存在id时获取后在做其他操作
+	 * 绑定实体数据，如果存在id时获取后从数据库获取记录，进入到相对的C后在将数据库获取的记录填充到相应的参数中
+	 * 
+	 * @param id 主键ID
 	 * 
 	 */
 	@ModelAttribute("entity")
-	public Group bindingModel(HttpServletRequest request) {
+	public Group bindingModel(@RequestParam(value = "id", required = false)String id,Model model) {
 		
-		request.setAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State));
-		request.setAttribute("groupsList", accountManager.getAllGroup(GroupType.RoleGorup));
+		model.addAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
+		model.addAttribute("groupsList", accountManager.getAllGroup(GroupType.RoleGorup));
 		
-		String id = request.getParameter("id");
 		Group group = new Group();
 		
 		if (StringUtils.isNotEmpty(id)) {

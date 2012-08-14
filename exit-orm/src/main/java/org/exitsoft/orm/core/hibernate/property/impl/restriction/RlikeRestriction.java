@@ -18,12 +18,12 @@ public class RlikeRestriction extends PropertyValueRestrictionSuper{
 	
 	public final static String RestrictionName = "RLIKE";
 	
-	@Override
+	
 	public String getRestrictionName() {
 		return RestrictionName;
 	}
 
-	@Override
+	
 	public Criterion build(String propertyName, Object value) {
 		
 		return Restrictions.like(propertyName, value.toString(), MatchMode.START);

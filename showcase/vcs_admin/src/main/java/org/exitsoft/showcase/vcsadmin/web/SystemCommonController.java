@@ -1,13 +1,10 @@
 package org.exitsoft.showcase.vcsadmin.web;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.exitsoft.showcase.vcsadmin.common.SystemVariableUtils;
-import org.exitsoft.showcase.vcsadmin.entity.account.User;
 import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  */
 @Controller
-public class SecurityController {
+public class SystemCommonController {
 	
 	@Autowired
 	private AccountManager accountManager;
@@ -64,7 +61,7 @@ public class SecurityController {
 	}
 	
 	/**
-	 * 用户修改密码C.修改成功返回"true"否则返回"false"
+	 * 当前用户修改密码C.修改成功返回"true"否则返回"false"
 	 * 
 	 * @param oldPassword 旧密码
 	 * @param newPassword 新密码
@@ -75,17 +72,12 @@ public class SecurityController {
 	@RequestMapping("/changePassword")
 	public String changePassword(@RequestParam("oldPassword")String oldPassword,@RequestParam("newPassword")String newPassword) {
 		
-		User user = SystemVariableUtils.getSecurityModel().getUser();
-		
-		oldPassword = new SimpleHash("MD5", oldPassword.toCharArray()).toString();
-		
-		if(user.getPassword().equals(oldPassword)) {
-			accountManager.updateUserPassword(user.getId(),newPassword);
-			user.setPassword(newPassword);
+		if (accountManager.updateUserPassword(oldPassword,newPassword)) {
 			return "true";
 		}
 		
 		return "false";
+		
 	}
 	
 }

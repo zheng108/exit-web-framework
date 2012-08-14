@@ -38,7 +38,7 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 	
 	private DataSource dataSource;
 	
-	@Override
+	
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		super.setDataSource(dataSource);

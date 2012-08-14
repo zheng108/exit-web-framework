@@ -22,7 +22,10 @@ import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -119,10 +122,9 @@ public class UserController {
 	 * 
 	 */
 	@RequestMapping("read")
-	public String read(HttpServletRequest request,Model model) {
-		String id = request.getParameter("id");
+	public String read(@RequestParam(value = "id", required = false)String id,Model model) {
 		
-		model.addAttribute("groupsList", accountManager.getAllParentGroupsByType(GroupType.RoleGorup));
+		model.addAttribute("groupsList", accountManager.getGroups(GroupType.RoleGorup));
 		if (StringUtils.isEmpty(id)) {
 			return "account/user/create";
 		} else {
@@ -132,24 +134,16 @@ public class UserController {
 	}
 	
 	/**
-	 * 绑定数据，如果存在id时获取后在做其他操作
+	 * 绑定实体数据，如果存在id时获取后从数据库获取记录，进入到相对的C后在将数据库获取的记录填充到相应的参数中
+	 * 
+	 * @param id 主键ID
 	 * 
 	 */
 	@ModelAttribute("entity")
-	public User bindingModel(HttpServletRequest request) {
-		List<DataDictionary> dataDictionaries = SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State);
+	public User bindingModel(@RequestParam(value = "id", required = false)String id,Model model) {
 		
-		CollectionUtils.filter(dataDictionaries, new Predicate() {
-			@Override
-			public boolean evaluate(Object object) {
-				DataDictionary dataDictionary = (DataDictionary) object;
-				return !dataDictionary.getValue().equals("3");
-			}
-		});
+		model.addAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
 		
-		request.setAttribute("states", dataDictionaries);
-		
-		String id = request.getParameter("id");
 		User user = new User();
 		
 		if (StringUtils.isNotEmpty(id)) {
