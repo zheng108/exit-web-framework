@@ -193,60 +193,42 @@ public class PropertyFilterRestrictionHolder {
 	 * 
 	 * @see #buildFromHttpRequest(HttpServletRequest, String)
 	 */
-	public static List<PropertyFilter> buildFromHttpRequest(final HttpServletRequest request) {
-		return buildPropertyFilter(request, "filter");
+	public static List<PropertyFilter> buildFromHttpRequest(HttpServletRequest request) {
+		return buildFromHttpRequest(request, "filter");
+	}
+	
+	public static List<PropertyFilter> buildFromHttpRequest(HttpServletRequest request,String filterPrefix) {
+		return buildPropertyFilter(request, "filter",false);
 	}
 
 	/**
 	 * 从HttpRequest中创建PropertyFilter列表
 	 * 
 	 */
-	public static List<PropertyFilter> buildPropertyFilter(final HttpServletRequest request, final String filterPrefix) {
-		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
+	public static List<PropertyFilter> buildPropertyFilter(HttpServletRequest request,String filterPrefix,boolean ignoreEmptyValue) {
 
 		// 从request中获取含属性前缀名的参数,构造去除前缀名后的参数Map.
 		Map<String, Object> filterParamMap = ServletUtils.getParametersStartingWith(request, filterPrefix + "_");
 
-		// 分析参数Map,构造PropertyFilter列表
-		for (Map.Entry<String, Object> entry : filterParamMap.entrySet()) {
-			String expression = entry.getKey();
-			Object value = entry.getValue();
-			
-			String[] matchValues = null;
-			
-			if (value instanceof Object[]) {
-				matchValues = (String[]) value;
-			} else {
-				matchValues = new String[]{value.toString()};
-			}
-			
-			String matchValue = "";
-			
-			for (String v : matchValues) {
-				matchValue += v + "_AND_";
-			}
-			
-			matchValue = StringUtils.substringBeforeLast(matchValue, "_AND_");
-			
-			PropertyFilter filter = createPropertyFilter(expression, matchValue);
-			filterList.add(filter);
-			
-		}
-		return filterList;
+		return buildPropertyFilter(filterParamMap,ignoreEmptyValue);
 	}
 	
 	/**
 	 * 从Map中创建PropertyFilter列表
 	 * 
 	 */
-	public static List<PropertyFilter> buildPropertyFilter(Map<String, String> filters) {
+	public static List<PropertyFilter> buildPropertyFilter(Map<String, Object> filters,boolean ignoreEmptyValue) {
 		List<PropertyFilter> filterList = new ArrayList<PropertyFilter>();
 		// 分析参数Map,构造PropertyFilter列表
-		for (Map.Entry<String, String> entry : filters.entrySet()) {
+		for (Map.Entry<String, Object> entry : filters.entrySet()) {
 			String expression = entry.getKey();
-			String matchValue = entry.getValue();
-			// 如果value值为空,则忽略此filter.
-			PropertyFilter filter = createPropertyFilter(expression, matchValue);
+			Object value = entry.getValue();
+			//如果ignoreEmptyValue为true忽略null或""的值
+			if (ignoreEmptyValue && (value == null || value.toString().equals(""))) {
+				continue;
+			}
+			
+			PropertyFilter filter = createPropertyFilter(expression, value.toString());
 			filterList.add(filter);
 			
 		}
