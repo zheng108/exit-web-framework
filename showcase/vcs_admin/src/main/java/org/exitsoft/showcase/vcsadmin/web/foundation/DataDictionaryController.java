@@ -62,9 +62,7 @@ public class DataDictionaryController {
 	 * 
 	 */
 	@RequestMapping("save")
-	public String save(@ModelAttribute("entity") DataDictionary entity,HttpServletRequest request,RedirectAttributes redirectAttributes) {
-		
-		String categoryId = request.getParameter("categoryId");
+	public String save(@ModelAttribute("entity") DataDictionary entity,@RequestParam(value="categoryId",required=false)String categoryId,RedirectAttributes redirectAttributes) {
 		
 		if (StringUtils.isEmpty(categoryId)) {
 			entity.setCategory(null);

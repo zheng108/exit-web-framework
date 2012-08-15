@@ -59,9 +59,7 @@ public class DictionaryCategoryController {
 	 * 
 	 */
 	@RequestMapping("save")
-	public String save(@ModelAttribute("entity") DictionaryCategory entity,HttpServletRequest request,RedirectAttributes redirectAttributes) {
-		
-		String parentId = request.getParameter("parendId");
+	public String save(@ModelAttribute("entity") DictionaryCategory entity,@RequestParam(value="parentId")String parentId,RedirectAttributes redirectAttributes) {
 		
 		if (StringUtils.isEmpty(parentId)) {
 			entity.setParent(null);

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.exitsoft.common.utils.ServletUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PageRequest.Sort;
@@ -49,6 +48,7 @@ public class UserController {
 		List<PropertyFilter> filters = PropertyFilterRestrictionHolder.buildFromHttpRequest(request);
 
 		request.setAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
+		
 		if (!pageRequest.isOrderBySetted()) {
 			pageRequest.setOrderBy("id");
 			pageRequest.setOrderDir(Sort.DESC);
@@ -62,9 +62,7 @@ public class UserController {
 	 * 创建用户
 	 */
 	@RequestMapping("insert")
-	public String insert(User entity,HttpServletRequest request,RedirectAttributes redirectAttributes) {
-		
-		List<String> groupIds = ServletUtils.getParameterValues(request, "groupIds");
+	public String insert(User entity,@RequestParam(value = "groupIds",required=false)List<String> groupIds,RedirectAttributes redirectAttributes) {
 		
 		entity.setGroupsList(accountManager.getGroups(groupIds));
 		
@@ -87,9 +85,8 @@ public class UserController {
 	 * 更新用户
 	 */
 	@RequestMapping(value="update")
-	public String update(@ModelAttribute("entity")User entity, HttpServletRequest request,RedirectAttributes redirectAttributes) {
-		List<String> groupIds = ServletUtils.getParameterValues(request, "groupIds");
-		
+	public String update(@ModelAttribute("entity")User entity, @RequestParam(value = "groupIds",required=false)List<String> groupIds,RedirectAttributes redirectAttributes) {
+
 		entity.setGroupsList(accountManager.getGroups(groupIds));
 		
 		accountManager.updateUser(entity);

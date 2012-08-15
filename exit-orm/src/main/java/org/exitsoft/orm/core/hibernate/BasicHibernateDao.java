@@ -293,7 +293,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return List
 	 */
 	public List<T> get(Collection<PK> ids) {
-		if (ids == null || ids.size() == 0) {
+		if (CollectionUtils.isEmpty(ids)) {
 			return Collections.emptyList();
 		}
 		return createCriteria(Restrictions.in(getIdName(), ids)).list();

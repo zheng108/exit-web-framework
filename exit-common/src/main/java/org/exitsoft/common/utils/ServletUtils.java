@@ -169,6 +169,14 @@ public abstract class ServletUtils {
 		return params;
 	}
 	
+	/**
+	 * 通过参数名称获取ServletRequest所有参数
+	 * 
+	 * @param request ServletRequest
+	 * @param name 参数名称
+	 * 
+	 * @return List
+	 */
 	public static List<String> getParameterValues(ServletRequest request,String name) {
 		List<String> list = new ArrayList<String>();
 		

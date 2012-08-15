@@ -212,6 +212,30 @@ public class PropertyFilterRestrictionHolder {
 	public static List<PropertyFilter> buildFromHttpRequest(HttpServletRequest request,String filterPrefix) {
 		return buildPropertyFilter(request, "filter",false);
 	}
+	
+	/**
+	 * 从HttpRequest参数中创建PropertyFilter列表,当参数存在{filter_EQ_S_property1:value,filter_EQ_S_property2:''}
+	 * 该形式的时候，将不会创建filter_EQ_S_property2等于""值的实例
+	 * 参考{@link PropertyFilterRestrictionHolder#buildPropertyFilter(HttpServletRequest, String, boolean)}
+	 * 
+	 * <pre>
+	 * 当页面提交的参数为:{filter_EQ_S_property1:value,filter_EQ_S_property2:''}
+	 * List filters =buildPropertyFilter(request,"filter",false);
+	 * 当前filters:EQ_S_proerpty1="value",EQ_S_proerpty1=""
+	 * 
+	 * 当页面提交的参数为:{filter_EQ_S_property1:value,filter_EQ_S_property2:''}
+	 * List filters =buildPropertyFilter(request,"filter",true);
+	 * 当前filters:EQ_S_proerpty1="value"
+	 * </pre>
+	 * 
+	 * @param request HttpServletRequest
+	 * @param ignoreEmptyValue true表示当存在""值时忽略该PropertyFilter
+	 * 
+	 * @return List
+	 */
+	public static List<PropertyFilter> buildFromHttpRequest(HttpServletRequest request,boolean ignoreEmptyValue) {
+		return buildPropertyFilter(request, "filter",ignoreEmptyValue);
+	}
 
 	/**
 	 * 从HttpRequest参数中创建PropertyFilter列表,例子:

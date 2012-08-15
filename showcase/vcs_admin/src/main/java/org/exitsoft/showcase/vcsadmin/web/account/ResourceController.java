@@ -59,9 +59,7 @@ public class ResourceController {
 	 * 
 	 */
 	@RequestMapping("save")
-	public String save(@ModelAttribute("entity") Resource entity,HttpServletRequest request,RedirectAttributes redirectAttributes) {
-		
-		String parentId = request.getParameter("parendId");
+	public String save(@ModelAttribute("entity") Resource entity,@RequestParam(value = "parentId",required=false)String parentId,RedirectAttributes redirectAttributes) {
 		
 		if (StringUtils.isEmpty(parentId)) {
 			entity.setParent(null);
