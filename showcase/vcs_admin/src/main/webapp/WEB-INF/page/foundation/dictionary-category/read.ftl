@@ -16,11 +16,11 @@
 	         </div>
 	    </div>
 	    <div class="column">
-	    	<label for="parendId">
+	    	<label for="parentId">
 	    		所属父类:
 	    	</label>
 	    	<div class="field">
-	    		<select class="selection" height="150" search="true" name="parendId" id="parendId" size="66">
+	    		<select class="selection" height="150" search="true" name="parentId" id="parentId" size="66">
 	                <#list categoriesList as cl>
 	                	<option value="${cl.id}" <#if entity.parentId==cl.id> selected="selected" </#if> >${cl.name}</option>
 	                </#list>

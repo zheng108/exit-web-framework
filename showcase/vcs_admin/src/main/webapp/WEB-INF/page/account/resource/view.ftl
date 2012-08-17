@@ -29,13 +29,13 @@
 </script>
 <div id="resource_panel">
 	<div id="search_resource_dailog">
-		<form id="search_form" method="post" action="account/resource/view">
+		<form id="search_form" action="account/resource/view"  method="post">
 			<div class="column">
-		        <label for="filter_LIKE_S_name">
+		        <label for="filter_RLIKE_S_name">
 					资源名称:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_name" name="filter_LIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_name!""}"/>
+		            <input type="text" id="filter_RLIKE_S_name" name="filter_RLIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_name!""}"/>
 		        </div>
 		        <label for="filter_EQ_S_type">
 					资源类型:
@@ -51,17 +51,17 @@
 		        </div>
 		    </div>
 		    <div class="column">
-		        <label for="filter_LIKE_S_value">
+		        <label for="filter_RLIKE_S_value">
 					拦截值:
 		        </label>
 		        <div class="field">
-		          <input type="text" id="filter_LIKE_S_value" name="filter_LIKE_S_value" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_value!""}"/>
+		          <input type="text" id="filter_RLIKE_S_value" name="filter_RLIKE_S_value" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_value!""}"/>
 		        </div>
-		        <label for="filter_LIKE_S_permission">
+		        <label for="filter_RLIKE_S_permission">
 					角色访问:
 		        </label>
 		        <div class="field">
-		           <input type="text" id="filter_LIKE_S_permission" name="filter_LIKE_S_permission" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_permission!""}"/>
+		           <input type="text" id="filter_RLIKE_S_permission" name="filter_RLIKE_S_permission" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_permission!""}"/>
 		         </div>
 		    </div>
 		    <div class="column">

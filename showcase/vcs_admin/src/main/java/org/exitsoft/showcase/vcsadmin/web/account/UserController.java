@@ -40,6 +40,9 @@ public class UserController {
 	/**
 	 * 获取用户列表
 	 * 
+	 * @param pageRequest 分页实体信息
+	 * @param request HttpServlet请求
+	 * 
 	 * @return {@link Page}
 	 */
 	@RequestMapping("view")
@@ -59,7 +62,14 @@ public class UserController {
 	
 	
 	/**
-	 * 创建用户
+	 * 创建用户,创建成功后重定向到:account/user/view
+	 * 
+	 * @param entity 实体信息
+	 * @param groupIds 所在组id
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
+	 * 
 	 */
 	@RequestMapping("insert")
 	public String insert(User entity,@RequestParam(value = "groupIds",required=false)List<String> groupIds,RedirectAttributes redirectAttributes) {
@@ -68,11 +78,17 @@ public class UserController {
 		
 		accountManager.insertUser(entity);
 		redirectAttributes.addFlashAttribute("message", "新增成功");
+		
 		return "redirect:/account/user/view";
 	}
 	
 	/**
-	 * 删除用户
+	 * 通过主键id集合删除用户,删除成功后重定向到:account/user/view
+	 * 
+	 * @param ids 主键id集合
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 */
 	@RequestMapping("delete")
 	public String delete(@RequestParam("ids")List<String> ids,RedirectAttributes redirectAttributes) {
@@ -82,7 +98,13 @@ public class UserController {
 	}
 	
 	/**
-	 * 更新用户
+	 * 更新用户，更新成功后重定向到:account/user/view
+	 * 
+	 * @param entity 实体信息
+	 * @param groupIds 所在组id
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 */
 	@RequestMapping(value="update")
 	public String update(@ModelAttribute("entity")User entity, @RequestParam(value = "groupIds",required=false)List<String> groupIds,RedirectAttributes redirectAttributes) {
@@ -95,7 +117,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 判断用户帐号是否唯一,在新建时使用,如果存在用户返回true,否则返回false
+	 * 判断用户帐号是否唯一,在新建时使用,如果存在用户返回"true",否则返回"false"
 	 * 
 	 * @param username 用户帐号
 	 * 
@@ -111,6 +133,11 @@ public class UserController {
 	
 	/**
 	 * 创建和更新使用的方法签名.如果链接没有?id=*会跳转到create.flt,如果存在跳转到read.ftl
+	 * 
+	 * @param id 主键id
+	 * @param model Spring mvc的Model接口，主要是将model的属性返回到页面中
+	 * 
+	 * @return String
 	 * 
 	 */
 	@RequestMapping("read")
@@ -134,7 +161,7 @@ public class UserController {
 	 * 
 	 */
 	@ModelAttribute("entity")
-	public User bindingModel(@RequestParam(value = "id", required = false)String id,Model model) {
+	public User bindingModel(@RequestParam(value = "id", required = false)String id) {
 		
 		User user = new User();
 		

@@ -29,13 +29,13 @@
 </script>
 <div id="dictionary_category_panel">
 	<div id="search_dictionary_category_dailog">
-		<form id="search_form" method="post" action="foundation/dictionary-category/view">
+		<form id="search_form" action="foundation/dictionary-category/view" method="post">
 			<div class="column">
-		        <label for="filter_LIKE_S_name">
+		        <label for="filter_RLIKE_S_name">
 					类别名称:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_name" name="filter_LIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_name!""}"/>
+		            <input type="text" id="filter_RLIKE_S_name" name="filter_RLIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_name!""}"/>
 		        </div>
 		        <label for="filter_EQ_S_code">
 					类别代码:

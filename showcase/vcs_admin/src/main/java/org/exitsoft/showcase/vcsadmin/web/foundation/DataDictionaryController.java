@@ -39,6 +39,9 @@ public class DataDictionaryController {
 	/**
 	 * 获取数据字典列表
 	 * 
+	 * @param pageRequest 分页实体信息
+	 * @param request HttpServlet请求
+	 * 
 	 * @return {@link Page}
 	 */
 	@RequestMapping("view")
@@ -51,6 +54,7 @@ public class DataDictionaryController {
 			pageRequest.setOrderDir(Sort.DESC);
 		}
 		
+		request.setAttribute("valueTypes", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.ValueType));
 		request.setAttribute("categoriesList", systemDictionaryManager.getAllDictionaryCategories());
 		
 		return systemDictionaryManager.searchDataDictionaryPage(pageRequest, filters);
@@ -58,11 +62,17 @@ public class DataDictionaryController {
 	
 	/**
 	 * 
-	 * 保存或更新数据字典
+	 * 保存数据字典,保存成功后重定向到:foundation/data-dictionary/view
+	 * 
+	 * @param entity 实体信息
+	 * @param categoryId 所对应的字典类别id
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 * 
 	 */
 	@RequestMapping("save")
-	public String save(@ModelAttribute("entity") DataDictionary entity,@RequestParam(value="categoryId",required=false)String categoryId,RedirectAttributes redirectAttributes) {
+	public String save(@ModelAttribute("entity") DataDictionary entity,String categoryId,RedirectAttributes redirectAttributes) {
 		
 		if (StringUtils.isEmpty(categoryId)) {
 			entity.setCategory(null);
@@ -78,27 +88,30 @@ public class DataDictionaryController {
 	
 	/**
 	 * 
-	 * 读取数据字典
+	 * 读取数据字典,返回foundation/data-dictionary/read.ftl页面
+	 * 
+	 * @param model Spring mvc的Model接口，主要是将model的属性返回到页面中
+	 * 
+	 * @return String
 	 * 
 	 */
 	@RequestMapping("read")
-	public String read(HttpServletRequest request) {
+	public String read(@RequestParam(value = "id", required = false)String id,Model model) {
 		
-		List<PropertyFilter> filters = new ArrayList<PropertyFilter>();
-		String id = request.getParameter("id");
-		
-		if (StringUtils.isNotEmpty(id)) {
-			filters.add(PropertyFilterRestrictionHolder.createPropertyFilter("NE_S_id", id));
-		}
-		
-		request.setAttribute("categoriesList", systemDictionaryManager.getAllDictionaryCategories(filters));
+		model.addAttribute("valueTypes", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.ValueType));
+		model.addAttribute("categoriesList", systemDictionaryManager.getAllDictionaryCategories());
 		
 		return "/foundation/data-dictionary/read";
 		
 	}
 	
 	/**
-	 * 删除数据字典
+	 * 通过主键id集合删除数据字典,删除成功后重定向到:foundation/data-dictionary/view
+	 * 
+	 * @param ids 主键id集合
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 */
 	@RequestMapping("delete")
 	public String delete(@RequestParam("ids")List<String> ids,RedirectAttributes redirectAttributes) {
@@ -114,9 +127,7 @@ public class DataDictionaryController {
 	 * 
 	 */
 	@ModelAttribute("entity")
-	public DataDictionary bindingModel(@RequestParam(value = "id", required = false)String id,Model model) {
-
-		model.addAttribute("valueTypes", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.ValueType));
+	public DataDictionary bindingModel(@RequestParam(value = "id", required = false)String id) {
 		
 		DataDictionary dataDictionary = new DataDictionary();
 		

@@ -40,6 +40,9 @@ public class GroupController {
 	/**
 	 * 获取资源列表
 	 * 
+	 * @param pageRequest 分页实体信息
+	 * @param request HttpServlet请求
+	 * 
 	 * @return {@link Page}
 	 */
 	@RequestMapping("view")
@@ -47,23 +50,33 @@ public class GroupController {
 		
 		List<PropertyFilter> filters = PropertyFilterRestrictionHolder.buildFromHttpRequest(request);
 		
+		request.setAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
+		request.setAttribute("groupsList", accountManager.getAllGroup(GroupType.RoleGorup));
+		
 		if (!pageRequest.isOrderBySetted()) {
 			pageRequest.setOrderBy("id");
 			pageRequest.setOrderDir(Sort.DESC);
 		}
+		
 		filters.add(PropertyFilterRestrictionHolder.createPropertyFilter("EQ_S_type", GroupType.RoleGorup.getValue()));
+		
 		return accountManager.searchGroupPage(pageRequest, filters);
 	}
 	
 	/**
 	 * 
-	 * 保存资源
+	 * 保存资源，保存成功后重定向到:account/group/view
 	 * 
+	 * @param entity 实体信息
+	 * @param request HttpServlet请求,由于保存时候需要到parentId和resourceIds的参数，为了简洁，直接使用request,不用@RequestParam获取参数
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 */
 	@RequestMapping("save")
 	public String save(@ModelAttribute("entity") Group entity,HttpServletRequest request,RedirectAttributes redirectAttributes) {
 		
-		String parentId = request.getParameter("parendId");
+		String parentId = request.getParameter("parentId");
 		
 		if (StringUtils.isEmpty(parentId)) {
 			entity.setParent(null);
@@ -84,10 +97,16 @@ public class GroupController {
 	 * 
 	 * 读取资源信息
 	 * 
+	 * @param model Spring mvc的Model接口，主要是将model的属性返回到页面中
+	 * 
 	 */
 	@RequestMapping("read")
-	public String read(Model model) {
+	public String read(@RequestParam(value = "id", required = false)String id,Model model) {
+		
 		model.addAttribute("resourcesList", accountManager.getAllResources());
+		model.addAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
+		model.addAttribute("groupsList", accountManager.getAllGroup(GroupType.RoleGorup,id));
+		
 		return "account/group/read";
 	}
 	
@@ -108,10 +127,7 @@ public class GroupController {
 	 * 
 	 */
 	@ModelAttribute("entity")
-	public Group bindingModel(@RequestParam(value = "id", required = false)String id,Model model) {
-		
-		model.addAttribute("states", SystemVariableUtils.getDataDictionariesByCategoryCode(SystemDictionaryCode.State,"3"));
-		model.addAttribute("groupsList", accountManager.getAllGroup(GroupType.RoleGorup));
+	public Group bindingModel(@RequestParam(value = "id", required = false)String id) {
 		
 		Group group = new Group();
 		

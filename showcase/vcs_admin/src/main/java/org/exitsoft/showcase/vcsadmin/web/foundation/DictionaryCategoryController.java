@@ -36,6 +36,9 @@ public class DictionaryCategoryController {
 	/**
 	 * 获取字典类别列表
 	 * 
+	 * @param pageRequest 分页实体信息
+	 * @param request HttpServlet请求
+	 * 
 	 * @return {@link Page}
 	 */
 	@RequestMapping("view")
@@ -55,11 +58,16 @@ public class DictionaryCategoryController {
 	
 	/**
 	 * 
-	 * 保存或更新字典类别
+	 * 保存或更新字典类别,保存成功后重定向到:foundation/dictionary-category/view
 	 * 
+	 * @param entity 实体信息
+	 * @param parentId 所对应的父类id
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 */
 	@RequestMapping("save")
-	public String save(@ModelAttribute("entity") DictionaryCategory entity,@RequestParam(value="parentId")String parentId,RedirectAttributes redirectAttributes) {
+	public String save(@ModelAttribute("entity") DictionaryCategory entity,String parentId,RedirectAttributes redirectAttributes) {
 		
 		if (StringUtils.isEmpty(parentId)) {
 			entity.setParent(null);
@@ -74,8 +82,11 @@ public class DictionaryCategoryController {
 	
 	/**
 	 * 
-	 * 读取字典类别
+	 * 读取字典类别,返回foundation/dictionary-category/read.ftl页面
 	 * 
+	 * @param model Spring mvc的Model接口，主要是将model的属性返回到页面中
+	 * 
+	 * @return String
 	 */
 	@RequestMapping("read")
 	public String read(HttpServletRequest request) {
@@ -86,7 +97,7 @@ public class DictionaryCategoryController {
 		if (StringUtils.isNotEmpty(id)) {
 			filters.add(PropertyFilterRestrictionHolder.createPropertyFilter("NE_S_id", id));
 		}
-		
+		//展示父类下来框时，不要连自己也在下拉框里
 		request.setAttribute("categoriesList", systemDictionaryManager.getAllDictionaryCategories(filters));
 		
 		return "/foundation/dictionary-category/read";
@@ -94,7 +105,12 @@ public class DictionaryCategoryController {
 	}
 	
 	/**
-	 * 删除字典类别
+	 * 通过主键id集合删除字典类别,删除成功后重定向到:foundation/dictionary-category/view
+	 * 
+	 * @param ids 主键id集合
+	 * @param redirectAttributes spring mvc 重定向属性
+	 * 
+	 * @return String
 	 */
 	@RequestMapping("delete")
 	public String delete(@RequestParam("ids")List<String> ids,RedirectAttributes redirectAttributes) {

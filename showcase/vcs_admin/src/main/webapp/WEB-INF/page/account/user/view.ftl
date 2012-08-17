@@ -29,27 +29,27 @@
 </script>
 <div id="user_panel">
 	<div id="search_user_dailog">
-		<form id="search_form" method="post" action="account/user/view">
+		<form id="search_form" action="account/user/view" method="post">
 			<div class="column">
-		        <label for="filter_LIKE_S_username">
+		        <label for="filter_RLIKE_S_username">
 					登录帐号:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_username" name="filter_LIKE_S_username" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_username!""}"/>
+		            <input type="text" id="filter_RLIKE_S_username" name="filter_RLIKE_S_username" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_username!""}"/>
 		        </div>
-		        <label for="filter_LIKE_S_realname">
+		        <label for="filter_RLIKE_S_realname">
 					真实姓名:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_realname" name="filter_LIKE_S_realname" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_realname!""}" />
+		            <input type="text" id="filter_RLIKE_S_realname" name="filter_RLIKE_S_realname" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_realname!""}" />
 		        </div>
 		    </div>
 		    <div class="column">
-		        <label for="filter_LIKE_S_email">
+		        <label for="filter_RLIKE_S_email">
 					电子邮件:
 		        </label>
 		        <div class="field">
-		          <input type="text" id="filter_LIKE_S_email" name="filter_LIKE_S_email" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_email!""}"/>
+		          <input type="text" id="filter_RLIKE_S_email" name="filter_RLIKE_S_email" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_email!""}"/>
 		        </div>
 		        <label for="filter_EQ_S_state">
 					状态:

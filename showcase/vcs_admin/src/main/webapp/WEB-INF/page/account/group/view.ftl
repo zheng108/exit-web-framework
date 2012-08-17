@@ -29,13 +29,13 @@
 </script>
 <div id="group_panel">
 	<div id="search_group_dailog">
-		<form id="search_form" method="post" action="account/group/view">
+		<form id="search_form" action="account/group/view" method="post">
 			<div class="column">
-		        <label for="filter_LIKE_S_name">
+		        <label for="filter_RLIKE_S_name">
 					组名称:
 		        </label>
 		        <div class="field">
-		            <input type="text" id="filter_LIKE_S_name" name="filter_LIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_LIKE_S_name!""}"/>
+		            <input type="text" id="filter_RLIKE_S_name" name="filter_RLIKE_S_name" class="text_input_big" size="25" value="${RequestParameters.filter_RLIKE_S_name!""}"/>
 		        </div>
 		    </div>
 		    <div class="column">

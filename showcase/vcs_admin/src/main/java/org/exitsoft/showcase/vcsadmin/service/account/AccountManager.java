@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PropertyFilter;
+import org.exitsoft.orm.core.hibernate.property.PropertyFilterRestrictionHolder;
 import org.exitsoft.showcase.vcsadmin.common.SystemVariableUtils;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.GroupType;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.ResourceType;
@@ -19,6 +20,7 @@ import org.exitsoft.showcase.vcsadmin.entity.account.Group;
 import org.exitsoft.showcase.vcsadmin.entity.account.Resource;
 import org.exitsoft.showcase.vcsadmin.entity.account.User;
 import org.exitsoft.showcase.vcsadmin.service.ServiceException;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -232,6 +234,22 @@ public class AccountManager {
 	 * @return List
 	 */
 	public List<Resource> getAllResources() {
+		return getAllResources(null);
+	}
+	
+	/**
+	 * 获取所有资源
+	 * 
+	 * @param ignoreIdValue 要忽略的id属性值,如果是多个值，使用逗号分割
+	 * 
+	 * @return List
+	 */
+	public List<Resource> getAllResources(String ignoreIdValue) {
+		
+		if(StringUtils.isNotEmpty(ignoreIdValue)) {
+			return resourceDao.findByExpression("NE_S_id", ignoreIdValue);
+		}
+		
 		return resourceDao.getAll();
 	}
 	
@@ -365,7 +383,28 @@ public class AccountManager {
 	 * @return List
 	 */
 	public List<Group> getAllGroup(GroupType groupType) {
-		return groupDao.findByProperty("type", groupType.getValue());
+		return getAllGroup(groupType,null);
+	}
+	
+	/**
+	 * 根据组类型获取所有组信息
+	 * 
+	 * @param groupType 组类型
+	 * @param ignoreIdValue 要忽略的id属性值,如果是多个值，使用逗号分割
+	 * 
+	 * @return List
+	 */
+	public List<Group> getAllGroup(GroupType groupType,String ignoreIdValue) {
+		
+		List<PropertyFilter> filters = new ArrayList<PropertyFilter>();
+		
+		if (StringUtils.isNotEmpty(ignoreIdValue)) {
+			filters.add(PropertyFilterRestrictionHolder.createPropertyFilter("NE_S_id", ignoreIdValue));
+		}
+		
+		filters.add(PropertyFilterRestrictionHolder.createPropertyFilter("EQ_S_type", groupType.getValue()));
+		
+		return groupDao.findByPropertyFilters(filters);
 	}
 
 	/**
