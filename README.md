@@ -1,4 +1,4 @@
-exit-web-framework 
+Readme
 ==================
 
 exit-web-framework是对常用的java web开发封装实用功能来提高开发效率。exit-web-framework基于Spring 3、Hibernate4框架来对做项目核心三层和MVC的管理。使用到的新功能有spring缓存工厂、apeche shiro安全框架、spring mvc 3等主要技术，该项目分为两个部分做底层的封装，和带一个项目功能演示例子。
