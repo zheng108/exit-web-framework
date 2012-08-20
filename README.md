@@ -48,7 +48,7 @@ svn地址:https://github.com/exitsoft/exit-web-framework.git
 
 该jar包是对基本的常用工具类的一些简单封装。如泛型，反射，配置文件等工具类的封装。
 
-##### exit-orm
+##### exitsoft orm jar
 
 该jar包是对持久化层的框架封装，目前只对Hibernate4的CURD和辅助功能封装。
 
