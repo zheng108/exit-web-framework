@@ -261,7 +261,7 @@ public class AccountManager {
 	 * @return List
 	 */
 	public List<Resource> getUserResourcesByUserId(String userId) {
-		return resourceDao.findByQueryName(Resource.UserResources, userId);
+		return resourceDao.findByQueryNamed(Resource.UserResources, userId);
 	}
 	
 	/**
@@ -415,7 +415,7 @@ public class AccountManager {
 	 * @return List
 	 */
 	public List<Group> getUserGroupsByUserId(String userId) {
-		return groupDao.findByQueryName(Group.UserGroups, userId);
+		return groupDao.findByQueryNamed(Group.UserGroups, userId);
 	}
 
 }
