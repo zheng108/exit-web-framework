@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 
 
 
@@ -146,7 +147,7 @@ public abstract class ServletUtils {
 	 * 返回的结果的Parameter名已去除前缀.
 	 */
 	public static Map<String, Object> getParametersStartingWith(ServletRequest request, String prefix) {
-		AssertUtils.notNull(request, "Request must not be null");
+		Assert.notNull(request, "Request must not be null");
 		Enumeration paramNames = request.getParameterNames();
 		Map<String, Object> params = new TreeMap<String, Object>();
 		if (prefix == null) {

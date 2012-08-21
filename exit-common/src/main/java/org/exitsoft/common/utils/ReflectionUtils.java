@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 /**
  * 反射工具类.
@@ -118,8 +119,8 @@ public abstract class ReflectionUtils {
 	 */
 	public static List<String> getAllAccessibleFieldName(final Class o,Class type) {
 		
-		AssertUtils.notNull(o, "o不能为空");
-		AssertUtils.notNull(type, "fieldName不能为空");
+		Assert.notNull(o, "o不能为空");
+		Assert.notNull(type, "fieldName不能为空");
 		
 		List<String> list = new ArrayList<String>();
 		
@@ -138,8 +139,8 @@ public abstract class ReflectionUtils {
 	 * 如向上转型到Object仍无法找到, 返回null.
 	 */
 	public static Field getAccessibleField(final Class o, final String fieldName) {
-		AssertUtils.notNull(o, "o不能为空");
-		AssertUtils.hasText(fieldName, "fieldName不能为空");
+		Assert.notNull(o, "o不能为空");
+		Assert.hasText(fieldName, "fieldName不能为空");
 		for (Class<?> superClass = o; superClass != Object.class; superClass = superClass.getSuperclass()) {
 			try {
 				Field field = superClass.getDeclaredField(fieldName);
@@ -198,7 +199,7 @@ public abstract class ReflectionUtils {
 	 * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
 	 */
 	public static Method getAccessibleMethod(final Class o, final String methodName,Class<?>... parameterTypes) {
-		AssertUtils.notNull(o, "o不能为空");
+		Assert.notNull(o, "o不能为空");
 
 		for (Class<?> superClass = o; superClass != Object.class; superClass = superClass.getSuperclass()) {
 			try {
@@ -312,7 +313,7 @@ public abstract class ReflectionUtils {
 	 * @param o 目标对象Class
 	 */
 	public static <T> T newInstance(Class o) {
-		AssertUtils.notNull(o, "o不能为空");
+		Assert.notNull(o, "o不能为空");
 		try {
 			return (T) o.newInstance();
 		} catch (Exception e) {
