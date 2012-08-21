@@ -166,7 +166,7 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		roleList = dao.findByPropertyFilters(filters,"name", Role.class);
 		Assert.assertEquals(roleList.size(), 3);
 		
-		userList = dao.findByQueryName("QueryUserResource", "系统管理");
+		userList = dao.findByQueryNamed("QueryUserResource", "系统管理");
 	}
 	
 	@Test

@@ -12,7 +12,7 @@ public interface CodeStrategy {
 	 * 通过该方法将 orm 对象的值和属性名传入进行转码
 	 * 
 	 * @param value 值
-	 * @param propertyName 属性名称
+	 * @param propertyName 被转码的属性名称
 	 */
 	public Object convertCode(Object value,String propertyName);
 	

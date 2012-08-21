@@ -338,7 +338,103 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	public List<T> getAll() {
 		return createCriteria().list();
 	}
+	
+	/**
+	 * 通过HQL查询全部
+	 * 
+	 * @param queryString hql语句
+	 * @param values 可变长度的hql值
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByQuery(String queryString,Object... values) {
+		return createQuery(queryString, values).list();
+	}
+	
+	/**
+	 * 通过HQL查询全部
+	 * 
+	 * @param queryString hql语句
+	 * @param values 与属性名方式的hql值
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByQuery(String queryString,Map<String,Object> values) {
+		return createQuery(queryString, values).list();
+	}
+	
+	/**
+	 * 通过queryNamed查询全部
+	 * 
+	 * @param queryNamed queryNamed
+	 * @param values 值
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByQueryNamed(String queryNamed,Object... values) {
+		return createQueryByQueryNamed(queryNamed, values).list();
+	}
+	
+	/**
+	 * 通过queryNamed查询全部
+	 * 
+	 * @param queryNamed queryNamed
+	 * @param values 属性名参数规则
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByQueryNamed(String queryNamed,Map<String, Object> values) {
+		return createQueryByQueryNamed(queryNamed, values).list();
+	}
+	
+	/**
+	 * 通过hql查询单个orm实体
+	 * 
+	 * @param queryString hql
+	 * @param values 可变长度的hql值
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByQuery(String queryString,Object... values){
+		return (X)createQuery(queryString, values).uniqueResult();
+	}
 
+	/**
+	 * 通过hql查询单个orm实体
+	 * 
+	 * @param queryString hql
+	 * @param values 以属性名的hql值
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByQuery(String queryString,Map<String, Object> values){
+		return (X)createQuery(queryString, values).uniqueResult();
+	}
+	
+	/**
+	 * 通过QueryName查询单个orm实体
+	 * 
+	 * @param queryName queryName
+	 * @param values 值
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByQueryNamed(String queryNamed,Object... values) {
+		return (X) createQueryByQueryNamed(queryNamed, values).list();
+	}
+	
+	/**
+	 * 通过QueryName查询单个orm实体
+	 * 
+	 * @param queryName queryName
+	 * @param values 属性名参数规则
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByQueryNamed(String queryNamed,Map<String, Object> values) {
+		return (X)createQueryByQueryNamed(queryNamed, values).list();
+	}
+	
 	/**
 	 * 获取全部对象
 	 * 
@@ -452,29 +548,29 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过QueryName 创建Query
+	 * 通过queryNamed 创建Query
 	 * 
-	 * @param queryName queryName
+	 * @param queryNamed queryNamed
 	 * @param values 值
 	 * 
 	 * @return {@link Query}
 	 */
-	protected Query createQueryByQueryName(String queryName,Object... values) {
-		Query query = getSession().getNamedQuery(queryName);
+	protected Query createQueryByQueryNamed(String queryNamed,Object... values) {
+		Query query = getSession().getNamedQuery(queryNamed);
 		setQueryValues(query, values);
 		return query;
 	}
 	
 	/**
-	 * 通过QueryName 创建Query
+	 * 通过queryNamed 创建Query
 	 * 
-	 * @param queryName queryName
+	 * @param queryNamed queryNamed
 	 * @param values 属性名参数规则
 	 * 
 	 * @return {@link Query}
 	 */
-	protected Query createQueryByQueryName(String queryName,Map<String, Object> values) {
-		Query query = getSession().getNamedQuery(queryName);
+	protected Query createQueryByQueryNamed(String queryNamed,Map<String, Object> values) {
+		Query query = getSession().getNamedQuery(queryNamed);
 		if (values != null) {
 			query.setProperties(values);
 		}
@@ -1000,5 +1096,29 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 */
 	public int executeUpdate(String hql,  Map<String, ?> values) {
 		return createQuery(hql, values).executeUpdate();
+	}
+	
+	/**
+	 * 通过queryNamedd执行HQL进行批量修改/删除操作.成功后返回更新记录数
+	 * 
+	 * @param values
+	 *            命名参数,按名称绑定.
+	 *            
+	 * @return int
+	 */
+	public int executeUpdateByQueryNamedd(String queryNamed,Object... values) {
+		return createQueryByQueryNamed(queryNamed, values).executeUpdate();
+	}
+	
+	/**
+	 * 通过queryNamedd执行HQL进行批量修改/删除操作.成功后返回更新记录数
+	 * 
+	 * @param values
+	 *            命名参数,按名称绑定.
+	 *            
+	 * @return int
+	 */
+	public int executeUpdateByQueryNamedd(String queryNamed,Map<String, ?> values) {
+		return createQueryByQueryNamed(queryNamed, values).executeUpdate();
 	}
 }

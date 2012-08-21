@@ -39,12 +39,23 @@ import org.exitsoft.orm.core.PropertyType;
 public @interface StateDelete {
 	
 	/**
+	 * 属性名称
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String propertyName();
 	
+	/**
+	 * 要改变的值
+	 * 
+	 * @return String
+	 */
 	public String value();
 	
+	/**
+	 * 改变值的类型
+	 * 
+	 * @return {@link PropertyType}
+	 */
 	public PropertyType type() default PropertyType.I;
 }

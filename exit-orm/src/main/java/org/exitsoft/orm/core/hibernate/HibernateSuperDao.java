@@ -19,7 +19,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 
 /**
- * Hibernate基础扩展类。包含对PropertyFilter的支持。或其他查询的支持
+ * Hibernate基础扩展类。包含对{@link PropertyFilter}的支持。或其他查询的支持
  * 
  * @author vincent
  *
@@ -484,54 +484,6 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	}
 	
 	/**
-	 * 通过HQL查询全部
-	 * 
-	 * @param queryString hql语句
-	 * @param values 可变长度的hql值
-	 * 
-	 * @return List
-	 */
-	public <X> List<X> findByQuery(String queryString,Object... values) {
-		return createQuery(queryString, values).list();
-	}
-	
-	/**
-	 * 通过HQL查询全部
-	 * 
-	 * @param queryString hql语句
-	 * @param values 与属性名方式的hql值
-	 * 
-	 * @return List
-	 */
-	public <X> List<X> findByQuery(String queryString,Map<String,Object> values) {
-		return createQuery(queryString, values).list();
-	}
-	
-	/**
-	 * 通过QueryName查询全部
-	 * 
-	 * @param queryName queryName
-	 * @param values 值
-	 * 
-	 * @return List
-	 */
-	public <X> List<X> findByQueryName(String queryName,Object... values) {
-		return createQueryByQueryName(queryName, values).list();
-	}
-	
-	/**
-	 * 通过QueryName查询全部
-	 * 
-	 * @param queryName queryName
-	 * @param values 属性名参数规则
-	 * 
-	 * @return List
-	 */
-	public <X> List<X> findByQueryName(String queryName,Map<String, Object> values) {
-		return createQueryByQueryName(queryName, values).list();
-	}
-	
-	/**
 	 * 通过orm实体属性名称查询全部
 	 * 
 	 * @param propertyName orm实体属性名称
@@ -768,53 +720,7 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 		return (X)createCriteria(persistentClass,criterions).uniqueResult();
 	}
 	
-	/**
-	 * 通过hql查询单个orm实体
-	 * 
-	 * @param queryString hql
-	 * @param values 可变长度的hql值
-	 * 
-	 * @return Object
-	 */
-	public <X> X findUniqueByQuery(String queryString,Object... values){
-		return (X)createQuery(queryString, values).uniqueResult();
-	}
-
-	/**
-	 * 通过hql查询单个orm实体
-	 * 
-	 * @param queryString hql
-	 * @param values 以属性名的hql值
-	 * 
-	 * @return Object
-	 */
-	public <X> X findUniqueByQuery(String queryString,Map<String, Object> values){
-		return (X)createQuery(queryString, values).uniqueResult();
-	}
 	
-	/**
-	 * 通过QueryName查询单个orm实体
-	 * 
-	 * @param queryName queryName
-	 * @param values 值
-	 * 
-	 * @return Object
-	 */
-	public <X> X findUniqueByQueryName(String queryName,Object... values) {
-		return (X) createQueryByQueryName(queryName, values).list();
-	}
-	
-	/**
-	 * 通过QueryName查询单个orm实体
-	 * 
-	 * @param queryName queryName
-	 * @param values 属性名参数规则
-	 * 
-	 * @return Object
-	 */
-	public <X> X findUniqueByQueryName(String queryName,Map<String, Object> values) {
-		return (X)createQueryByQueryName(queryName, values).list();
-	}
 	
 	/**
 	 * 通过orm实体的属性名称查询单个orm实体
