@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.exitsoft.common.utils.AssertUtils;
 import org.exitsoft.common.utils.CollectionUtils;
 import org.exitsoft.common.utils.ConvertUtils;
 import org.exitsoft.common.utils.ReflectionUtils;
@@ -44,6 +43,7 @@ import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
  * 
@@ -524,7 +524,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * 
 	 */
 	protected Query createQuery( String queryString, Map<String, ?> values) {
-		AssertUtils.hasText(queryString, "queryString不能为空");
+		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
 		if (values != null) {
 			query.setProperties(values);
@@ -541,7 +541,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return {@link Query}
 	 */
 	protected Query createQuery(String queryString, Object... values) {
-		AssertUtils.hasText(queryString, "queryString不能为空");
+		Assert.hasText(queryString, "queryString不能为空");
 		Query query = getSession().createQuery(queryString);
 		setQueryValues(query, values);
 		return query;
@@ -586,7 +586,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return {@link SQLQuery}
 	 */
 	protected SQLQuery createSQLQuery( String queryString,  Object... values) {
-		AssertUtils.hasText(queryString, "queryString不能为空");
+		Assert.hasText(queryString, "queryString不能为空");
 		SQLQuery query = getSession().createSQLQuery(queryString);
 		setQueryValues(query, false, values);
 		return query.addEntity(entityClass);
@@ -602,7 +602,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * 
 	 */
 	protected SQLQuery createSQLQuery( String queryString, Map<String, ?> values) {
-		AssertUtils.hasText(queryString, "queryString不能为空");
+		Assert.hasText(queryString, "queryString不能为空");
 		SQLQuery query = getSession().createSQLQuery(queryString);
 		if (values != null) {
 			query.setProperties(values);

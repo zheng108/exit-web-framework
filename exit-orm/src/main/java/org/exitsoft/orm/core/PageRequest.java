@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.exitsoft.common.utils.AssertUtils;
+import org.springframework.util.Assert;
 
 
 /**
@@ -144,7 +144,7 @@ public class PageRequest {
 		}
 		String[] orderBys = StringUtils.split(orderBy, ',');
 		String[] orderDirs = StringUtils.split(orderDir, ',');
-		AssertUtils.isTrue(orderBys.length == orderDirs.length, "分页多重排序参数中,排序字段与排序方向的个数不相等");
+		Assert.isTrue(orderBys.length == orderDirs.length, "分页多重排序参数中,排序字段与排序方向的个数不相等");
 
 		List<Sort> orders = new ArrayList<PageRequest.Sort>();
 		for (int i = 0; i < orderBys.length; i++) {

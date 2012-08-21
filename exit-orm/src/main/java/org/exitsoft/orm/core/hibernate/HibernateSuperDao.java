@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.exitsoft.common.utils.AssertUtils;
 import org.exitsoft.common.utils.CollectionUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
@@ -17,6 +16,7 @@ import org.exitsoft.orm.core.hibernate.property.impl.restriction.EqRestriction;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
+import org.springframework.util.Assert;
 
 /**
  * Hibernate基础扩展类。包含对{@link PropertyFilter}的支持。或其他查询的支持
@@ -216,7 +216,9 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	 * @return {@link Criterion}
 	 */
 	protected Criterion createCriterion(PropertyFilter filter) {
-		AssertUtils.notNull(filter, "filter不能为空");
+		if (filter == null) {
+			return null;
+		}
 		return PropertyFilterRestrictionHolder.getCriterion(filter);
 	}
 	
@@ -923,10 +925,13 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	 * @return {@link Page}
 	 */
 	public <X> Page<X> findPage(PageRequest request, Criteria c) {
-		AssertUtils.notNull(request, "page不能为空");
 
 		Page<X> page = new Page<X>(request);
-
+		
+		if (request == null) {
+			return page;
+		}
+		
 		if (request.isCountTotal()) {
 			long totalCount = countCriteriaResult(c);
 			page.setTotalItems(totalCount);
@@ -992,11 +997,13 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	 * @return {@link Page}
 	 */
 	protected <X> Page<X> createQueryPage(PageRequest pageRequest, String queryString, Object... values) {
-		
-		AssertUtils.notNull(pageRequest, "pageRequest不能为空");
 
 		Page<X> page = new Page<X>(pageRequest);
-
+		
+		if (pageRequest == null) {
+			return page;
+		}
+		
 		if (pageRequest.isCountTotal()) {
 			long totalCount = countHqlResult(queryString, values);
 			page.setTotalItems(totalCount);
@@ -1043,7 +1050,7 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	 * @return {@link Criteria}
 	 */
 	protected Criteria setPageRequestToCriteria( Criteria c,  PageRequest pageRequest) {
-		AssertUtils.isTrue(pageRequest.getPageSize() > 0, "分页大小必须大于0");
+		Assert.isTrue(pageRequest.getPageSize() > 0, "分页大小必须大于0");
 
 		c.setFirstResult(pageRequest.getOffset());
 		c.setMaxResults(pageRequest.getPageSize());

@@ -1,12 +1,12 @@
 package org.exitsoft.orm.core.hibernate.property.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.exitsoft.common.utils.AssertUtils;
 import org.exitsoft.common.utils.ConvertUtils;
 import org.exitsoft.orm.core.PropertyFilter;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.util.Assert;
 
 /**
  * 对{@link PropertyFilter#getMatchValue()}的特殊情况值做处理，例如 in, not in, between的多值情况,
@@ -26,7 +26,7 @@ import org.hibernate.criterion.Restrictions;
 public abstract class MultipleValueRestrictionSuper extends PropertyValueRestrictionSuper{
 	
 	public Object convertMatchValue(String value, Class<?> type) {
-		AssertUtils.notNull(value,"值不能为空");
+		Assert.notNull(value,"值不能为空");
 		String[] result = StringUtils.splitByWholeSeparator(value, ",");
 		
 		return  ConvertUtils.convertToObject(result,type);
