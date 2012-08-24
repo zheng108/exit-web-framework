@@ -13,9 +13,9 @@ import org.hibernate.criterion.Restrictions;
  * @author vincent
  *
  */
-public class BetweenRestriction extends MultipleValueRestrictionSuper{
+public class BtRestriction extends MultipleValueRestrictionSuper{
 
-	public static final String RestrictionName = "BETWEEN";
+	public static final String RestrictionName = "BT";
 	
 	
 	public String getRestrictionName() {

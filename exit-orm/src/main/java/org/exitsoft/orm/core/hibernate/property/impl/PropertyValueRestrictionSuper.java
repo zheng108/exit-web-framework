@@ -71,12 +71,12 @@ public abstract class PropertyValueRestrictionSuper implements PropertyCriterion
 		
 		List<Object> values = new ArrayList<Object>();
 		
-		if (StringUtils.contains(matchValue, "_AND_")) {
-			String[] siplit = StringUtils.splitByWholeSeparator(matchValue, "_AND_");
+		if (StringUtils.contains(matchValue, ",")) {
+			String[] siplit = StringUtils.splitByWholeSeparator(matchValue, ",");
 			CollectionUtils.addAll(values, (Object[])ConvertUtils.convertToObject(siplit, type));
 			return new MatchValue(false, values);
-		} else if (StringUtils.contains(matchValue, "_OR_")){
-			String[] siplit = StringUtils.splitByWholeSeparator(matchValue, "_OR_");
+		} else if (StringUtils.contains(matchValue, "|")){
+			String[] siplit = StringUtils.splitByWholeSeparator(matchValue, "|");
 			CollectionUtils.addAll(values, (Object[])ConvertUtils.convertToObject(siplit, type));
 			return new MatchValue(true, values);
 		} else {

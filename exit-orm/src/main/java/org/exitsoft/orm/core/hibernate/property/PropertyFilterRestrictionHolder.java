@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.exitsoft.common.utils.ServletUtils;
 import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.orm.core.PropertyType;
-import org.exitsoft.orm.core.hibernate.property.impl.restriction.BetweenRestriction;
+import org.exitsoft.orm.core.hibernate.property.impl.restriction.BtRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.EqRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.GeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.GtRestriction;
@@ -50,7 +50,7 @@ public class PropertyFilterRestrictionHolder {
 		PropertyCriterionBuilder ltRestriction = new LtRestriction();
 		PropertyCriterionBuilder notInRestriction = new NinRestriction();
 		PropertyCriterionBuilder rLikeRestriction = new RlikeRestriction();
-		PropertyCriterionBuilder betweenRestriction = new BetweenRestriction();
+		PropertyCriterionBuilder betweenRestriction = new BtRestriction();
 		
 		criterionMap.put(eqRestriction.getRestrictionName(), eqRestriction);
 		criterionMap.put(neRestriction.getRestrictionName(), neRestriction);

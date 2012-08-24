@@ -48,7 +48,6 @@ public abstract class MultipleValueRestrictionSuper extends PropertyValueRestric
 		return criterion;
 	}
 	
-	
 	public Criterion build(String propertyName, Object value) {
 		
 		return buildRestriction(propertyName, (Object[])value);

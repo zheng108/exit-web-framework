@@ -340,19 +340,19 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		userList = dao.findByExpression("NIN_S_loginName", "admin,vincent");
 		Assert.assertEquals(userList.size(), 6);
 		
-		userList = dao.findByExpression("BETWEEN_I_state","1,2");
+		userList = dao.findByExpression("BT_I_state","1,2");
 		Assert.assertEquals(userList.size(), 8);
 		
-		userList = dao.findByExpression("EQ_S_loginName","admin_OR_vincent");
+		userList = dao.findByExpression("EQ_S_loginName","admin|vincent");
 		Assert.assertEquals(userList.size(), 2);
 		
-		userList = dao.findByExpression("EQ_S_loginName","admin_AND_vincent");
+		userList = dao.findByExpression("EQ_S_loginName","admin,vincent");
 		Assert.assertEquals(userList.size(),0);
 		
-		userList = dao.findByExpression("EQ_S_loginName","admin_AND_null");
+		userList = dao.findByExpression("EQ_S_loginName","admin,null");
 		Assert.assertEquals(userList.size(),0);
 		
-		userList = dao.findByExpression("EQ_S_loginName_OR_realName","null_OR_admin");
+		userList = dao.findByExpression("EQ_S_loginName_OR_realName","null|admin");
 		Assert.assertEquals(userList.size(), 1);
 		
 	}
