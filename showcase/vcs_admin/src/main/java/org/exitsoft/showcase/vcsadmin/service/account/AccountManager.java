@@ -64,7 +64,7 @@ public class AccountManager {
 	 * @return boolean
 	 */
 	public boolean updateUserPassword(String oldPassword, String newPassword) {
-		User user = SystemVariableUtils.getSecurityModel().getUser();
+		User user = SystemVariableUtils.getCommonVariableModel().getUser();
 		
 		oldPassword = new SimpleHash("MD5", oldPassword.toCharArray()).toString();
 		if(user.getPassword().equals(oldPassword)) {

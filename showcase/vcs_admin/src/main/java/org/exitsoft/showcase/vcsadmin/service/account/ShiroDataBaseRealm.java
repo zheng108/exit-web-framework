@@ -16,10 +16,10 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.exitsoft.common.utils.CollectionUtils;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.ResourceType;
+import org.exitsoft.showcase.vcsadmin.common.model.CommonVariableModel;
 import org.exitsoft.showcase.vcsadmin.entity.account.Group;
 import org.exitsoft.showcase.vcsadmin.entity.account.Resource;
 import org.exitsoft.showcase.vcsadmin.entity.account.User;
-import org.exitsoft.showcase.vcsadmin.model.SecurityModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -46,7 +46,7 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
             throw new AuthorizationException("Principal对象不能为空");
         }
         
-        SecurityModel model = (SecurityModel) principals.fromRealm(getName()).iterator().next();
+        CommonVariableModel model = (CommonVariableModel) principals.fromRealm(getName()).iterator().next();
         
         String id = model.getUser().getId();
         
@@ -88,7 +88,7 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
             throw new UnknownAccountException("用户不存在");
         }
         
-        SecurityModel model = new SecurityModel(user);
+        CommonVariableModel model = new CommonVariableModel(user);
         
         return new SimpleAuthenticationInfo(model,user.getPassword(),getName());
 	}

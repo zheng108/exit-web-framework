@@ -9,8 +9,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.SystemDictionaryCode;
+import org.exitsoft.showcase.vcsadmin.common.model.CommonVariableModel;
 import org.exitsoft.showcase.vcsadmin.entity.foundation.DataDictionary;
-import org.exitsoft.showcase.vcsadmin.model.SecurityModel;
 import org.exitsoft.showcase.vcsadmin.service.foundation.SystemDictionaryManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -99,12 +99,12 @@ public class SystemVariableUtils {
 	 * 
 	 * @return {@link SecurityModel}
 	 */
-	public static SecurityModel getSecurityModel() {
+	public static CommonVariableModel getCommonVariableModel() {
 		
 		Subject subject = SecurityUtils.getSubject();
 		
-		if (subject != null && subject.getPrincipal() != null && subject.getPrincipal() instanceof SecurityModel) {
-			return (SecurityModel) subject.getPrincipal();
+		if (subject != null && subject.getPrincipal() != null && subject.getPrincipal() instanceof CommonVariableModel) {
+			return (CommonVariableModel) subject.getPrincipal();
 		}
 		
 		return null;

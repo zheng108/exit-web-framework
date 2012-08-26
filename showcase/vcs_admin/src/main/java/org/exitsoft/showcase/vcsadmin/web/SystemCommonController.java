@@ -46,7 +46,7 @@ public class SystemCommonController {
 	@RequestMapping("/index")
 	public String index(Model model) {
 		
-		model.addAttribute("menusList", SystemVariableUtils.getSecurityModel().getMenusList());
+		model.addAttribute("menusList", SystemVariableUtils.getCommonVariableModel().getMenusList());
 		
 		return "index";
 	}
