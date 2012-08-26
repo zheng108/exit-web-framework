@@ -35,6 +35,7 @@ public enum PropertyType {
 	 */
 	B(Boolean.class);
 
+	//类型Class
 	private Class<?> clazz;
 
 	private PropertyType(Class<?> clazz) {

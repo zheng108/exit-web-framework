@@ -14,7 +14,7 @@ import org.hibernate.criterion.Restrictions;
  * @author vincent
  *
  */
-public class RlikeRestriction extends PropertyValueRestrictionSuper{
+public class RLikeRestriction extends PropertyValueRestrictionSuper{
 	
 	public final static String RestrictionName = "RLIKE";
 	

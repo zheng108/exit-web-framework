@@ -8,17 +8,17 @@ package org.exitsoft.orm.core;
  * <p>
  * 	例子:
  * </p>
- * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName"},"a_AND_b_AND_c");<code> 
+ * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName"},"a,b,c");<code> 
  * <p>当使用以上filter到{@link HibernateDao#findByPropertyFilters(java.util.List)}是会产生以下sql</p>
  * <p>sql:selete * from table where propertyName = 'a' and propertyName = 'b' and propertyName = 'c'</p>
  * 
  * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName1","propertyName2"},"a");<code> 
  * <p>当使用以上filter到{@link HibernateDao#findByPropertyFilters(java.util.List)}是会产生以下sql</p>
- * <p>sql:selete * from table where propertyName = ? and propertyName1 = 'a' or propertyName2 = 'a'</p>
+ * <p>sql:selete * from table where propertyName1 = 'a' or propertyName2 = 'a'</p>
  * 
- * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName1","propertyName2"},"a_OR_b");<code> 
+ * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName1","propertyName2"},"a,b");<code> 
  * <p>当使用以上filter到{@link HibernateDao#findByPropertyFilters(java.util.List)}是会产生以下sql</p>
- * <p>sql:selete * from table where propertyName = ? and (propertyName1 = 'a' or propertyName1 = 'b') and (propertyName2 = 'a' or propertyName2 = 'b')</p>
+ * <p>sql:selete * from table where (propertyName1 = 'a' or propertyName1 = 'b') and (propertyName2 = 'a' or propertyName2 = 'b')</p>
  * 
  * @see PropertyFilterRestrictionHolder#createPropertyFilter(String, String)
  * @see PropertyFilterRestrictionHolder#createPropertyFilter(String[], String[])
@@ -28,7 +28,7 @@ package org.exitsoft.orm.core;
  */
 public class PropertyFilter {
 	
-	//操作符名称
+	//约束名称
 	private String restrictionName;
 	
 	//属性类型
@@ -58,11 +58,11 @@ public class PropertyFilter {
 	 * 
 	 * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName1","propertyName2"},"a");<code> 
 	 * <p>当使用以上filter到{@link HibernateDao#findByPropertyFilters(java.util.List)}是会产生以下sql</p>
-	 * <p>sql:selete * from table where propertyName = ? and propertyName1 = 'a' or propertyName2 = 'a'</p>
+	 * <p>sql:selete * from table where propertyName1 = 'a' or propertyName2 = 'a'</p>
 	 * 
 	 * <code>PropertyFilter filter = new PropertyFilter("EQ",PropertyType.S.getValue(),new String[]{"propertyName1","propertyName2"},"a,b");<code> 
 	 * <p>当使用以上filter到{@link HibernateDao#findByPropertyFilters(java.util.List)}是会产生以下sql</p>
-	 * <p>sql:selete * from table where propertyName = ? and (propertyName1 = 'a' or propertyName1 = 'b') and (propertyName2 = 'a' or propertyName2 = 'b')</p>
+	 * <p>sql:selete * from table where (propertyName1 = 'a' or propertyName1 = 'b') and (propertyName2 = 'a' or propertyName2 = 'b')</p>
 	 * 
 	 * @param restrictionName 约束名称
 	 * @param propertyType 属性类型

@@ -67,6 +67,14 @@ public abstract class PropertyValueRestrictionSuper implements PropertyCriterion
 		return junction;
 	}
 	
+	/**
+	 * 创建对比值模型，如果多值将以逗号","或者竖杠"|"分割
+	 * 
+	 * @param matchValue
+	 * @param type
+	 * 
+	 * @return
+	 */
 	public MatchValue createMatchValueModel(String matchValue,Class<?> type) {
 		
 		List<Object> values = new ArrayList<Object>();

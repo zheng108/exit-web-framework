@@ -38,15 +38,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值创建Criteria,要求表达式与值必须相等
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	createCriteria(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -59,15 +55,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值创建Criteria,要求表达式与值必须相等
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	createCriteria(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -81,15 +73,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值创建Criteria,要求表达式与值必须相等
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	createCriteria(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * <pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -103,15 +91,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值创建Criteria,要求表达式与值必须相等
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	createCriteria(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -188,15 +172,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值创建Criterion
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	createCriterion("EQ_S_propertyName","vincent")
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -272,15 +252,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpressions(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -293,15 +269,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpressions(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"},"propertyName_asc")
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -315,15 +287,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpressions(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"},OtherOrm.class)
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -337,15 +305,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpressions(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"},"propertyName_asc",OtherOrm.class)
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -360,12 +324,10 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpression("EQ_S_propertyName","vincent")
-	 * </code>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -380,12 +342,10 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpression("EQ_S_propertyName","vincent","propertyName_asc")
-	 * </code>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -399,12 +359,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * 
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpression("EQ_S_propertyName","vincent",OtherOrm.class)
-	 * </code>
+	 * </p>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -418,12 +377,10 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询全部
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findByExpression("EQ_S_propertyName","vincent",OtherOrm.class)
-	 * </code>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -608,12 +565,10 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询单个orm实体
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findUniqueByExpression("EQ_S_propertyName","vincent")
-	 * </code>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -626,15 +581,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询单个orm实体
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findUniqueByExpressions(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -671,12 +622,10 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询单个orm实体
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findUniqueByExpression("EQ_S_propertyName","vincent",OtherOrm.class)
-	 * </code>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -690,15 +639,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值查询单个orm实体
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findUniqueByExpressions(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"},OtherOrm.class)
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -833,12 +778,12 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过分页请求参数和表达式与对比值获取分页对象
-	 *  <p>
+	 * 
+	 *  <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findPage(request,"EQ_S_propertyName","vincent")
-	 * </code>
+	 * </pre>
+	 * 
 	 * @param request 分页请求参数
 	 * @param expression 表达式
 	 * @param matchValue 对比值
@@ -852,12 +797,10 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过分页请求参数和表达式与对比值获取分页对象
-	 *  <p>
+	 *  <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findPage(request,"EQ_S_propertyName","vincent",OtherOrm.class)
-	 * </code>
+	 * </pre>
 	 * 
 	 * @param request 分页请求参数
 	 * @param expression 表达式
@@ -874,15 +817,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值获取分页对象
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findPage(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"})
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值
@@ -895,15 +834,11 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	/**
 	 * 通过表达式和对比值获取分页对象
-	 * <p>
+	 * <pre>
 	 * 	如：
-	 * </p>
-	 * <code>
 	 * 	findPage(new String[]{"EQ_S_propertyName1","NE_I_propertyName2"},new String[]{"vincent","vincent_OR_admin"},OtherOrm.class)
-	 * </code>
-	 * <p>
 	 * 	对比值长度与表达式长度必须相等
-	 * </p>
+	 * </pre>
 	 * 
 	 * @param expressions 表达式
 	 * @param matchValues 对比值

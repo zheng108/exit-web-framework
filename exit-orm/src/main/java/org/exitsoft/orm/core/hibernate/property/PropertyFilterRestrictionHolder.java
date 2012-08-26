@@ -20,11 +20,11 @@ import org.exitsoft.orm.core.hibernate.property.impl.restriction.GtRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.InRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.LeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.LikeRestriction;
-import org.exitsoft.orm.core.hibernate.property.impl.restriction.LlikeRestriction;
+import org.exitsoft.orm.core.hibernate.property.impl.restriction.LLikeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.LtRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.NeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.NinRestriction;
-import org.exitsoft.orm.core.hibernate.property.impl.restriction.RlikeRestriction;
+import org.exitsoft.orm.core.hibernate.property.impl.restriction.RLikeRestriction;
 import org.hibernate.criterion.Criterion;
 
 /**
@@ -44,12 +44,12 @@ public class PropertyFilterRestrictionHolder {
 		PropertyCriterionBuilder geRestriction = new GeRestriction();
 		PropertyCriterionBuilder gtRestriction = new GtRestriction();
 		PropertyCriterionBuilder inRestriction = new InRestriction();
-		PropertyCriterionBuilder lLikeRestriction = new LlikeRestriction();
+		PropertyCriterionBuilder lLikeRestriction = new LLikeRestriction();
 		PropertyCriterionBuilder leRestriction = new LeRestriction();
 		PropertyCriterionBuilder likeRestriction = new LikeRestriction();
 		PropertyCriterionBuilder ltRestriction = new LtRestriction();
 		PropertyCriterionBuilder notInRestriction = new NinRestriction();
-		PropertyCriterionBuilder rLikeRestriction = new RlikeRestriction();
+		PropertyCriterionBuilder rLikeRestriction = new RLikeRestriction();
 		PropertyCriterionBuilder betweenRestriction = new BtRestriction();
 		
 		criterionMap.put(eqRestriction.getRestrictionName(), eqRestriction);
