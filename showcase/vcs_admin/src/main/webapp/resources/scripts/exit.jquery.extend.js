@@ -208,7 +208,7 @@
 				url = url.substring(1,url.length);
 			}
 			
-			$.get(url,config.param,function(data){
+			$.post(url,config.param,function(data){
 				$(config.target).unmask();
 				$(config.target).empty().append(data);
 				config.callback.call(this,data);
