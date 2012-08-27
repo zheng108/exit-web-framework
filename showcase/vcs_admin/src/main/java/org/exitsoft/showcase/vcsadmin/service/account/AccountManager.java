@@ -20,7 +20,6 @@ import org.exitsoft.showcase.vcsadmin.entity.account.Group;
 import org.exitsoft.showcase.vcsadmin.entity.account.Resource;
 import org.exitsoft.showcase.vcsadmin.entity.account.User;
 import org.exitsoft.showcase.vcsadmin.service.ServiceException;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;

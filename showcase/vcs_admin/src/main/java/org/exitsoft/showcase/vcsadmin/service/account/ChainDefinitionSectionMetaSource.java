@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.config.Ini;
 import org.apache.shiro.config.Ini.Section;
 import org.exitsoft.showcase.vcsadmin.entity.account.Resource;

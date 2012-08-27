@@ -1,6 +1,6 @@
 package org.exitsoft.showcase.vcsadmin.common.strategy;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 汉字向五笔的转化工具类
