@@ -352,6 +352,11 @@
 				<artifactId>shiro-spring</artifactId>
 				<version>${shiro.version}</version>
 			</dependency>
+			<dependency>  
+				<groupId>org.apache.shiro</groupId>  
+				<artifactId>shiro-cas</artifactId>  
+				<version>${shiro.version}</version>  
+			</dependency>
 			<!-- spring security web mvc -->
 			<dependency>
 				<groupId>org.springframework</groupId>
