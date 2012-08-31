@@ -30,19 +30,14 @@ public class User extends UniversallyUniqueIdentifier{
 	
 	//登录名称
 	private String username;
-	
 	//登录密码
 	private String password;
-	
 	//真实名称
 	private String realname;
-	
 	//状态 
 	private Integer state;
-	
 	//邮件
 	private String email;
-	
 	//用户所在的组
 	private List<Group> groupsList = new ArrayList<Group>();
 	

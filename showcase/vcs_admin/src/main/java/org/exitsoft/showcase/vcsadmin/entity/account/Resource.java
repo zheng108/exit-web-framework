@@ -56,9 +56,9 @@ public class Resource extends UniversallyUniqueIdentifier{
 	private String type;
 	//资源所对应的组集合
 	private List<Group> groupsList = new ArrayList<Group>();
-	
+	//shiro permission 字符串
 	private String permission;
-	
+	//图标
 	private String icon;
 	
 	/**
@@ -257,9 +257,9 @@ public class Resource extends UniversallyUniqueIdentifier{
 	}
 
 	/**
-	 * 获取Shiro Permission 字符串
+	 * 获取permission字符串
 	 * 
-	 * @return String
+	 * @return String 
 	 */
 	@Column(unique=true,length=64)
 	public String getPermission() {
@@ -267,7 +267,7 @@ public class Resource extends UniversallyUniqueIdentifier{
 	}
 
 	/**
-	 * 设置Shiro Permission 字符串
+	 * 设置permission字符串
 	 * @param permission 字符串
 	 */
 	public void setPermission(String permission) {

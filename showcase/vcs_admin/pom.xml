@@ -183,6 +183,10 @@
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
 		</dependency>
+		<dependency>  
+			<groupId>org.apache.shiro</groupId>  
+			<artifactId>shiro-cas</artifactId>   
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>

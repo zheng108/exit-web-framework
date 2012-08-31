@@ -38,27 +38,24 @@ public class Group extends UniversallyUniqueIdentifier{
 	
 	//名称
 	private String name;
-	
 	//成员
 	private List<User> membersList = new ArrayList<User>();
-	
 	//上级组
 	private Group parent;
-	
 	//下级组集合
 	private List<Group> children = new ArrayList<Group>();
-	
 	//类型
 	private String type;
-	
 	//备注
 	private String remark;
-	
 	//状态
 	private int state;
-	
 	//拥有资源
 	private List<Resource> resourcesList = new ArrayList<Resource>();
+	//shiro role 字符串
+	private String role;
+	//shiro role连定义的值
+	private String value;
 	
 	/**
 	 * 构造方法
@@ -243,6 +240,41 @@ public class Group extends UniversallyUniqueIdentifier{
 		return this.children != null && children.size() > 0;
 		
 	}
+	
+	/**
+	 * 获取shiro role字符串
+	 * @return String
+	 */
+	@Column(unique=true,length=64)
+	public String getRole() {
+		return role;
+	}
+
+	/**
+	 * 设置shiro role字符串
+	 * @param role字符串
+	 */
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	/**
+	 * 获取shiro role连定义的值
+	 * @return String
+	 */
+	@Column(length=512)
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * 设置 shiro role连定义的值
+	 * @param value 值
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
+
 	/**
 	 * 获取父类ID
 	 * 
