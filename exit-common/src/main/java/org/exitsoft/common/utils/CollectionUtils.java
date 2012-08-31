@@ -58,11 +58,11 @@ public class CollectionUtils extends org.apache.commons.collections.CollectionUt
 	 * 
 	 * @param collection 来源集合.
 	 * @param propertyName 要提取的属性名.
-	 * @param ignoreNull 是否过滤null值
+	 * @param ignoreEmptyValue 是否过滤null值和""值
 	 * 
 	 * @return List
 	 */
-	public static <T> List<T> extractToList(Collection collection, String propertyName,boolean ignoreNull) {
+	public static <T> List<T> extractToList(Collection collection, String propertyName,boolean ignoreEmptyValue) {
 		if (collection == null) {
 			return null;
 		}
@@ -71,7 +71,7 @@ public class CollectionUtils extends org.apache.commons.collections.CollectionUt
 		try {
 			for (Object obj : collection) {
 				T value = (T) PropertyUtils.getProperty(obj, propertyName);
-				if (ignoreNull && value == null) {
+				if (ignoreEmptyValue && value == null || value.toString().equals("")) {
 					continue;
 				}
 				list.add(PropertyUtils.getProperty(obj, propertyName));
