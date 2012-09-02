@@ -5,7 +5,7 @@
 	<TB_USER ID="SJDK3849CKMS3849DJCK2039ZMSK0001" username="admin" state="1" realname="系统管理员" password="123456"/>
 	<TB_USER ID="SJDK3849CKMS3849DJCK2039ZMSK0002" username="vc" state="1" realname="管理员" password="123456"/>
 	
-	<TB_GROUP ID="SJDK3849CKMS3849DJCK2039ZMSK0003" name="用户角色" type="03" remark="" state="1" />
+	<TB_GROUP ID="SJDK3849CKMS3849DJCK2039ZMSK0003" name="用户角色" type="03" remark="" state="1"/>
 	<TB_GROUP ID="SJDK3849CKMS3849DJCK2039ZMSK0004" name="系统设置角色" type="03" remark="" state="1" fk_parent_id="SJDK3849CKMS3849DJCK2039ZMSK0003"/>
 	<TB_GROUP ID="SJDK3849CKMS3849DJCK2039ZMSK0005" name="分配流程角色" type="03" remark="" state="1" fk_parent_id="SJDK3849CKMS3849DJCK2039ZMSK0003"/>
 	<TB_GROUP ID="SJDK3849CKMS3849DJCK2039ZMSK0006" name="执行流程用户角色" type="03" remark="" state="1" fk_parent_id="SJDK3849CKMS3849DJCK2039ZMSK0003"/>

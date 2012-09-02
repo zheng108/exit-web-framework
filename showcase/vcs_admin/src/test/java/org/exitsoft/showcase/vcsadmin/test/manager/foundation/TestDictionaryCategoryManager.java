@@ -31,7 +31,6 @@ public class TestDictionaryCategoryManager extends ManagerTestCaseSuper {
 		
 		int beforeRow = countRowsInTable("TB_DICTIONARY_CATEGORY");
 		systemDictionaryManager.saveDictionaryCategory(category);
-		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("TB_DICTIONARY_CATEGORY");
 		
 		assertEquals(afterRow, beforeRow + 1);
@@ -44,7 +43,6 @@ public class TestDictionaryCategoryManager extends ManagerTestCaseSuper {
 		List<String> ids = new ArrayList<String>();
 		ids.add("SJDK3849CKMS3849DJCK2039ZMSK0015");
 		systemDictionaryManager.deleteDictionaryCategory(ids);
-		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("TB_DICTIONARY_CATEGORY");
 		
 		assertEquals(beforeRow, afterRow + 1);

@@ -11,6 +11,7 @@ import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.exitsoft.showcase.vcsadmin.unit.ManagerTestCaseSuper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 测试资源管理所有方法
@@ -24,6 +25,7 @@ public class TestResourceManager extends ManagerTestCaseSuper{
 	private AccountManager accountManager;
 	
 	@Test
+	@Transactional(readOnly=true)
 	public void testGetAllResourcesByUserId() {
 		List<Resource> list = accountManager.getUserResourcesByUserId("SJDK3849CKMS3849DJCK2039ZMSK0001");
 		assertEquals(list.size(), 8);
@@ -34,18 +36,21 @@ public class TestResourceManager extends ManagerTestCaseSuper{
 	}
 	
 	@Test
+	@Transactional(readOnly=true)
 	public void testGetAllParentResources() {
 		List<Resource> list = accountManager.getAllParentResources();
 		assertEquals(list.size(), 2);
 	}
 	
 	@Test
+	@Transactional(readOnly=true)
 	public void testGetAllResources() {
 		List<Resource> list = accountManager.getAllResources();
 		assertEquals(list.size(), 8);
 	}
 	
 	@Test
+	@Transactional(readOnly=true)
 	public void testGetAllParentMenuResources() {
 		List<Resource> list = accountManager.getAllParentMenuResources();
 		assertEquals(list.size(), 2);
@@ -61,7 +66,6 @@ public class TestResourceManager extends ManagerTestCaseSuper{
 		
 		int beforeRow = countRowsInTable("TB_RESOURCE");
 		accountManager.saveResource(resource);
-		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("TB_RESOURCE");
 		
 		assertEquals(afterRow, beforeRow + 1);
@@ -75,7 +79,6 @@ public class TestResourceManager extends ManagerTestCaseSuper{
 		
 		int beforeRow = countRowsInTable("TB_RESOURCE");
 		accountManager.deleteResources(ids);
-		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("TB_RESOURCE");
 		
 		assertEquals(afterRow, beforeRow - 4);

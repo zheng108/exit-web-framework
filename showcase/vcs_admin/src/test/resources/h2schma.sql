@@ -15,7 +15,7 @@ drop table tb_resource if exists
 drop table tb_user if exists
 create table tb_data_dictionary (id varchar(32) not null unique, name varchar(512) not null, pin_yin_code varchar(512), remark text, type varchar(1) not null, value varchar(64) not null, wubi_code varchar(512), fk_category_id char(32) not null, primary key (id))
 create table tb_dictionary_category (id varchar(32) not null unique, code varchar(128) not null unique, name varchar(256) not null, remark text, fk_parent_id char(32), primary key (id))
-create table tb_group (id varchar(32) not null unique, name varchar(64) not null unique, remark text, state integer not null, type varchar(2) not null, fk_parent_id varchar(32), primary key (id))
+create table tb_group (id varchar(32) not null unique, name varchar(64) not null unique, remark text, role varchar(64) unique, state integer not null, type varchar(2) not null, value varchar(512), fk_parent_id varchar(32), primary key (id))
 create table tb_group_resource (fk_resource_id varchar(32) not null, fk_group_id varchar(32) not null)
 create table tb_group_user (fk_group_id varchar(32) not null, fk_user_id varchar(32) not null)
 create table tb_resource (id varchar(32) not null unique, icon varchar(64), name varchar(64) not null unique, permission varchar(64) unique, remark text, sort integer not null, type varchar(2) not null, value varchar(512), fk_parent_id varchar(32), primary key (id))

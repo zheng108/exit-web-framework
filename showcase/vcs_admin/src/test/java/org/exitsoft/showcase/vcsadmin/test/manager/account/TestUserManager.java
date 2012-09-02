@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PropertyFilter;
@@ -17,6 +16,7 @@ import org.exitsoft.showcase.vcsadmin.service.account.AccountManager;
 import org.exitsoft.showcase.vcsadmin.unit.ManagerTestCaseSuper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 测试用户管理所有方法
@@ -40,7 +40,6 @@ public class TestUserManager extends ManagerTestCaseSuper{
 		
 		int beforeRow = countRowsInTable("tb_user");
 		accountManager.insertUser(entity);
-		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("tb_user");
 		
 		assertEquals(afterRow, beforeRow + 1);
@@ -52,16 +51,15 @@ public class TestUserManager extends ManagerTestCaseSuper{
 	}
 	
 	@Test
+	@Transactional
 	public void testUpdateUser() {
 		User user = accountManager.getUser("SJDK3849CKMS3849DJCK2039ZMSK0001");
-		
 		user.setUsername("other");
 		user.setRealname("小");
 		
 		accountManager.updateUser(user);
 		sessionFactory.getCurrentSession().flush();
 		sessionFactory.getCurrentSession().clear();
-		
 		user = null;
 		user = accountManager.getUser("SJDK3849CKMS3849DJCK2039ZMSK0001");
 		
@@ -77,7 +75,6 @@ public class TestUserManager extends ManagerTestCaseSuper{
 		
 		int beforeRow = countRowsInTable("tb_user");
 		accountManager.deleteUsers(ids);
-		sessionFactory.getCurrentSession().flush();
 		int afterRow = countRowsInTable("tb_user");
 		
 		assertEquals(afterRow, beforeRow - 1);
@@ -94,10 +91,4 @@ public class TestUserManager extends ManagerTestCaseSuper{
 		assertEquals(page.getTotalPages(), 2);
 	}
 	
-	@Test
-	public void updateUserPassword() {
-		accountManager.updateUserPassword("SJDK3849CKMS3849DJCK2039ZMSK0001", "123456");
-		String password = accountManager.getUser("SJDK3849CKMS3849DJCK2039ZMSK0001").getPassword();
-		assertEquals(password, new SimpleHash("MD5", "123456").toHex());
-	}
 }

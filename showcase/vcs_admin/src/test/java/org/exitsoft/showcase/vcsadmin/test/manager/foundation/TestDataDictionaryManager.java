@@ -28,44 +28,6 @@ public class TestDataDictionaryManager extends ManagerTestCaseSuper{
 	private SystemDictionaryManager systemDictionaryManager;
 	
 	@Test
-	public void testSaveDataDictionary() {
-		
-		DictionaryCategory category = systemDictionaryManager.getDictionaryCategory("SJDK3849CKMS3849DJCK2039ZMSK0015");
-		
-		DataDictionary dataDictionary = new DataDictionary();
-		dataDictionary.setCategory(category);
-		dataDictionary.setName("a1b2c3d4e5f6g7h8i9j0k中文输入法a1b2c3d4e5f6g7h8i9j0k");
-		dataDictionary.setValue("4");
-		dataDictionary.setType(PropertyType.I.toString());
-		dataDictionary.setRemark("*");
-		
-		int beforeRow = countRowsInTable("TB_DATA_DICTIONARY");
-		systemDictionaryManager.saveDataDictionary(dataDictionary);
-		sessionFactory.getCurrentSession().flush();
-		int afterRow = countRowsInTable("TB_DATA_DICTIONARY");
-		
-		assertEquals(afterRow, beforeRow + 1);
-		
-		assertEquals(dataDictionary.getWubiCode(), "A1B2C3D4E5F6G7H8I9J0KKYLTIA1B2C3D4E5F6G7H8I9J0K");
-		assertEquals(dataDictionary.getPinYinCode(), "A1B2C3D4E5F6G7H8I9J0KZWSRFA1B2C3D4E5F6G7H8I9J0K");
-		
-	}
-	
-	@Test
-	public void testDeleteDataDictionary() {
-		
-		List<String> ids = new ArrayList<String>();
-		CollectionUtils.addAll(ids, new String[]{"SJDK3849CKMS3849DJCK2039ZMSK0018","SJDK3849CKMS3849DJCK2039ZMSK0019"});
-		
-		int beforeRow = countRowsInTable("TB_DATA_DICTIONARY");
-		systemDictionaryManager.deleteDataDictionary(ids);
-		sessionFactory.getCurrentSession().flush();
-		int afterRow = countRowsInTable("TB_DATA_DICTIONARY");
-		
-		assertEquals(afterRow, beforeRow - 2);
-	}
-	
-	@Test
 	public void testGetDataDictionariesByCategoryCode() {
 		
 		assertEquals("启用", SystemVariableUtils.getDictionaryNameByValue(SystemDictionaryCode.State, "1"));
@@ -83,6 +45,40 @@ public class TestDataDictionaryManager extends ManagerTestCaseSuper{
 		assertEquals("删除", SystemVariableUtils.getDictionaryNameByValue(SystemDictionaryCode.State, "3"));
 		assertEquals("删除", SystemVariableUtils.getDictionaryNameByValue(SystemDictionaryCode.State, "3"));
 		assertEquals("删除", SystemVariableUtils.getDictionaryNameByValue(SystemDictionaryCode.State, "3"));
+	}
+	
+	public void testDeleteDataDictionary() {
+		
+		List<String> ids = new ArrayList<String>();
+		CollectionUtils.addAll(ids, new String[]{"SJDK3849CKMS3849DJCK2039ZMSK0018","SJDK3849CKMS3849DJCK2039ZMSK0019"});
+		
+		int beforeRow = countRowsInTable("TB_DATA_DICTIONARY");
+		systemDictionaryManager.deleteDataDictionary(ids);
+		int afterRow = countRowsInTable("TB_DATA_DICTIONARY");
+		
+		assertEquals(afterRow, beforeRow - 2);
+	}
+	
+	public void testSaveDataDictionary() {
+		
+		DictionaryCategory category = systemDictionaryManager.getDictionaryCategory("SJDK3849CKMS3849DJCK2039ZMSK0015");
+		
+		DataDictionary dataDictionary = new DataDictionary();
+		dataDictionary.setCategory(category);
+		dataDictionary.setName("a1b2c3d4e5f6g7h8i9j0k中文输入法a1b2c3d4e5f6g7h8i9j0k");
+		dataDictionary.setValue("4");
+		dataDictionary.setType(PropertyType.I.toString());
+		dataDictionary.setRemark("*");
+		
+		int beforeRow = countRowsInTable("TB_DATA_DICTIONARY");
+		systemDictionaryManager.saveDataDictionary(dataDictionary);
+		int afterRow = countRowsInTable("TB_DATA_DICTIONARY");
+		
+		assertEquals(afterRow, beforeRow + 1);
+		
+		assertEquals(dataDictionary.getWubiCode(), "A1B2C3D4E5F6G7H8I9J0KKYLTIA1B2C3D4E5F6G7H8I9J0K");
+		assertEquals(dataDictionary.getPinYinCode(), "A1B2C3D4E5F6G7H8I9J0KZWSRFA1B2C3D4E5F6G7H8I9J0K");
+		
 	}
 	
 }
