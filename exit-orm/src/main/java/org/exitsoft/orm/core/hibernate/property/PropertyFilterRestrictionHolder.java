@@ -13,14 +13,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.exitsoft.common.utils.ServletUtils;
 import org.exitsoft.orm.core.PropertyFilter;
 import org.exitsoft.orm.core.PropertyType;
-import org.exitsoft.orm.core.hibernate.property.impl.restriction.BtRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.EqRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.GeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.GtRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.InRestriction;
+import org.exitsoft.orm.core.hibernate.property.impl.restriction.LLikeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.LeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.LikeRestriction;
-import org.exitsoft.orm.core.hibernate.property.impl.restriction.LLikeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.LtRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.NeRestriction;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.NinRestriction;
@@ -50,7 +49,6 @@ public class PropertyFilterRestrictionHolder {
 		PropertyCriterionBuilder ltRestriction = new LtRestriction();
 		PropertyCriterionBuilder notInRestriction = new NinRestriction();
 		PropertyCriterionBuilder rLikeRestriction = new RLikeRestriction();
-		PropertyCriterionBuilder betweenRestriction = new BtRestriction();
 		
 		criterionMap.put(eqRestriction.getRestrictionName(), eqRestriction);
 		criterionMap.put(neRestriction.getRestrictionName(), neRestriction);
@@ -63,7 +61,6 @@ public class PropertyFilterRestrictionHolder {
 		criterionMap.put(ltRestriction.getRestrictionName(), ltRestriction);
 		criterionMap.put(rLikeRestriction.getRestrictionName(), rLikeRestriction);
 		criterionMap.put(notInRestriction.getRestrictionName(), notInRestriction);
-		criterionMap.put(betweenRestriction.getRestrictionName(), betweenRestriction);
 	}
 	
 	/**
