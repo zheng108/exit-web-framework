@@ -111,8 +111,8 @@ public abstract class Fixtures {
 					tableNames.add(tableName);
 				}
 			}
-
 			deleteTable(h2DataSource, tableNames.toArray(new String[tableNames.size()]));
+			rs.close();
 		} catch (SQLException e) {
 			throw e;
 		}
