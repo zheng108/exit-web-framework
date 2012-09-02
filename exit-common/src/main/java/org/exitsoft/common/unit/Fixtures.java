@@ -88,6 +88,7 @@ public abstract class Fixtures {
 				InputStream input = resourceLoader.getResource(xmlPath).getInputStream();
 				IDataSet dataSet = new FlatXmlDataSetBuilder().setColumnSensing(true).build(input);
 				operation.execute(connection, dataSet);
+				connection.close();
 			} catch (IOException e) {
 				logger.warn(xmlPath + " file not found", e);
 			}
