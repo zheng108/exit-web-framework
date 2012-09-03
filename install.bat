@@ -7,6 +7,7 @@ echo [INFO] create vcs admin archetype
 
 cd showcase\vcs_admin
 call mvn archetype:create-from-project
+
 cd target\generated-sources\archetype
 call mvn clean install -Dmaven.test.skip=true
 

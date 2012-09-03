@@ -1,4 +1,5 @@
 @echo off
+
 echo [INFO] create project from vcs admin panel.
 
 if not exist %~dp0\generated-sources (md %~dp0\generated-sources)
