@@ -14,15 +14,20 @@
         </property>
     </bean>
     
-    <!-- 自定义shiro的realm授权以验证基础.从数据库获取信息后认证和授权 -->
-	<bean id="shiroDataBaseRealm" class="org.exitsoft.showcase.vcsadmin.service.account.ShiroDataBaseRealm">
-		<property name="defaultPermissions" value="security:index,security:change-password" />
+    <!-- 自定义shiro的realm数据库授权 -->
+    <bean id="authorizationRealm" class="org.exitsoft.showcase.vcsadmin.service.account.AuthorizationRealm">
+   		<property name="defaultPermissions" value="security:index,security:change-password" />
+    	<property name="authorizationCacheName" value="shiroAuthorizationCache" />
+    	<property name="authenticationNames" value="jdbcAuthentication" />
+    </bean>
+    
+    <!-- 自定义shiro的realm数据库身份验证 -->
+	<bean id="jdbcAuthenticationRealm" class="org.exitsoft.showcase.vcsadmin.service.account.JdbcAuthenticationRealm">
 		<property name="credentialsMatcher">
 			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
 				<property name="hashAlgorithmName" value="MD5" />
 			</bean>
 		</property>
-		<property name="authorizationCacheName" value="shiroAuthorizationCache" />
 	</bean>
 	
 	<!-- shiro 的缓存管理,使用spring的ehCacheManagerFactory,
@@ -35,7 +40,12 @@
     <!-- 使用默认的WebSecurityManager -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<!-- realm认证和授权,从数据库读取资源 -->
-		<property name="realm" ref="shiroDataBaseRealm" />
+		<property name="realms">
+			<list>
+				<ref bean="jdbcAuthenticationRealm"/>
+				<ref bean="authorizationRealm"/>
+			</list>
+		</property>
 		<!-- sessionManager,使用缓存sessionDao -->
 		<property name="sessionManager" ref="sessionManager" />
 		<!-- cacheManager,集合spring缓存工厂 -->

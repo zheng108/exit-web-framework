@@ -1,20 +1,16 @@
 package org.exitsoft.showcase.vcsadmin.service.account;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -24,24 +20,25 @@ import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.ResourceType;
 import org.exitsoft.showcase.vcsadmin.common.model.CommonVariableModel;
 import org.exitsoft.showcase.vcsadmin.entity.account.Group;
 import org.exitsoft.showcase.vcsadmin.entity.account.Resource;
-import org.exitsoft.showcase.vcsadmin.entity.account.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 
 /**
- * 
- * apache shiro 的授权和认证接口
+ * apache shiro 的授权类
  * 
  * @author vincent
  *
  */
-public class ShiroDataBaseRealm extends AuthorizingRealm{
-	
+public class AuthorizationRealm extends AuthorizingRealm{
+
 	@Autowired
 	private AccountManager accountManager;
 	
 	private String defaultPermissions;
 	
 	private String defaultRoles;
+	
+	private String authenticationNames;
 	
 	/**
 	 * 默认permission，如果有多个用逗号分割
@@ -60,6 +57,15 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
 	public void setDefaultRoles(String defaultRoles) {
 		this.defaultRoles = defaultRoles;
 	}
+	
+	/**
+	 * 认证时使用的authentication名称，如果存在多个用逗号分割如："JdbcAuthentication,CasAuthentication"
+	 * 
+	 * @param authenticationNames authentication名称，如果存在多个用逗号分割如："JdbcAuthentication,CasAuthentication"
+	 */
+	public void setAuthenticationNames(String authenticationNames) {
+		this.authenticationNames = authenticationNames;
+	}
 
 	/**
 	 * 
@@ -67,14 +73,22 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
 	 * 
 	 */
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		
-        if (principals == null) {
-            throw new AuthorizationException("Principal对象不能为空");
-        }
         
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         
-        CommonVariableModel model = (CommonVariableModel) principals.fromRealm(getName()).iterator().next();
+        String[] names = StringUtils.split(authenticationNames, ",");
+        
+        CommonVariableModel model = null;
+        
+        for (String name : names){
+        	Iterator<?> iterator = principals.fromRealm(name).iterator();
+        	if (iterator.hasNext()) {
+        		model = (CommonVariableModel)iterator.next();
+        		break;
+        	}
+        }
+        
+        Assert.notNull(model, "找不到principals中的CommonVariableModel");
         
         String id = model.getUser().getId();
         
@@ -93,30 +107,6 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
         addRoles(info,groupsList);
         
         return info;
-	}
-
-	/**
-	 * 用户登录的认证方法
-	 * 
-	 */
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-
-        String username = usernamePasswordToken.getUsername();
-        
-        if (username == null) {
-            throw new AccountException("用户名不能为空");
-        }
-        
-        User user = accountManager.getUserByUsername(username);
-        
-        if (user == null) {
-            throw new UnknownAccountException("用户不存在");
-        }
-        
-        CommonVariableModel model = new CommonVariableModel(user);
-        
-        return new SimpleAuthenticationInfo(model,user.getPassword(),getName());
 	}
 	
 	/**
@@ -188,4 +178,12 @@ public class ShiroDataBaseRealm extends AuthorizingRealm{
 		return result;
 	}
 
+	/**
+	 * 空方法由其他的AuthenticatingRealm子类实现
+	 */
+	@Override
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+		
+		return null;
+	}
 }
