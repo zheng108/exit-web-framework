@@ -20,7 +20,7 @@
 		<jtds.jdbc.driver.version>1.2.4</jtds.jdbc.driver.version>
 		<mysql.connector.version>5.1.18</mysql.connector.version>
 		<h2.version>1.3.154</h2.version>
-		<hibernate.version>4.1.4.Final</hibernate.version>
+		<hibernate.version>4.1.6.Final</hibernate.version>
 		<cxf.version>2.6.1</cxf.version>
 		<jackson.version>1.9.8</jackson.version>
 		<jetty.version>7.6.4.v20120524</jetty.version>
