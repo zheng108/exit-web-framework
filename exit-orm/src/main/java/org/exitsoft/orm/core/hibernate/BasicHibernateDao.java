@@ -420,7 +420,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return Object
 	 */
 	public <X> X findUniqueByQueryNamed(String queryNamed,Object... values) {
-		return (X) createQueryByQueryNamed(queryNamed, values).list();
+		return (X) createQueryByQueryNamed(queryNamed, values).uniqueResult();
 	}
 	
 	/**
@@ -432,7 +432,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return Object
 	 */
 	public <X> X findUniqueByQueryNamed(String queryNamed,Map<String, Object> values) {
-		return (X)createQueryByQueryNamed(queryNamed, values).list();
+		return (X)createQueryByQueryNamed(queryNamed, values).uniqueResult();
 	}
 	
 	/**
