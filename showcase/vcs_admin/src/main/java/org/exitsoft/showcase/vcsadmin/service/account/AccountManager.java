@@ -260,7 +260,7 @@ public class AccountManager {
 	 * @return List
 	 */
 	public List<Resource> getUserResourcesByUserId(String userId) {
-		return resourceDao.findByQueryNamed(Resource.UserResources, userId);
+		return resourceDao.findByQueryNamedUseJpaStyle(Resource.UserResources, userId);
 	}
 	
 	/**
