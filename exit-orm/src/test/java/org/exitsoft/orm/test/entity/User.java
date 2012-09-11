@@ -7,15 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.exitsoft.orm.annotation.StateDelete;
-import org.hibernate.annotations.NamedQuery;
 
 @Entity
 @Table(name = "TB_ACCOUNT_USER")
 @StateDelete(propertyName = "state", value = "3")
-@NamedQuery(name="QueryUserResource",query="from User u where u.loginName=(?1)")
+@NamedQueries({
+	@NamedQuery(name="QueryUserResourceJpa",query="from User u where u.loginName=?1"),
+	@NamedQuery(name="QueryUserResource",query="from User u where u.loginName=?")
+})
 public class User extends UniversallyUniqueIdentifier {
 
 	// 登录名称

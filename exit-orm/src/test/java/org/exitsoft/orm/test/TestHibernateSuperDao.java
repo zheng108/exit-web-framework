@@ -1,7 +1,9 @@
 package org.exitsoft.orm.test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -166,7 +168,23 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		roleList = dao.findByPropertyFilters(filters,"name", Role.class);
 		Assert.assertEquals(roleList.size(), 3);
 		
-		userList = dao.findByQueryNamed("QueryUserResource", "系统管理");
+		userList = dao.findByQueryNamedUseJpaStyle("QueryUserResourceJpa", "admin");
+		Assert.assertEquals(userList.size(), 1);
+		
+		userList = dao.findByQueryNamed("QueryUserResource", "admin");
+		Assert.assertEquals(userList.size(), 1);
+		
+		userList = dao.findByQuery("from User u where u.loginName=?", "admin");
+		Assert.assertEquals(userList.size(), 1);
+		
+		userList = dao.findByQueryUseJpaStyle("from User u where u.loginName=?1", "admin");
+		Assert.assertEquals(userList.size(), 1);
+		
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put("loginName", "admin");
+		
+		userList = dao.findByQuery("from User u where u.loginName = :loginName", values);
+		Assert.assertEquals(userList.size(), 1);
 	}
 	
 	@Test
@@ -231,6 +249,23 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		role = dao.findUniqueByPropertyFilters(filters, Role.class);
 		Assert.assertEquals(role.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0010");
 		
+		user = dao.findUniqueByQueryNamedUseJapStyle("QueryUserResourceJpa", "admin");
+		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
+		
+		user = dao.findUniqueByQueryNamed("QueryUserResource", "admin");
+		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
+		
+		user = dao.findUniqueByQuery("from User u where u.loginName=?", "admin");
+		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
+		
+		user = dao.findUniqueByQueryUseJpaStyle("from User u where u.loginName=?1", "admin");
+		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
+		
+		Map<String, Object> values = new HashMap<String, Object>();
+		values.put("loginName", "admin");
+		
+		user = dao.findUniqueByQuery("from User u where u.loginName = :loginName", values);
+		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
 	}
 	
 	@Test
@@ -339,9 +374,6 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		
 		userList = dao.findByExpression("NIN_S_loginName", "admin,vincent");
 		Assert.assertEquals(userList.size(), 6);
-		
-		userList = dao.findByExpression("BT_I_state","1,2");
-		Assert.assertEquals(userList.size(), 8);
 		
 		userList = dao.findByExpression("EQ_S_loginName","admin|vincent");
 		Assert.assertEquals(userList.size(), 2);

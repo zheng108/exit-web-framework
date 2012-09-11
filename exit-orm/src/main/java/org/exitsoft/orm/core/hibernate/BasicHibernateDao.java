@@ -340,7 +340,11 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过HQL查询全部
+	 * 通过HQL查询全部.的参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * from object o where o.property = ? and o.property = ?
+	 * </pre>
 	 * 
 	 * @param queryString hql语句
 	 * @param values 可变长度的hql值
@@ -352,7 +356,26 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过HQL查询全部
+	 * 通过HQL查询全部.的参数形式为jpa风格形式:
+	 * <pre>
+	 * //使用是jpa参数风格(问号后面带顺序值"?1")
+	 * from object o where o.property = ?1 and o.property = ?2
+	 * </pre>
+	 * 
+	 * @param queryString hql语句
+	 * @param values 可变长度的hql值
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByQueryUseJpaStyle(String queryString,Object... values) {
+		return createQueryUseJpaStyle(queryString, values).list();
+	}
+	
+	/**
+	 * 通过HQL查询全部。参数形式为命名参数形式
+	 * <pre>
+	 * from Object o where o.property1 = :property1 and o.property2 = :proerty2
+	 * </pre>
 	 * 
 	 * @param queryString hql语句
 	 * @param values 与属性名方式的hql值
@@ -364,7 +387,11 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过queryNamed查询全部
+	 * 通过queryNamed查询全部,的参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * from object o where o.property = ? and o.property = ?
+	 * </pre>
 	 * 
 	 * @param queryNamed queryNamed
 	 * @param values 值
@@ -376,7 +403,26 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过queryNamed查询全部
+	 * 通过queryNamed查询全部,的参数形式为jpa风格形式:
+	 * <pre>
+	 * //使用是jpa参数风格(问号后面带顺序值"?1")
+	 * from object o where o.property = ?1 and o.property = ?2
+	 * </pre>
+	 * 
+	 * @param queryNamed queryNamed
+	 * @param values 值
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByQueryNamedUseJpaStyle(String queryNamed,Object... values) {
+		return createQueryByQueryNamedUseJpaStyle(queryNamed, values).list();
+	}
+	
+	/**
+	 * 通过queryNamed查询全部。参数形式为命名参数形式
+	 * <pre>
+	 * from Object o where o.property1 = :property1 and o.property2 = :proerty2
+	 * </pre>
 	 * 
 	 * @param queryNamed queryNamed
 	 * @param values 属性名参数规则
@@ -388,7 +434,11 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过hql查询单个orm实体
+	 * 通过hql查询单个orm实体,的参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * from object o where o.property = ? and o.property = ?
+	 * </pre>
 	 * 
 	 * @param queryString hql
 	 * @param values 可变长度的hql值
@@ -398,9 +448,29 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	public <X> X findUniqueByQuery(String queryString,Object... values){
 		return (X)createQuery(queryString, values).uniqueResult();
 	}
+	
+	/**
+	 * 通过hql查询单个orm实体,的参数形式为jpa风格形式:
+	 * 
+	 * <pre>
+	 * //使用是jpa参数风格(问号后面带顺序值"?1")
+	 * from object o where o.property = ?1 and o.property = ?2
+	 * </pre>
+	 * 
+	 * @param queryString hql
+	 * @param values 以属性名的hql值
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByQueryUseJpaStyle(String queryString,Object... values){
+		return (X)createQueryUseJpaStyle(queryString, values).uniqueResult();
+	}
 
 	/**
-	 * 通过hql查询单个orm实体
+	 * 通过hql查询单个orm实体，参数形式为命名参数形式
+	 * <pre>
+	 * from Object o where o.property1 = :property1 and o.property2 = :proerty2
+	 * </pre>
 	 * 
 	 * @param queryString hql
 	 * @param values 以属性名的hql值
@@ -412,7 +482,11 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过QueryName查询单个orm实体
+	 * 通过QueryName查询单个orm实体,的参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * from object o where o.property = ? and o.property = ?
+	 * </pre>
 	 * 
 	 * @param queryName queryName
 	 * @param values 值
@@ -424,7 +498,27 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过QueryName查询单个orm实体
+	 * 通过QueryName查询单个orm实体,该QueryName的参数形式为jpa风格形式:
+	 * 
+	 * <pre>
+	 * //该QueryName使用是jpa参数风格(问号后面带顺序值"?1")
+	 * rom object o where o.property = ?1 and o.property = ?2
+	 * </pre>
+	 * 
+	 * @param queryName queryName
+	 * @param values 值
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByQueryNamedUseJapStyle(String queryNamed,Object... values) {
+		return (X) createQueryByQueryNamedUseJpaStyle(queryNamed, values).uniqueResult();
+	}
+	
+	/**
+	 * 通过QueryName查询单个orm实体,参数形式为命名参数形式
+	 * <pre>
+	 * from Object o where o.property1 = :property1 and o.property2 = :proerty2
+	 * </pre>
 	 * 
 	 * @param queryName queryName
 	 * @param values 属性名参数规则
@@ -515,7 +609,11 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 根据查询HQL与参数列表创建Query对象
+	 * 根据查询HQL与参数列表创建Query对象,参数形式为命名参数形式:
+	 * <pre>
+	 * //使用的是命名参数风格
+	 * from object o where o.condition = :condition
+	 * </pre>
 	 * 
 	 * @param values
 	 *            命名参数,按名称绑定.
@@ -533,8 +631,13 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 根据查询HQL与参数列表创建Query对象
+	 * 根据hql创建Hibernate Query对象，的参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * from object o where o.property = ? and o.property = ?
+	 * </pre>
 	 * 
+	 * @param queryString hql
 	 * @param values
 	 *            数量可变的参数,按顺序绑定.
 	 *            
@@ -548,7 +651,30 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过queryNamed 创建Query
+	 * 根据hql创建Hibernate Query对象，的参数形式为jpa风格形式:
+	 * <pre>
+	 * //使用是jpa参数风格(问号后面带顺序值"?1")
+	 * from object o where o.property = ?1 and o.property = ?2
+	 * </pre>
+	 * 
+	 * @param queryNamed queryNamed
+	 * @param values 值
+	 * 
+	 * @return {@link Query}
+	 */
+	protected Query createQueryUseJpaStyle(String queryString,Object... values) {
+		Assert.hasText(queryString, "queryString不能为空");
+		Query query = getSession().createQuery(queryString);
+		setQueryValuesByJpaStley(query, values);
+		return query;
+	}
+	
+	/**
+	 * 通过queryNamed创建Query。的参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * from object o where o.property = ? and o.property = ?
+	 * </pre>
 	 * 
 	 * @param queryNamed queryNamed
 	 * @param values 值
@@ -556,13 +682,36 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return {@link Query}
 	 */
 	protected Query createQueryByQueryNamed(String queryNamed,Object... values) {
+		Assert.hasText(queryNamed, "QueryNamed不能为空");
 		Query query = getSession().getNamedQuery(queryNamed);
 		setQueryValues(query, values);
 		return query;
 	}
 	
 	/**
-	 * 通过queryNamed 创建Query
+	 * 根据queryNamed创建Hibernate Query对象，的参数形式为jpa风格形式:
+	 * <pre>
+	 * //使用是jpa参数风格(问号后面带顺序值"?1")
+	 * from object o where o.property = ?1 and o.property = ?2
+	 * </pre>
+	 * 
+	 * @param queryNamed queryNamed
+	 * @param values 值
+	 * 
+	 * @return {@link Query}
+	 */
+	protected Query createQueryByQueryNamedUseJpaStyle(String queryNamed,Object... values) {
+		Query query = getSession().getNamedQuery(queryNamed);
+		setQueryValuesByJpaStley(query, values);
+		return query;
+	}
+	
+	/**
+	 * 通过queryNamed 创建Query,参数形式为命名参数形式:
+	 * <pre>
+	 * //使用的是命名参数风格
+	 * from object o where o.condition = :condition
+	 * </pre>
 	 * 
 	 * @param queryNamed queryNamed
 	 * @param values 属性名参数规则
@@ -631,7 +780,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @param query Hibernate Query
 	 * @param values 参数值可变数组
 	 */
-	protected void setQueryValues(Query query ,Object... values) {
+	protected void setQueryValuesByJpaStley(Query query ,Object... values) {
 		
 		if (ArrayUtils.isEmpty(values)) {
 			return ;
@@ -641,6 +790,22 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 			query.setParameter(i.toString(), values[i - 1]);
 		}
 	
+	}
+	
+	/**
+	 * 设置参数值到query的hql中,该参数是属于jdbc风格的参数
+	 *
+	 * @param query Hibernate Query
+	 * @param values 参数值可变数组
+	 */
+	protected void setQueryValues(Query query ,Object... values) {
+		if (ArrayUtils.isEmpty(values)) {
+			return ;
+		}
+		
+		for (Integer i = 0; i < values.length; i++) {
+			query.setParameter(i, values[i]);
+		}
 	}
 	
 	/**
@@ -927,7 +1092,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 如果session中存在相同持久化识别的实例，用给出的对象的状态覆盖旧的持久化实例
+	 * 如果session中存在相同持久化识别的实例，用给出的对象的状态覆盖持久化实例
 	 * 
 	 * @param entity 持久化实例
 	 */
@@ -939,7 +1104,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 如果session中存在相同持久化识别的实例，用给出的对象的状态覆盖旧的持久化实例
+	 * 如果session中存在相同持久化识别的实例，用给出的对象的状态覆盖持久化实例
 	 * 
 	 * @param entity 持久化实例
 	 * @param entityName 持久化对象名称
@@ -1075,22 +1240,43 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 执行HQL进行批量修改/删除操作.成功后更新记录数
+	 * 执行HQL进行批量修改/删除操作.成功后更新记录数,参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * update object o set o.property=? where o.condition = ?
+	 * </pre>
 	 * 
-	 * @param values
-	 *            数量可变的参数,按顺序绑定.
+	 * @param values 参数值
 	 *            
 	 * @return int
 	 */
 	public int executeUpdate(String hql,  Object... values) {
 		return createQuery(hql, values).executeUpdate();
 	}
+	
+	/**
+	 * 执行HQL进行批量修改/删除操作.成功后更新记录数,参数形式为jpa参数形式:
+	 * <pre>
+	 * //使用的是jpa参数风格(问号后面带有一个顺序值"?1")
+	 * update object o set o.property=?1 where o.condition = ?2
+	 * </pre>
+	 * 
+	 * @param values 参数值
+	 *            
+	 * @return int
+	 */
+	public int executeUpdateUseJpaStyle(String hql, Object...values) {
+		return createQueryUseJpaStyle(hql, values).executeUpdate();
+	}
 
 	/**
-	 * 执行HQL进行批量修改/删除操作.成功后返回更新记录数
+	 * 执行HQL进行批量修改/删除操作.成功后返回更新记录数,参数形式为命名参数形式:
+	 * <pre>
+	 * //使用的是命名参数风格
+	 * update object o set o.property = :property where o.condition = :condition
+	 * </pre>
 	 * 
-	 * @param values
-	 *            命名参数,按名称绑定.
+	 * @param values 命名参数,按名称绑定.
 	 *            
 	 * @return int
 	 */
@@ -1099,26 +1285,47 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	}
 	
 	/**
-	 * 通过queryNamedd执行HQL进行批量修改/删除操作.成功后返回更新记录数
+	 * 通过queryNamed执行HQL进行批量修改/删除操作.成功后返回更新记录数,参数形式为jdbc参数形式:
+	 * <pre>
+	 * //使用是jdbc参数风格(问号后面没有带顺序值)
+	 * update object o set o.property=? where o.condition = ?
+	 * </pre>
 	 * 
-	 * @param values
-	 *            命名参数,按名称绑定.
+	 * @param values 参数值
 	 *            
 	 * @return int
 	 */
-	public int executeUpdateByQueryNamedd(String queryNamed,Object... values) {
+	public int executeUpdateByQueryNamed(String queryNamed,Object... values) {
 		return createQueryByQueryNamed(queryNamed, values).executeUpdate();
 	}
 	
 	/**
-	 * 通过queryNamedd执行HQL进行批量修改/删除操作.成功后返回更新记录数
+	 * 通过queryNamed执行HQL进行批量修改/删除操作.成功后返回更新记录数,参数形式为jpa参数形式:
+	 * <pre>
+	 * //使用的是jpa参数风格(问号后面带有一个顺序值"?1")
+	 * update object o set o.property=?1 where o.condition = ?2
+	 * </pre>
 	 * 
-	 * @param values
-	 *            命名参数,按名称绑定.
+	 * @param values 参数值
 	 *            
 	 * @return int
 	 */
-	public int executeUpdateByQueryNamedd(String queryNamed,Map<String, ?> values) {
+	public int executeUpdateByQueryNamedUseJapStyle(String queryNamed,Object... values) {
+		return createQueryByQueryNamed(queryNamed, values).executeUpdate();
+	}
+	
+	/**
+	 * 通过queryNamed执行HQL进行批量修改/删除操作.成功后返回更新记录数,参数形式为命名参数形式:
+	 * <pre>
+	 * //使用的是命名参数风格
+	 * update object o set o.property = :property where o.condition = :condition
+	 * </pre>
+	 * 
+	 * @param values 命名参数,按名称绑定.
+	 *            
+	 * @return int
+	 */
+	public int executeUpdateByQueryNamed(String queryNamed,Map<String, ?> values) {
 		return createQueryByQueryNamed(queryNamed, values).executeUpdate();
 	}
 }
