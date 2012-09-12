@@ -17,6 +17,7 @@ import org.exitsoft.showcase.vcsadmin.common.SystemVariableUtils;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.SystemDictionaryCode;
 import org.exitsoft.showcase.vcsadmin.common.enumeration.entity.State;
 import org.exitsoft.showcase.vcsadmin.entity.UniversallyUniqueIdentifier;
+import org.hibernate.annotations.NamedQuery;
 
 /**
  * 用户类
@@ -26,7 +27,13 @@ import org.exitsoft.showcase.vcsadmin.entity.UniversallyUniqueIdentifier;
 @Entity
 @Table(name="TB_USER")
 @SuppressWarnings("serial")
+@NamedQuery(name=User.UpdatePassword,query="update User u set u.password = ?1 where u.id = ?2")
 public class User extends UniversallyUniqueIdentifier{
+	
+	/**
+	 * 更新用户密码NamedQuery
+	 */
+	public static final String UpdatePassword = "updatePassword";
 	
 	//登录名称
 	private String username;

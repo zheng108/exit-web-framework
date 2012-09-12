@@ -1311,7 +1311,7 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	 * @return int
 	 */
 	public int executeUpdateByQueryNamedUseJapStyle(String queryNamed,Object... values) {
-		return createQueryByQueryNamed(queryNamed, values).executeUpdate();
+		return createQueryByQueryNamedUseJpaStyle(queryNamed, values).executeUpdate();
 	}
 	
 	/**
