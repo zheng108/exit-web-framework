@@ -290,9 +290,22 @@
 	                        </sources>
 	                    </configuration>  
 	                </execution>
+	                <execution>
+	                	<id>add-foundation-resource</id>  
+	                    <phase>generate-sources</phase>  
+	                    <goals>  
+	                        <goal>add-resource</goal> 
+	                    </goals>  
+	                    <configuration>
+	                        <resources>
+	                        	<resource>
+	                        		<directory>${basedir}/src/test/resources</directory>
+	                        	</resource>
+	                        </resources>
+	                    </configuration>
+	                </execution>
 	            </executions>  
 	        </plugin>
-	        
 		</plugins>
 	</build>
 </project>

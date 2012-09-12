@@ -67,8 +67,9 @@ public class AccountManager {
 		
 		oldPassword = new SimpleHash("MD5", oldPassword.toCharArray()).toString();
 		if(user.getPassword().equals(oldPassword)) {
-			userDao.updatePassword(user.getId(),new SimpleHash("MD5",newPassword).toHex());
-			user.setPassword(newPassword); 
+			String temp = new SimpleHash("MD5",newPassword).toHex();
+			userDao.updatePassword(user.getId(),temp);
+			user.setPassword(temp); 
 			return true;
 		}
 		
@@ -414,7 +415,7 @@ public class AccountManager {
 	 * @return List
 	 */
 	public List<Group> getUserGroupsByUserId(String userId) {
-		return groupDao.findByQueryNamed(Group.UserGroups, userId);
+		return groupDao.findByQueryNamedUseJpaStyle(Group.UserGroups, userId);
 	}
 
 }
