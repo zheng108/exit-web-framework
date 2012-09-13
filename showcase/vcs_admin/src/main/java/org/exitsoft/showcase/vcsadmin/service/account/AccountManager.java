@@ -81,7 +81,7 @@ public class AccountManager {
 	 * @param id 用户id
 	 */
 	public User getUser(String id) {
-		return userDao.get(id);
+		return userDao.load(id);
 	}
 	
 	/**
@@ -165,7 +165,7 @@ public class AccountManager {
 	 * @return {@link Resource}
 	 */
 	public Resource getResource(String id) {
-		return resourceDao.get(id);
+		return resourceDao.load(id);
 	}
 	
 	/**
@@ -318,7 +318,7 @@ public class AccountManager {
 	 * @return {@link Group}
 	 */
 	public Group getGroup(String id) {
-		return groupDao.get(id);
+		return groupDao.load(id);
 	}
 	
 	/**

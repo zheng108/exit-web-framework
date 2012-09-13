@@ -42,7 +42,7 @@ public class SystemDictionaryManager {
 	 * @param id 数据字典id
 	 */
 	public DataDictionary getDataDictionary(String id) {
-		return dataDictionaryDao.get(id);
+		return dataDictionaryDao.load(id);
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class SystemDictionaryManager {
 	 * @param id 数据字典id
 	 */
 	public DictionaryCategory getDictionaryCategory(String id) {
-		return dictionaryCategoryDao.get(id);
+		return dictionaryCategoryDao.load(id);
 	}
 	
 	/**
