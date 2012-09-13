@@ -119,7 +119,7 @@ public class AuthorizationRealm extends AuthorizingRealm{
 		
 		//解析当前用户组中的role
         List<String> temp = CollectionUtils.extractToList(groupsList, "role", true);
-        List<String> roles = getValue(temp,"roles\\[\"(.*?)\\\"]");
+        List<String> roles = getValue(temp,"roles\\[(.*?)\\]");
        
         //添加默认的roles到roels
         String[] dRoles = StringUtils.split(defaultRoles,",");
@@ -140,7 +140,7 @@ public class AuthorizationRealm extends AuthorizingRealm{
 	private void addPermissions(SimpleAuthorizationInfo info,List<Resource> authorizationInfo) {
 		//解析当前用户资源中的permissions
         List<String> temp = CollectionUtils.extractToList(authorizationInfo, "permission", true);
-        List<String> permissions = getValue(temp,"perms\\[\"(.*?)\\\"]");
+        List<String> permissions = getValue(temp,"perms\\[(.*?)\\]");
        
         //添加默认的permissions到permissions
         String[] dPermissions = StringUtils.split(defaultPermissions,",");

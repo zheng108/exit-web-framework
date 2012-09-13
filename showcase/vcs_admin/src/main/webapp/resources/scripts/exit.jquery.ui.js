@@ -405,12 +405,6 @@
 			$(a).dialog();
 		});
 		
-		$.each($("*[title][title!='']"),function(i,t) {
-			$(t).poshytip({
-				alignY: 'bottom'
-			});
-		});
-		
 	};
 	
 	var destroyUi = function(){
@@ -418,7 +412,7 @@
 		$.each($("*[class='tip-yellow']"),function(i,t) {
 			$(t).remove();
 		});
-	}
+	};
 
 	$(document).ajaxStop(initializeUi);
 	$(document).ajaxStart(destroyUi);

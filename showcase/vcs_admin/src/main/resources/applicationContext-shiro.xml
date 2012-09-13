@@ -16,7 +16,7 @@
     
     <!-- 自定义shiro的realm数据库授权 -->
     <bean id="authorizationRealm" class="org.exitsoft.showcase.vcsadmin.service.account.AuthorizationRealm">
-   		<property name="defaultPermissions" value="security:index,security:change-password" />
+   		<property name="defaultPermissions" value="security:change-password,security:index" />
     	<property name="authorizationCacheName" value="shiroAuthorizationCache" />
     	<property name="authenticationNames" value="jdbcAuthentication" />
     </bean>
@@ -57,20 +57,14 @@
 		<!-- 默认的连接配置 -->
 		<property name="filterChainDefinitions">
 			<value>
-				<!-- org.exitsoft.showcase.vcsadmin.service.account.ShiroDataBaseRealm.doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken token) -->
 				/login = authc
 				/logout = logout
 				/resources/** = anon
-				/index/** = perms[security:index]
-				/changePassword/** = perms[security:change-password]
+				/index = perms[security:index]
+				/changePassword = perms[security:change-password]
 			</value>
 		</property>
 	</bean>
-	
-	<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">  
-        <!-- 配置验证错误时的失败页面  -->  
-        <property name="failureUrl" value="/error.jsp"/>  
-    </bean>
     
 	<!-- 将shiro与spring集合 -->
 	<bean id="shiroSecurityFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -86,6 +80,21 @@
 	    <property name="filterChainDefinitionMap" ref="chainDefinitionSectionMetaSource" />
 	</bean>
 	
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- 
+		启用shiro注解时，启动项目Hibernate4报： No Session found for current thread 异常，
+		在ChainDefinitionSectionMetaSource 33行 
+		List<Resource> resources = accountManager.getAllResources();
+		时报错。
+	-->
+	
+	<!-- <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+
+    </bean>
     
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+	    <property name="securityManager" ref="securityManager"/>
+	</bean> -->
+	
 </beans>

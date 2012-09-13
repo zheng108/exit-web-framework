@@ -146,7 +146,7 @@ public class SystemDictionaryManager {
 	 * @param request 分页参数请求
 	 * @param filters 属性过滤器
 	 * 
-	 * @return Page
+	 * @return {@link Page}
 	 */
 	public Page<DictionaryCategory> searchDictionaryCategoryPage(PageRequest request,List<PropertyFilter> filters) {
 		return dictionaryCategoryDao.findPage(request, filters);

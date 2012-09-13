@@ -57,13 +57,13 @@
 		            </select>
 		    	</div>
 		    	<label for="filter_EQ_S_parent.id">
-		    		所属父类:
+		    		所属类别:
 		    	</label>
 		    	<div class="field">
-		    		<select class="selection" height="150" search="true" name="filter_EQ_S_parent.id" id="filter_EQ_S_parent.id" size="25">
+		    		<select class="selection" height="150" search="true" name="filter_EQ_S_category.id" id="filter_EQ_S_category.id" size="25">
 		    			<option>无</option>
 		                <#list categoriesList as cl>
-		                	<option value="${cl.id}" <#if RequestParameters['filter_EQ_S_parent.id']?has_content && RequestParameters['filter_EQ_S_parent.id'] == cl.id>selected="selected"</#if> >${cl.name}</option>
+		                	<option value="${cl.id}" <#if RequestParameters['filter_EQ_S_category.id']?has_content && RequestParameters['filter_EQ_S_category.id'] == cl.id>selected="selected"</#if> >${cl.name}</option>
 		                </#list>
 		           </select>
 		    	</div>

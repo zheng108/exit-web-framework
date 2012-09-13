@@ -90,6 +90,7 @@ public class SystemCommonController {
 	 */
 	@ExceptionHandler
 	public @ResponseBody String exception(Exception e) {
+		e.printStackTrace();
 		return e.getMessage();
 	}
 }
