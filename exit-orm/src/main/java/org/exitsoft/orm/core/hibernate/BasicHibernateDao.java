@@ -272,12 +272,31 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 	
 
 	/**
-	 * 按PK获取对象.
+	 * 按PK获取对象实体.如果找不到对象或者id为null值时，返回null,参考{@link Session#get(Class, Serializable)}
+	 * 
+	 * @see Session#get(Class, Serializable)
 	 * 
 	 * @param id 主键ID
+	 * 
 	 */
 	public T get(PK id) {
 		
+		if (id == null) {
+			return null;
+		}
+		
+		return (T) getSession().get(entityClass, id);
+	}
+	
+	/**
+	 * 按PK获取对象代理.如果id为null，返回null。参考{@link Session#load(Class, Serializable)}
+	 * 
+	 * @see Session#load(Class, Serializable)
+	 * 
+	 * @param id 主键ID
+	 * 
+	 */
+	public T load(PK id) {
 		if (id == null) {
 			return null;
 		}
