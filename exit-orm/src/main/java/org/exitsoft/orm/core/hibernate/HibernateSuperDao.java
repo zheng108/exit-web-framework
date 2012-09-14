@@ -1,11 +1,13 @@
 package org.exitsoft.orm.core.hibernate;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.exitsoft.common.utils.CollectionUtils;
+import org.exitsoft.common.utils.ReflectionUtils;
 import org.exitsoft.orm.core.Page;
 import org.exitsoft.orm.core.PageRequest;
 import org.exitsoft.orm.core.PageRequest.Sort;
@@ -15,7 +17,12 @@ import org.exitsoft.orm.core.hibernate.property.PropertyFilterRestrictionHolder;
 import org.exitsoft.orm.core.hibernate.property.impl.restriction.EqRestriction;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.util.Assert;
 
 /**
@@ -34,6 +41,51 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	
 	public HibernateSuperDao(Class entityClass){
 		super(entityClass);
+	}
+	
+	/**
+	 * 执行count查询获得本次Criteria查询所能获得的对象总数.
+	 * 
+	 * @param c Criteria对象
+	 * 
+	 * @return long
+	 */
+	protected long countCriteriaResult( Criteria c) {
+		CriteriaImpl impl = (CriteriaImpl) c;
+
+		// 先把Projection、ResultTransformer、OrderBy取出来,清空三者后再执行Count操作
+		Projection projection = impl.getProjection();
+		ResultTransformer transformer = impl.getResultTransformer();
+
+		List<CriteriaImpl.OrderEntry> orderEntries = null;
+		try {
+			orderEntries = (List) ReflectionUtils.getFieldValue(impl,"orderEntries");
+			ReflectionUtils.setFieldValue(impl, "orderEntries", new ArrayList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// 执行Count查询
+		Long totalCountObject = (Long) c.setProjection(Projections.rowCount()).uniqueResult();
+		long totalCount = (totalCountObject != null) ? totalCountObject : 0;
+
+		// 将之前的Projection,ResultTransformer和OrderBy条件重新设回去
+		c.setProjection(projection);
+
+		if (projection == null) {
+			c.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+		}
+		if (transformer != null) {
+			c.setResultTransformer(transformer);
+		}
+		
+		try {
+			ReflectionUtils.setFieldValue(impl, "orderEntries", orderEntries);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return totalCount;
 	}
 	
 	/**
