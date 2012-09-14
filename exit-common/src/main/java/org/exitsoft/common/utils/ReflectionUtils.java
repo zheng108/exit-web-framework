@@ -68,7 +68,7 @@ public abstract class ReflectionUtils {
 	/**
 	 * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
 	 */
-	public static Object getFieldValue(final Object obj, final String fieldName) {
+	public static <X> X getFieldValue(final Object obj, final String fieldName) {
 		Field field = getAccessibleField(obj, fieldName);
 
 		if (field == null) {
@@ -81,7 +81,7 @@ public abstract class ReflectionUtils {
 		} catch (IllegalAccessException e) {
 			logger.error("不可能抛出的异常{}", e.getMessage());
 		}
-		return result;
+		return (X) result;
 	}
 
 	/**
