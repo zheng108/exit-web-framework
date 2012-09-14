@@ -12,6 +12,7 @@ import org.exitsoft.showcase.vcsadmin.entity.account.Resource;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -27,7 +28,8 @@ public class ChainDefinitionSectionMetaSource implements FactoryBean<Ini.Section
 	
 	//shiro默认的链接定义
 	private String filterChainDefinitions;
-	
+
+	@Transactional
 	public Section getObject() throws BeansException {
         
         List<Resource> resources = accountManager.getAllResources();
