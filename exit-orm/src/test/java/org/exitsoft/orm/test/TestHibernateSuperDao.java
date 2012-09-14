@@ -19,6 +19,7 @@ import org.exitsoft.orm.test.entity.Role;
 import org.exitsoft.orm.test.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.junit.Assert;
 import org.junit.Before;
@@ -185,6 +186,9 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		
 		userList = dao.findByQuery("from User u where u.loginName = :loginName", values);
 		Assert.assertEquals(userList.size(), 1);
+		
+		userList = dao.findByDetachedCriteria(DetachedCriteria.forClass(User.class).add(Restrictions.eq("loginName", "admin")));
+		Assert.assertEquals(userList.size(), 1);
 	}
 	
 	@Test
@@ -266,6 +270,9 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		
 		user = dao.findUniqueByQuery("from User u where u.loginName = :loginName", values);
 		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
+		
+		user = dao.findUniqueByDetachedCriteria(DetachedCriteria.forClass(User.class).add(Restrictions.eq("loginName", "admin")));
+		Assert.assertEquals(user.getId(), "SJDK3849CKMS3849DJCK2039ZMSK0002");
 	}
 	
 	@Test
@@ -309,6 +316,11 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		Assert.assertEquals(user.getTotalPages(), 4);
 		Assert.assertEquals(user.getTotalItems(), 8);
 		
+		user = dao.findPage(request,DetachedCriteria.forClass(User.class).add(Restrictions.eq("state", 1)));
+		Assert.assertEquals(user.getResult().size(), 2);
+		Assert.assertEquals(user.getTotalPages(), 4);
+		Assert.assertEquals(user.getTotalItems(), 8);
+		
 		role = dao.findPage(request,Role.class,Restrictions.eq("name","系统管理员"));
 		Assert.assertEquals(role.getResult().size(), 1);
 		Assert.assertEquals(role.getTotalPages(), 1);
@@ -327,6 +339,11 @@ public class TestHibernateSuperDao extends AbstractTransactionalJUnit4SpringCont
 		Assert.assertEquals(role.getTotalItems(), 1);
 		
 		role = dao.findPage(request,new String[]{"EQ_S_name"}, new String[]{"系统管理员"},Role.class);
+		Assert.assertEquals(role.getResult().size(), 1);
+		Assert.assertEquals(role.getTotalPages(), 1);
+		Assert.assertEquals(role.getTotalItems(), 1);
+		
+		role = dao.findPage(request,DetachedCriteria.forClass(Role.class).add(Restrictions.eq("name", "系统管理员")));
 		Assert.assertEquals(role.getResult().size(), 1);
 		Assert.assertEquals(role.getTotalPages(), 1);
 		Assert.assertEquals(role.getTotalItems(), 1);

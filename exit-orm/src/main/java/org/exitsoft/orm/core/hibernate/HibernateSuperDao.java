@@ -19,6 +19,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.internal.CriteriaImpl;
@@ -254,6 +255,17 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 		return PropertyFilterRestrictionHolder.getCriterion(filter);
 	}
 	
+	/**
+	 * 根据detachedCriteria查询全部
+	 * 
+	 * @param detachedCriteria detachedCriteria
+	 * 
+	 * @return List
+	 */
+	public <X> List<X> findByDetachedCriteria(DetachedCriteria detachedCriteria) {
+		return createCriteria(detachedCriteria).list();
+	}
+
 	/**
 	 * 根据{@link PropertyFilter} 查询全部
 	 * 
@@ -604,6 +616,17 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	}
 	
 	/**
+	 * 通过detachedCriteria查询单个orm实体
+	 * 
+	 * @param detachedCriteria hibernate detachedCriteria
+	 * 
+	 * @return Object
+	 */
+	public <X> X findUniqueByDetachedCriteria(DetachedCriteria detachedCriteria) {
+		return (X) createCriteria(detachedCriteria).uniqueResult();
+	}
+	
+	/**
 	 * 通过{@link PropertyFilter} 查询单个orm实体
 	 * 
 	 * @param filters 条件过滤器
@@ -615,6 +638,19 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 		return (T)findUniqueByPropertyFilters(filters, this.entityClass);
 	}
 	
+	/**
+	 * 通过{@link PropertyFilter} 查询单个orm实体
+	 * 
+	 * @param filters 条件过滤器
+	 * @param persistentClass orm 实体Class
+	 * 
+	 * @return Object
+	 * 
+	 */
+	public <X> X findUniqueByPropertyFilters(List<PropertyFilter> filters,Class<?> persistentClass) {
+		return (X) createCriteria(filters, persistentClass).uniqueResult();
+	}
+
 	/**
 	 * 通过表达式和对比值查询单个orm实体
 	 * <pre>
@@ -660,18 +696,17 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	}
 	
 	/**
-	 * 通过{@link PropertyFilter} 查询单个orm实体
+	 * 通过criterion数组查询单个orm实体
 	 * 
-	 * @param filters 条件过滤器
-	 * @param persistentClass orm 实体Class
+	 * @param criterions criterion数组
+	 * @param persistentClass orm实体Class
 	 * 
 	 * @return Object
-	 * 
 	 */
-	public <X> X findUniqueByPropertyFilters(List<PropertyFilter> filters,Class<?> persistentClass) {
-		return (X) createCriteria(filters, persistentClass).uniqueResult();
+	public <X> X findUniqueByCriterions(Criterion[] criterions,Class<?> persistentClass){
+		return (X)createCriteria(persistentClass,criterions).uniqueResult();
 	}
-	
+
 	/**
 	 * 通过表达式和对比值查询单个orm实体
 	 * <pre>
@@ -707,20 +742,6 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 		return (X)createCriteria(expressions, matchValues, StringUtils.EMPTY, persistentClass).uniqueResult();
 	}
 
-	/**
-	 * 通过criterion数组查询单个orm实体
-	 * 
-	 * @param criterions criterion数组
-	 * @param persistentClass orm实体Class
-	 * 
-	 * @return Object
-	 */
-	public <X> X findUniqueByCriterions(Criterion[] criterions,Class<?> persistentClass){
-		return (X)createCriteria(persistentClass,criterions).uniqueResult();
-	}
-	
-	
-	
 	/**
 	 * 通过orm实体的属性名称查询单个orm实体
 	 * 
@@ -772,6 +793,19 @@ public class HibernateSuperDao<T,PK extends Serializable> extends BasicHibernate
 	public <X> X findUniqueByProperty(String propertyName,Object value,String restrictionName,Class<?> persistentClass) {
 		Criterion criterion = PropertyFilterRestrictionHolder.getCriterion(propertyName, value, restrictionName);
 		return (X) createCriteria(persistentClass, criterion).uniqueResult();
+	}
+	
+	/**
+	 * 通过DetachedCriteria和分页请求参数获取分页对象
+	 * 
+	 * @param request 分页请求参数
+	 * @param detachedCriteria Hiberante DetachedCriteria
+	 * 
+	 * @return {@link Page}
+	 */
+	public <X> Page<X> findPage(PageRequest request,DetachedCriteria detachedCriteria) {
+		Criteria criteria = createCriteria(detachedCriteria);
+		return findPage(request,criteria);
 	}
 	
 	/**

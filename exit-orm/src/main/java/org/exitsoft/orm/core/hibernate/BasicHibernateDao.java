@@ -1,7 +1,6 @@
 package org.exitsoft.orm.core.hibernate;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -32,14 +31,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.jdbc.Work;
 import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -624,6 +621,60 @@ public class BasicHibernateDao<T,PK extends Serializable> {
 			criteria.add(criterion);
 		}
 		setOrderToCriteria(criteria,orderBy);
+		return criteria;
+	}
+	
+	/**
+	 * 根据DetachedCriteria创建Criteria对象
+	 * 
+	 * @param detachedCriteria Hibernate DetachedCriteria
+	 * 
+	 * @return @return {@link Criteria}
+	 */
+	protected Criteria createCriteria(DetachedCriteria detachedCriteria) {
+		return detachedCriteria.getExecutableCriteria(getSession());
+	}
+	
+	/**
+	 * 根据Criterion可变数组创建DetachedCriteria对象
+	 * 
+	 * @param criterions 可变长度的Criterion数组 
+	 * 
+	 * @return @return {@link DetachedCriteria}
+	 */
+	protected DetachedCriteria createDetachedCriteria(Criterion... criterions) {
+		return createDetachedCriteria(this.entityClass,null,criterions);
+	}
+	
+	/**
+	 * 根据Criterion可变数组创建DetachedCriteria对象
+	 * 
+	 * @param orderBy 排序表达式，规则为:属性名称_排序规则,如:property_asc或property_desc,可以支持多个属性排序，用逗号分割,如:"property1_asc,proerty2_desc",也可以"property"不加排序规则时默认是desc
+	 * @param criterions 可变长度的Criterion数组 
+	 * 
+	 * @return @return {@link DetachedCriteria}
+	 */
+	protected DetachedCriteria createDetachedCriteria(String orderBy,Criterion... criterions) {
+		return createDetachedCriteria(this.entityClass,orderBy,criterions);
+	}
+	
+	/**
+	 * 根据Criterion可变数组创建DetachedCriteria对象
+	 * 
+	 * @param persistentClass orm实体class
+	 * @param orderBy 排序表达式，规则为:属性名称_排序规则,如:property_asc或property_desc,可以支持多个属性排序，用逗号分割,如:"property1_asc,proerty2_desc",也可以"property"不加排序规则时默认是desc
+	 * @param criterions 可变长度的Criterion数组 
+	 * 
+	 * @return @return {@link DetachedCriteria}
+	 */
+	protected DetachedCriteria createDetachedCriteria(Class<?> persistentClass,String orderBy,Criterion... criterions) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(persistentClass);
+		for (Criterion criterion :criterions) {
+			
+			criteria.add(criterion);
+		};
+		CriteriaImpl criteriaImpl = ReflectionUtils.getFieldValue(criteria, "impl");
+		setOrderToCriteria(criteriaImpl,orderBy);
 		return criteria;
 	}
 	
