@@ -1,6 +1,8 @@
 
 package org.exitsoft.common.utils;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,6 +33,11 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * 调用Getter方法.
+	 * 
+	 * @param o Object对象
+	 * @param propertyName 属性字段名称
+	 * 
+	 * @return Object
 	 */
 	public static <T> T invokeGetterMethod(Object o, String propertyName) {
 		String getterMethodName = "get" + StringUtils.capitalize(propertyName);
@@ -39,6 +46,11 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * 调用Setter方法.使用value的Class来查找Setter方法.
+	 * 
+	 * @param obj Object对象
+	 * @param propertyName 属性名称
+	 * @param value 值
+	 * 
 	 */
 	public static void invokeSetterMethod(Object obj, String propertyName, Object value) {
 		invokeSetterMethod(obj, propertyName, value, null);
@@ -47,6 +59,8 @@ public abstract class ReflectionUtils {
 	/**
 	 * 调用Setter方法.
 	 * 
+	 * @param obj Object 对象
+	 * @param value 值
 	 * @param propertyType 用于查找Setter方法,为空时使用value的Class替代.
 	 */
 	public static void invokeSetterMethod(Object obj, String propertyName, Object value, Class<?> propertyType) {
@@ -69,8 +83,13 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
+	 * 
+	 * @param obj Object对象
+	 * @param fieldName 字段名称
+	 * 
+	 * @return Object
 	 */
-	public static <X> X getFieldValue(final Object obj, final String fieldName) {
+	public static <T> T getFieldValue(final Object obj, final String fieldName) {
 		Field field = getAccessibleField(obj, fieldName);
 
 		if (field == null) {
@@ -83,11 +102,15 @@ public abstract class ReflectionUtils {
 		} catch (IllegalAccessException e) {
 			logger.error("不可能抛出的异常{}", e.getMessage());
 		}
-		return (X) result;
+		return (T) result;
 	}
 
 	/**
 	 * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
+	 * 
+	 * @param obj Object对象
+	 * @param fieldName 字段名称
+	 * @param value 值
 	 */
 	public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
 		Field field = getAccessibleField(obj, fieldName);
@@ -104,9 +127,12 @@ public abstract class ReflectionUtils {
 	}
 
 	/**
-	 * 循环向上转型, 获取对象的DeclaredField,	 并强制设置为可访问.
+	 * 循环向上转型, 获取对象的DeclaredField,	 并强制设置为可访问.如向上转型到Object仍无法找到, 返回null.
 	 * 
-	 * 如向上转型到Object仍无法找到, 返回null.
+	 * @param obj Object对象
+	 * @param fieldName 字段名称
+	 * 
+	 * @return {@link Field}
 	 */
 	public static Field getAccessibleField(final Object obj, final String fieldName) {
 		
@@ -117,7 +143,7 @@ public abstract class ReflectionUtils {
 	 * 
 	 * 更具类型获取o中的所有字段名称
 	 * 
-	 * @param o 对象CLASS
+	 * @param o 对象Class
 	 * @param type 要获取名称的类型
 	 * 
 	 * @return List
@@ -145,6 +171,8 @@ public abstract class ReflectionUtils {
 	 * 
 	 * @param o 类型Class
 	 * @param fieldName class中的字段名
+	 * 
+	 * @return {@link Field}
 	 */
 	public static Field getAccessibleField(final Class o, final String fieldName) {
 		Assert.notNull(o, "o不能为空");
@@ -200,6 +228,10 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * 对于被cglib AOP过的对象, 取得真实的Class类型.
+	 * 
+	 * @param 对象Class
+	 * 
+	 * @return Class
 	 */
 	public static Class<?> getUserClass(Class<?> o) {
 		if (o != null && o.getName().contains(CGLIB_CLASS_SEPARATOR)) {
@@ -212,8 +244,14 @@ public abstract class ReflectionUtils {
 	}
 
 	/**
-	 * 直接调用对象方法, 无视private/protected修饰符.
-	 * 用于一次性调用的情况.
+	 * 直接调用对象方法, 无视private/protected修饰符.用于一次性调用的情况.
+	 * 
+	 * @param obj Object对象
+	 * @param methodName 方法名称
+	 * @param parameterTypes 方法参数类型，和args参数一一对应
+	 * @param args 方法参数值，值的类型和parameterTypes参数一一对应
+	 * 
+	 * @return Object
 	 */
 	public static Object invokeMethod(final Object obj, final String methodName, final Class<?>[] parameterTypes, final Object[] args) {
 		Method method = getAccessibleMethod(obj, methodName, parameterTypes);
@@ -233,6 +271,12 @@ public abstract class ReflectionUtils {
 	 * 如向上转型到Object仍无法找到, 返回null.
 	 * 
 	 * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
+	 * 
+	 * @param obj Object对象
+	 * @param methodName 方法名称
+	 * @param parameterTypes 方法参数类型
+	 * 
+	 * @return {@link Method}
 	 */
 	public static Method getAccessibleMethod(final Object obj, final String methodName,Class<?>... parameterTypes) {
 		return getAccessibleMethod(obj.getClass(),methodName,parameterTypes);
@@ -243,6 +287,11 @@ public abstract class ReflectionUtils {
 	 * 如向上转型到Object仍无法找到, 返回null.
 	 * 
 	 * 用于方法需要被多次调用的情况. 先使用本函数先取得Method,然后调用Method.invoke(Object obj, Object... args)
+	 * 
+	 * @param o Object 对象
+	 * @param parameterTypes 方法参数类型
+	 * 
+	 * @return {@link Method}
 	 */
 	public static Method getAccessibleMethod(final Class o, final String methodName,Class<?>... parameterTypes) {
 		Assert.notNull(o, "o不能为空");
@@ -250,11 +299,8 @@ public abstract class ReflectionUtils {
 		for (Class<?> superClass = o; superClass != Object.class; superClass = superClass.getSuperclass()) {
 			try {
 				Method method = superClass.getDeclaredMethod(methodName, parameterTypes);
-
 				method.setAccessible(true);
-
 				return method;
-
 			} catch (NoSuchMethodException e) {
 			}
 		}
@@ -264,7 +310,7 @@ public abstract class ReflectionUtils {
 	/**
 	 * 循环向上转型, 获取对象的所有DeclaredMethod	 并强制设置为可访问.
 	 * 
-	 * @param o Object
+	 * @param o Object对象
 	 * 
 	 * @return List
 	 */
@@ -302,47 +348,210 @@ public abstract class ReflectionUtils {
 	}
 	
 	/**
-	 * 判断是否该对象Class中存在注解，如果存在返回true,否则返回false
-	 * @param o 目标对象Class
-	 * @param annotationClass 要比较的注解
-	 * @return boolean
-	 */
-	public static boolean hasAnnotation(Class o,Class annotationClass) {
-		return o.isAnnotationPresent(annotationClass);
-	}
-	
-	/**
 	 * 获取对象中的注解
-	 * @param o 目标对象Class
-	 * @param annotationClass 注解
-	 */
-	public static <T> T getAnnotation(Class o,Class annotationClass) {
-		if (!hasAnnotation(o, annotationClass)){
-			return null;
-		}
-		return (T)o.getAnnotation(annotationClass);
-	}
-	
-	/**
-	 * 判断是否该对象中存在注解，如果存在返回true,否则返回false
-	 * @param o 目标对象
-	 * @param annotationClass 要比较的注解
-	 * @return boolean
-	 */
-	public static boolean hasAnnotation(Object o,Class annotationClass) {
-		return hasAnnotation(o.getClass(),annotationClass);
-	}
-	
-	/**
-	 * 获取对象中的注解
+	 * 
 	 * @param o 目标对象
 	 * @param annotationClass 注解
+	 * 
+	 * @return Object
 	 */
 	public static <T> T getAnnotation(Object o,Class annotationClass) {
 		
 		return (T)getAnnotation(o.getClass(),annotationClass);
 	}
+	
+	/**
+	 * 获取对象中的注解
+	 * 
+	 * @param o 目标对象Class
+	 * @param annotationClass 注解类型Class
+	 * 
+	 * @return Object
+	 */
+	public static <T extends Annotation> T getAnnotation(Class o,Class annotationClass) {
+		if (o.isAnnotationPresent(annotationClass)) {
+			return (T)o.getAnnotation(annotationClass);
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取Object对象中所有annotationClass类型的注解
+	 * 
+	 * @param o Object对象
+	 * @param annotationClass Annotation类型
+	 * 
+	 * @return {@link Annotation}
+	 */
+	public static <T extends Annotation> List<T> getAnnotations(Object o,Class annotationClass) {
+		return getAnnotations(o.getClass(), annotationClass);
+	}
+	
+	/**
+	 * 
+	 * 获取对象中的所有annotationClass注解
+	 * 
+	 * @param o 目标对象Class
+	 * @param annotationClass 注解类型Class
+	 * 
+	 * @return List
+	 */
+	public static <T extends Annotation> List<T> getAnnotations(Class o,Class annotationClass) {
+		
+		List<T> result = new ArrayList<T>();
+		Annotation annotation = o.getAnnotation(annotationClass);
+		if (annotation != null) {
+			result.add((T) annotation);
+		}
+		Constructor[] constructors = o.getDeclaredConstructors();
+		//获取构造方法里的注解
+		CollectionUtils.addAll(result,getAnnotations(constructors,annotationClass).iterator());
+		
+		Field[] fields = o.getDeclaredFields();
+		//获取字段中的注解
+		CollectionUtils.addAll(result,getAnnotations(fields,annotationClass).iterator());
+		
+		Method[] methods = o.getDeclaredMethods();
+		//获取方法中的注解
+		CollectionUtils.addAll(result,getAnnotations(methods,annotationClass).iterator());
+		
+		for (Class<?> superClass = o.getSuperclass(); superClass == null || superClass == Object.class;superClass = superClass.getSuperclass()) {
+			List<T> temp = getAnnotations(superClass,annotationClass);
+			if (CollectionUtils.isNotEmpty(temp)) {
+				CollectionUtils.addAll(result, temp.iterator());
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 获取field的annotationClass注解
+	 * 
+	 * @param field field对象
+	 * @param annotationClass annotationClass注解
+	 * 
+	 * @return {@link Annotation}
+	 */
+	public static <T extends Annotation> T getAnnotation(Field field, Class annotationClass) {
+		if (field.isAnnotationPresent(annotationClass)) {
+			return (T) field.getAnnotation(annotationClass);
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取field数组中匹配的annotationClass注解
+	 * 
+	 * @param fields field对象数组
+	 * @param annotationClass annotationClass注解
+	 * 
+	 * @return List
+	 */
+	public static <T extends Annotation> List<T> getAnnotations(Field[] fields, Class annotationClass) {
+		
+		List<T> result = new ArrayList<T>();
+		
+		if (ArrayUtils.isEmpty(fields)) {
+			return result;
+		}
+		
+		for (Field field : fields) {
+			field.setAccessible(true);
+			Annotation annotation = field.getAnnotation(annotationClass);
+			if (annotation != null) {
+				result.add((T) annotation);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 获取method的annotationClass注解
+	 * 
+	 * @param method method对象
+	 * @param annotationClass annotationClass注解
+	 * 
+	 * @return {@link Annotation}
+	 */
+	public static <T extends Annotation> T getAnnotation(Method method, Class annotationClass) {
+		if (method.isAnnotationPresent(annotationClass)) {
+			return (T) method.getAnnotation(annotationClass);
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取method数组中匹配的annotationClass注解
+	 * 
+	 * @param methods method对象数组
+	 * @param annotationClass annotationClass注解
+	 * 
+	 * @return List
+	 */
+	public static <T extends Annotation> List<T> getAnnotations(Method[] methods, Class annotationClass) {
+		
+		List<T> result = new ArrayList<T>();
+		
+		if (ArrayUtils.isEmpty(methods)) {
+			return result;
+		}
+		
+		for (Method method : methods) {
+			method.setAccessible(true);
+			Annotation annotation = method.getAnnotation(annotationClass);
+			if (annotation != null) {
+				result.add((T) annotation);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 获取constructor的annotationClass注解
+	 * 
+	 * @param constructor constructor对象
+	 * @param annotationClass annotationClass注解
+	 * 
+	 * @return {@link Annotation}
+	 */
+	public static <T extends Annotation> T getAnnotation(Constructor constructor, Class annotationClass) {
+		if (constructor.isAnnotationPresent(annotationClass)) {
+			return (T) constructor.getAnnotation(annotationClass);
+		}
+		return null;
+	}
+	
+	/**
+	 * 获取constructors数组中匹配的annotationClass注解
+	 * 
+	 * @param constructors constructor对象数组
+	 * @param annotationClass annotationClass注解
+	 * 
+	 * @return List
+	 */
+	public static <T extends Annotation> List<T> getAnnotations(Constructor[] constructors, Class annotationClass) {
 
+		
+		List<T> result = new ArrayList<T>();
+		
+		if (ArrayUtils.isEmpty(constructors)) {
+			return result;
+		}
+		
+		for (Constructor constructor : constructors) {
+			constructor.setAccessible(true);
+			Annotation annotation = constructor.getAnnotation(annotationClass);
+			if (annotation != null) {
+				result.add((T) annotation);
+			}
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * 通过反射, 获得Class定义中声明的父类的泛型参数的类型.
 	 * 如无法找到, 返回Object.class，否则返回首个泛参数型类型
@@ -396,7 +605,10 @@ public abstract class ReflectionUtils {
 	
 	/**
 	 * 通过Class创建对象
+	 * 
 	 * @param o 目标对象Class
+	 * 
+	 * @return Object
 	 */
 	public static <T> T newInstance(Class o) {
 		Assert.notNull(o, "o不能为空");
@@ -410,6 +622,10 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * 将反射时的checked exception转换为unchecked exception.
+	 * 
+	 * @param e checked exception
+	 * 
+	 * return {@link RuntimeException}
 	 */
 	public static RuntimeException convertReflectionExceptionToUnchecked(Exception e) {
 		if (e instanceof IllegalAccessException || e instanceof IllegalArgumentException
@@ -422,4 +638,5 @@ public abstract class ReflectionUtils {
 		}
 		return new RuntimeException("Unexpected Checked Exception.", e);
 	}
+	
 }
