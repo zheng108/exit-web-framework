@@ -9,6 +9,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,9 +114,12 @@ public abstract class ReflectionUtils {
 	}
 	
 	/**
+	 * 
 	 * 更具类型获取o中的所有字段名称
+	 * 
 	 * @param o 对象CLASS
 	 * @param type 要获取名称的类型
+	 * 
 	 * @return List
 	 */
 	public static List<String> getAllAccessibleFieldName(final Class o,Class type) {
@@ -137,6 +142,9 @@ public abstract class ReflectionUtils {
 	 * 循环向上转型, 获取对象的DeclaredField,	 并强制设置为可访问.
 	 * 
 	 * 如向上转型到Object仍无法找到, 返回null.
+	 * 
+	 * @param o 类型Class
+	 * @param fieldName class中的字段名
 	 */
 	public static Field getAccessibleField(final Class o, final String fieldName) {
 		Assert.notNull(o, "o不能为空");
@@ -150,6 +158,44 @@ public abstract class ReflectionUtils {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 循环向上转型, 获取对象的所有DeclaredField,	 并强制设置为可访问.
+	 * 
+	 * @param o Object对象
+	 * 
+	 * @return List
+	 */
+	public static List<Field> getAccessibleFields(final Object o) {
+		return getAccessibleFields(o.getClass());
+	}
+	
+	/**
+	 * 循环向上转型, 获取对象的所有DeclaredField,	 并强制设置为可访问.
+	 * 
+	 * @param o 类型Clss
+	 * 
+	 * @return List
+	 */
+	public static List<Field> getAccessibleFields(final Class o) {
+		Assert.notNull(o, "o不能为空");
+		List<Field> fields = new ArrayList<Field>();
+		for (Class<?> superClass = o; superClass != Object.class; superClass = superClass.getSuperclass()) {
+			Field[] result = superClass.getDeclaredFields();
+			
+			if (ArrayUtils.isEmpty(result)) {
+				continue;
+			}
+			
+			for (Field field : result) {
+				field.setAccessible(true);
+			}
+			
+			CollectionUtils.addAll(fields, result);
+			
+		}
+		return fields;
 	}
 
 	/**
@@ -213,6 +259,46 @@ public abstract class ReflectionUtils {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * 循环向上转型, 获取对象的所有DeclaredMethod	 并强制设置为可访问.
+	 * 
+	 * @param o Object
+	 * 
+	 * @return List
+	 */
+	public static List<Method> getAccessibleMethods(final Object o) {
+		return getAccessibleMethods(o.getClass());
+	}
+	
+	/**
+	 * 循环向上转型, 获取对象的所有DeclaredMethod	 并强制设置为可访问.
+	 * 
+	 * @param o 类型Clss
+	 * 
+	 * @return List
+	 */
+	public static List<Method> getAccessibleMethods(final Class o) {
+		Assert.notNull(o, "o不能为空");
+		List<Method> methods = new ArrayList<Method>();
+		
+		for (Class<?> superClass = o; superClass != Object.class; superClass = superClass.getSuperclass()) {
+			Method[] result = superClass.getDeclaredMethods();
+			
+			if (ArrayUtils.isEmpty(result)) {
+				continue;
+			}
+			
+			for (Method method : result) {
+				method.setAccessible(true);
+			}
+			
+			CollectionUtils.addAll(methods, result);
+			
+		}
+		
+		return methods;
 	}
 	
 	/**
